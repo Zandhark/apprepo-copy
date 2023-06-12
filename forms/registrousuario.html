@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="main.js" defer></script> 
+  </head>
+  <body>
+    <form onsubmit="handleFormSubmit(event)">
+      <label for="firstname">Primer Nombre: </label>
+      <input type="text" name="firstname" required id="nombre" />
+      <br />
+      <label for="lastname">Primer Apellido: </label>
+      <input type="text" name="lastname" required id="primerApellido" />
+      <br />
+      <label for="lastname">Segundo Apellido: </label>
+      <input type="text" name="lastname" required id="segundoApellido" />
+      <br />
+      <label for="email">Correo: </label>
+      <input type="email" name="email" required id="email"/>
+      <br />
+      <label for="password">Password: </label>
+      <input type="password" name="password" required id="password"/>
+      <br />
+      <label for="password2">Confirmar Password: </label>
+      <input type="password" name="password2" required  id="password2"/>
+      <br />
+      <label for="genero">Genero:</label>
+      <select name="genero" required name="genero" id="genero">
+        <option value="" disabled selected hidden>Seleccione una opción</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="femenino">Prefiero no especificar</option>
+      </select>
+      <br />
+      <label for="CV">Seleccionar CV: </label>
+      <input type="file" name="cv.pdf" id="CV" accept=".pdf" />
+      <br />
+      <label for="CV">Seleccionar fotografia: </label>
+      <input type="file" name="cv.pdf" id="CV" accept="image/png, image/jpeg, image/jpg"/>
+      <br />
+      <input type="submit" value="Registrar" />
+    </form>
+  </body>
+</html>
