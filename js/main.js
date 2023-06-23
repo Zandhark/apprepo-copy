@@ -16,5 +16,4 @@ function handleFormSubmit(e) {
   console.log("Password: " + password);
   console.log("Password2: " + password2);
   console.log(e) // console.log del evento para ver que se genera en el evento
-
 }
