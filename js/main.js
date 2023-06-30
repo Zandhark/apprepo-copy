@@ -3,7 +3,7 @@ const selectUsuario = document.getElementById("select-usuario");
 selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
 
-const formUsuarios = `
+const formUsuariosFinales = `
   <label for="firstname">Primer Nombre: </label>
   <input type="text" name="firstname" required id="nombre" />
   <br />
@@ -77,7 +77,7 @@ const formEmpresa = `
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
-    form.innerHTML = formUsuarios;
+    form.innerHTML = formUsuariosFinales;
   } else if (tipoUsuario === "empresa") {
     form.innerHTML = formEmpresa;
   }
