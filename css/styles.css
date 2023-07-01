@@ -3,8 +3,82 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
+/* css variables */
+:root {
+  --primary-color: #73dca7;
+  --secondary-color: #28b6f6;
+  --background-color: #152641;
+}
+
+/* global styles */
 html * {
   font-family: 'Lato', sans-serif;
+  background-color: var(--background-color);
+}
+
+header {
+  margin: 20px 10px;
+  color: var(--primary-color);
+  min-height: 5vh;
+}
+
+main {
+  margin: 20px 10px;
+}
+
+footer {
+  background-color: var(--primary-color);
+  min-height: 5vh;
+}
+
+hr {
+  border: 1px solid var(--secondary-color);
+}
+
+nav a {
+  color: var(--primary-color);
+}
+nav a:hover {
+  color: var(--secondary-color);
+}
+
+/* utility classes */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-grow1 {
+  flex-grow: 1;
+}
+
+.flex-grow2 {
+  flex-grow: 2;
+}
+
+.flex-gap-10 {
+  gap: 10px;
+}
+.flex-gap-20 {
+  gap: 20px;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+}
+.border {
+  border: 2px solid var(--secondary-color);
+  border-radius: 5px;
+}
+
+
+
+#main-content {
+  padding: 10px 15px;
 }
