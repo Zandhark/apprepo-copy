@@ -72,6 +72,11 @@ nav a:hover {
 .flex-space-between {
   justify-content: space-between;
 }
+
+.flex-align-center { 
+  align-items: center;
+}
+
 .border {
   border: 2px solid var(--secondary-color);
   border-radius: 5px;
