@@ -13,7 +13,7 @@
   --background-color: #152641;
 }
 
-/* global styles */
+/* global styles and selector */
 html,
 body {
   font-family: "Lato", sans-serif;
@@ -46,14 +46,10 @@ hr {
   border-top: 1px solid var(--secondary-color);
 }
 
-nav {
-  margin-right: 40px;
-}
 
 nav a {
   color: var(--primary-color);
 }
-
 nav a:hover {
   color: var(--secondary-color);
 }
@@ -63,9 +59,45 @@ h2 {
   color: var(--primary-color);
 }
 
-/* end global styles */
+select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+}
 
-/* utility classes */
+select:focus{
+  outline: none;
+  border: 2px solid var(--primary-color);
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-color);
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color) ;
+}
+
+/* Chrome autofill background color fix */
+input:-webkit-autofill { 
+  -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
+  -webkit-text-fill-color: #fff;
+}
+
+textarea {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-color);
+  color: #fff; 
+}
+
+/* utility rehusable classes  */
 .flex {
   display: flex;
 }
@@ -85,7 +117,6 @@ h2 {
 .flex-gap-10 {
   gap: 10px;
 }
-
 .flex-gap-20 {
   gap: 20px;
 }
@@ -98,7 +129,7 @@ h2 {
   justify-content: center;
 }
 
-.flex-align-center {
+.flex-align-center { 
   align-items: center;
 }
 
@@ -111,12 +142,11 @@ h2 {
 }
 
 .border {
-  border: 1px solid var(--secondary-color);
+  border: 2px solid var(--secondary-color);
   border-radius: 5px;
-  padding: 5px;
 }
 
-/* end utility classes */
+/* Custom Clases & IDs */
 
 #left-column {
   min-height: 80vh;
@@ -133,7 +163,25 @@ h2 {
   padding: 30px;
 }
 
+.main-button {
+  margin: 10px 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: #fff;
+  cursor: pointer;
+  width: 75px;
+  text-align: center;
+}
+
 #right-column {
   min-height: 80vh;
   width: 33.3333333%;
+}
+
+.input-validation-error {
+  outline: none;
+  border: 2px solid #ff1e1e !important;
+  box-shadow: 0 0 10px #ff1e1e !important;
 }
