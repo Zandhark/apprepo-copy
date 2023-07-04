@@ -13,10 +13,11 @@
   --background-color: #152641;
 }
 
-/* global styles */
+/* global styles and selector */
 html * {
   font-family: 'Lato', sans-serif;
   background-color: var(--background-color);
+  color: #fff;
 }
 
 header {
@@ -45,7 +46,45 @@ nav a:hover {
   color: var(--secondary-color);
 }
 
-/* utility classes */
+select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+}
+
+select:focus{
+  outline: none;
+  border: 2px solid var(--primary-color);
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-color);
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color) ;
+}
+
+/* Chrome autofill background color fix */
+input:-webkit-autofill { 
+  -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
+  -webkit-text-fill-color: #fff;
+}
+
+textarea {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+  background-color: var(--background-color);
+  color: #fff; 
+}
+
+/* utility rehusable classes  */
 .flex {
   display: flex;
 }
@@ -82,8 +121,26 @@ nav a:hover {
   border-radius: 5px;
 }
 
-
+/* Custom Clases & IDs */
 
 #main-content {
   padding: 0 15px;
+}
+
+.main-button {
+  margin: 10px 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: #fff;
+  cursor: pointer;
+  width: 75px;
+  text-align: center;
+}
+
+.input-validation-error {
+  outline: none;
+  border: 2px solid #ff1e1e !important;
+  box-shadow: 0 0 10px #ff1e1e !important;
 }
