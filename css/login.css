@@ -1,0 +1,15 @@
+.login-container {
+  width: 100%;
+  height: 100%;
+}
+
+.login-form {
+  width: 20vw;
+  height: 30vh;
+  padding: 10px 20px;
+}
+
+.login-img{
+  width: 110px;
+  height: 110px;
+}

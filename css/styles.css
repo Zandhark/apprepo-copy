@@ -63,6 +63,8 @@ select {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid var(--secondary-color);
+  background-color: var(--background-color);
+  color: #fff;
 }
 
 select:focus{
@@ -75,6 +77,7 @@ input {
   border-radius: 5px;
   border: 1px solid var(--secondary-color);
   background-color: var(--background-color);
+  color: #fff;
 }
 
 input:focus {
@@ -112,6 +115,10 @@ textarea {
 
 .flex-grow2 {
   flex-grow: 2;
+}
+
+.flex-gap-5 {
+  gap: 5px;
 }
 
 .flex-gap-10 {

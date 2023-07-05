@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/css/login.css" type="text/css" />
+    <script src="/js/login.js" defer></script>
+  </head>
+  <body>
+    <div
+      class="flex flex-space-center flex-align-center login-container flex-column flex-gap-10"
+    >
+      <div class="flex flex-column border login-form">
+        <div class="flex flex-space-center">
+          <img src="/assets/login_auth.svg" alt="Avatar" class="login-img" />
+        </div>
+
+        <form class="flex flex-column flex-gap-10" onsubmit="handleFormSubmit(event)">
+          <label for="username">Nombre</label>
+          <input
+            type="text"
+            placeholder="Usuario"
+            name="username"
+            required
+            id="username"
+          />
+
+          <label for="password"><b>Contraseña</b></label>
+          <input
+            type="password"
+            placeholder="Constraseña"
+            name="password"
+            required
+            id="password"
+          />
+          <input type="submit" value="Iniciar sesion" />
+          <span class="pswrd">Olvido la <a href="#">contraseña?</a></span>
+        </form>
+      </div>
+      
+    </div>
+  </body>
+</html>
