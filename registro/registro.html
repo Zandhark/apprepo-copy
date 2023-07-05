@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <script src="/js/registro.js" defer></script>
+  </head>
+  <body>
+    <header class="border flex flex-space-between flex-align-center">
+      <div>
+        <p>logo</p>
+      </div>
+      <nav class="flex flex-gap-10" style="margin-right: 10px">
+        <a href="/">Inicio</a>
+        <a href="/forms/registrousuario.html">Registro</a>
+        <a href="#">Acerca de</a>
+      </nav>
+    </header>
+    <hr />
+    <main class="flex flex-gap-10">
+      <div
+        id="left-column"
+        class="flex flex-grow1 border"
+        style="min-height: 80vh"
+      ></div>
+      <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
+        <label for="select-usuario">Tipo de usuario:</label>
+        <select
+          name="select-usuario"
+          required
+          name="select-usuario"
+          id="select-usuario"
+        >
+          <option value="" disabled selected hidden>
+            Seleccione el tipo de usuario
+          </option>
+          <option value="usuario-final">Usuario Final</option>
+          <option value="empresa">Empresa</option>
+        </select>
+        <form
+          class="flex flex-column"
+          id="form-usuarios"
+          onsubmit="handleFormSubmit(event)"
+        ></form>
+      </div>
+      <div id="right-column" class="flex flex-grow1 border"></div>
+    </main>
+    <footer>
+      <div class="flex flex-align-center"></div>
+    </footer>
+  </body>
+</html>
