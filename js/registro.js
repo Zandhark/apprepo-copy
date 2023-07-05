@@ -104,7 +104,6 @@ function handleFormSubmit(e) {
   e.preventDefault();
 
   const passwordValue = password.value;
-  const password2Value = password2.value;
 
   const email = document.getElementById("email").value;
   if (tipoUsuario === "usuario-final") {
@@ -113,10 +112,29 @@ function handleFormSubmit(e) {
     const genero = document.getElementById("genero").value;
     const cv = document.getElementById("cv").value;
     const fotografia = document.getElementById("fotografia").value;
+    const usuarioFinal = {
+      nombre,
+      apellidos,
+      email,
+      passwordValue,
+      genero,
+      cv,
+      fotografia,
+    };
+
+    console.log(usuarioFinal)
   } else if (tipoUsuario === "empresa") {
     console.log(e);
     const nombreEmpresa = document.getElementById("nombre-empresa").value;
     const logo = document.getElementById("logo").value;
     const descripcion = document.getElementById("descripcion").value;
+    const empresa = {
+      nombreEmpresa,
+      email,
+      passwordValue,
+      logo,
+      descripcion,
+    };
+    console.log(empresa)
   }
 }
