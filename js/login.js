@@ -2,9 +2,16 @@ const usuario = document.getElementById("username");
 const password = document.getElementById("password");
 
 function handleLogin(login){
-  document.cookie = `usuario=${login.usuario}; path=/; max-age=3600`;
-  console.log(login);
-  return true;
+
+  try{
+    const session = {...login, id:1}
+    document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
+    document.cookie = `userId=${session.id}; path=/; max-age=3600`;
+    return session;
+  } catch (e){
+    console.log(e);
+    return false;
+  }
 }
 
 function handleFormSubmit(e) {
@@ -18,7 +25,8 @@ function handleFormSubmit(e) {
 
   try{
     const session = handleLogin(login);
-    if (session && document.cookie.includes("usuario")){
+    console.log(session)
+    if (session && document.cookie.includes("userId")){
       location.href = "/cuenta/perfil.html";
     }
 
