@@ -4,7 +4,7 @@ const password = document.getElementById("password");
 function handleLogin(login){
 
   try{
-    const session = {...login, id:1}
+    const session = {...login, id:1};
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
     return session;
@@ -27,7 +27,7 @@ function handleFormSubmit(e) {
     const session = handleLogin(login);
     console.log(session)
     if (session && document.cookie.includes("userId")){
-      location.href = "/cuenta/perfil.html";
+      location.href = "/cuenta/";
     }
 
   } catch (error){
