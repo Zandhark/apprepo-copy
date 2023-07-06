@@ -56,8 +56,9 @@ function getJob(id) {
   return puestoTemp;
 }
 
-
-
-
+function handleApply() {
+  alert(`Ha aplicado al puesto ${jobId}`);
+  location.href = "/cuenta/perfil.html";
+}
 
 renderPuesto();
