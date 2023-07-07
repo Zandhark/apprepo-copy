@@ -37,6 +37,25 @@ width: 100px;
   margin: 10px 0;
 }
 
+.skills-container {
+  padding: 10px;
+}
+
+.skills-box {
+  text-align: center;
+  width: 70px;
+  background-color: var(--secondary-color);
+  border-radius: 5%;
+  padding: 10px;
+  margin: auto;
+}
+
+.skills-box:hover{
+  background-color: var(--primary-color);
+  transition: all .2s ease-in-out;
+  transform: scale(1.1); 
+}
+
 @media screen and (max-width: 768px) {
   #left-column {
     width: 100% !important;

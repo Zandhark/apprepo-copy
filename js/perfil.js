@@ -18,6 +18,7 @@ const title = document.getElementById("title");
 const userAbout = document.getElementById("user-about");
 const experienceSection = document.getElementById("experiencia");
 const educationSection = document.getElementById("educacion");
+const skillsSection = document.getElementById("skills");
 
 function getUserDetails(userId) {
   const userDetails = {
@@ -95,6 +96,21 @@ function getUserDetails(userId) {
       },
       {
         name: "ZFS",
+      },
+      {
+        name: "Kotlin",
+      },
+      {
+        name: "Flutter",
+      },
+      {
+        name: "Dart",
+      },
+      {
+        name: "C++",
+      },
+      {
+        name: "C",
       },
     ],
     languages: [
@@ -214,7 +230,15 @@ function renderProfile() {
     `;
     educationSection.appendChild(educationDiv);
   });
-  
+
+  userDetails.skills.forEach((skills) => {
+    const skillsDiv = document.createElement("div");
+    skillsDiv.classList.add("skills-box");
+    skillsDiv.innerHTML = `
+    <h4>${skills.name}</h3>
+    `;
+    skillsSection.appendChild(skillsDiv);
+  });
 }
 
 renderProfile();
