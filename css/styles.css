@@ -26,6 +26,11 @@ header {
   min-height: 5vh;
   margin: 20px 30px;
   color: var(--primary-color);
+  top: 0;
+  left: 0;
+  position: sticky;
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 main {
