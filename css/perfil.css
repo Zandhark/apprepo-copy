@@ -3,6 +3,10 @@ h1, h2 {
   padding: 10px;
 }
 
+h3 {
+  padding: 10px 0;
+  color: var(--secondary-color);
+}
 
 #profile-img {
 margin: 20% 20%;
