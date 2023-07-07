@@ -142,6 +142,10 @@ input:-webkit-autofill {
   align-items: center;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .float-right {
   float: right;
 }
