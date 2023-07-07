@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/css/perfil.css" type="text/css" />
+    <script src="/js/perfil.js" defer></script>
+  </head>
+  <body>
+    <header class="border flex flex-space-between flex-align-center">
+      <div>
+        <p>logo</p>
+      </div>
+      <nav class="flex flex-gap-10" style="margin-right: 10px">
+        <a href="/">Inicio</a>
+        <a href="/forms/registrousuario.html">Registro</a>
+        <a href="#">Acerca de</a>
+      </nav>
+    </header>
+    <main class="flex">
+      <div id="left-column" class="flex flex-column flex-align-center border">
+        <img src="" alt="foto de perfil" id="profile-img" />
+        <h1 id="user-name"></h1>
+        <h2 class="secondary-color" id="title"></h2>
+        <p class="profile-paragraph-center" id="user-description"></p>
+        <button
+          class="flex-align-center main-button"
+          type="button"
+          href="http://"
+        >
+          Editar perfil
+        </button>
+      </div>
+      <div
+        id="main-content"
+        class="flex flex-grow2 flex-column flex-gap-20"
+        style="color: white"
+      >
+        <div class="border" style="height: 100%">
+          <h2>Acerca de</h2>
+          <p id="user-about"></p>
+        </div>
+        <div class="border" style="height: 100%">
+          <h2>Experiencia laboral</h2>
+          <div
+            style="margin: 10px"
+            class="flex flex-column"
+            id="experiencia"
+          ></div>
+        </div>
+        <div class="border" style="height: 100%">
+          <h2>Formacion academica</h2>
+          <div
+            style="margin: 10px"
+            class="flex flex-column"
+            id="educacion"
+          ></div>
+        </div>
+        <div class="border" style="height: 100%">
+          <h2>Habilidades/skills</h2>
+          <div
+            style="margin: 10px"
+            class="flex flex-gap-10 flex-wrap skills-container"
+            id="skills"
+          ></div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

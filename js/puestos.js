@@ -31,6 +31,7 @@ function renderPuesto() {
 }
 
 function getJob(id) {
+  // const puesto = fetch(`https://api.example.com/puestos/${id}`); esto es un ejemplo de como prodria funcionar la llamada al API
   const puestoTemp = {
     id: id,
     nombre: `Senior Developer ${id}`,

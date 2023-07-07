@@ -26,6 +26,11 @@ header {
   min-height: 5vh;
   margin: 20px 30px;
   color: var(--primary-color);
+  top: 0;
+  left: 0;
+  position: sticky;
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 main {
@@ -86,12 +91,6 @@ input:focus {
   box-shadow: 0 0 10px var(--primary-color) ;
 }
 
-/* Chrome autofill background color fix */
-input:-webkit-autofill { 
-  -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
-  -webkit-text-fill-color: #fff;
-}
-
 textarea {
   padding: 5px;
   border-radius: 5px;
@@ -99,6 +98,14 @@ textarea {
   background-color: var(--background-color);
   color: #fff; 
 }
+
+/* Chrome autofill background color fix */
+input:-webkit-autofill { 
+  -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
+  -webkit-text-fill-color: #fff;
+}
+
+
 
 /* utility rehusable classes  */
 .flex {
@@ -140,6 +147,10 @@ textarea {
   align-items: center;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .float-right {
   float: right;
 }
@@ -151,6 +162,14 @@ textarea {
 .border {
   border: 2px solid var(--secondary-color);
   border-radius: 5px;
+}
+
+.primary-color {
+  color: var(--primary-color);
+}
+
+.secondary-color {
+  color: var(--secondary-color);
 }
 
 /* Custom Clases & IDs */
@@ -179,7 +198,12 @@ textarea {
   color: #fff;
   cursor: pointer;
   width: 75px;
+  height: 30px;
   text-align: center;
+}
+
+.main-button:hover {
+  background-color: var(--primary-color);
 }
 
 #right-column {

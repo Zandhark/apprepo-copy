@@ -1,10 +1,21 @@
 const usuario = document.getElementById("username");
 const password = document.getElementById("password");
 
+function generateRandomId(){
+  return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+}
+
 function handleLogin(login){
-  document.cookie = `usuario=${login.usuario}; path=/; max-age=3600`;
-  console.log(login);
-  return true;
+  let randomId = generateRandomId();
+  try{
+    const session = {...login, id:randomId};
+    document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
+    document.cookie = `userId=${session.id}; path=/; max-age=3600`;
+    return session;
+  } catch (e){
+    alert("Se produjo un error al iniciar sesión, intente nuevamente");
+    return false;
+  }
 }
 
 function handleFormSubmit(e) {
@@ -18,8 +29,9 @@ function handleFormSubmit(e) {
 
   try{
     const session = handleLogin(login);
-    if (session && document.cookie.includes("usuario")){
-      location.href = "/cuenta/perfil.html";
+    console.log(session)
+    if (session && document.cookie.includes("userId")){
+      location.href = "/perfil/";
     }
 
   } catch (error){
