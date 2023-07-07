@@ -1,15 +1,14 @@
 #profile-img{
-margin: 30px 30px;
+margin: 20% 20%;
 border-radius: 50%;
-width: 300px;
-height: 300px;
+width: 50%;
 }
-
 
 .profile-paragraph-center{
   text-align: center;
   margin: 30px 30px;
 }
+
 .profile-paragraph-{
   text-align: left;
   margin: 30px 30px;

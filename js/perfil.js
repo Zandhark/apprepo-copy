@@ -15,6 +15,7 @@ const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
 const userName = document.getElementById("user-name");
 const title = document.getElementById("title");
+const userAbout = document.getElementById("user-about");
 
 function getUserDetails(userId){
   const userDetails = {
@@ -106,6 +107,7 @@ function renderProfile(){
   profileImg.src = userDetails.profileImg;
   userDescription.innerText = userDetails.userDescription;
   userName.innerText = userDetails.name;
+  userAbout.innerText = userDetails.about;
 }
 
 renderProfile();
