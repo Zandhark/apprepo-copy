@@ -9,7 +9,33 @@ width: 50%;
   margin: 30px 30px;
 }
 
-.profile-paragraph-{
+.profile-paragraph{
   text-align: left;
   margin: 30px 30px;
 }
+
+#left-column {
+  width: 250px !important;
+  position: fixed;
+}
+
+#main-content {
+  margin-left: 270px !important;
+}
+
+@media screen and (max-width: 768px) {
+  #left-column {
+    width: 100% !important;
+    position: relative;
+  }
+
+  #main-content {
+    margin-left: 0px !important;
+  }
+
+  main {
+    flex: column !important;
+    flex-wrap: wrap;
+  }
+}
+  
