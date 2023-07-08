@@ -3,10 +3,14 @@
   height: 100%;
 }
 
-.login-form {
+.login {
   min-width: 20vw;
   min-height: 40vh;
   padding: 10px 20px;
+}
+
+.login-form {
+  margin-top: 20px;
 }
 
 .login-img{
