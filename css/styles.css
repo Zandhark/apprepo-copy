@@ -51,6 +51,9 @@ hr {
   border-top: 1px solid var(--secondary-color);
 }
 
+nav {
+  margin-right: 20px;
+}
 
 nav a {
   color: var(--primary-color);
@@ -89,6 +92,11 @@ input:focus {
   outline: none;
   border: 2px solid var(--primary-color);
   box-shadow: 0 0 10px var(--primary-color) ;
+}
+
+::placeholder{
+  color: #fff;
+  opacity: 0.8;
 }
 
 textarea {

@@ -27,6 +27,7 @@ width: 100px;
 #left-column {
   width: 250px !important;
   position: fixed;
+  min-height: 70vh;
 }
 
 #main-content {
