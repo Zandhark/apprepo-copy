@@ -8,13 +8,27 @@ const formUsuariosFinales = `
 <label for="name">Nombre: </label>
 <input type="text" name="name" required id="nombre" placeholder="Nombre" />
 <label for="lastname">Primer Apellido: </label>
-<input type="text" name="lastname" required id="apellidos" placeholder="Apellidos" />
+<input
+  type="text"
+  name="lastname"
+  required
+  id="apellidos"
+  placeholder="Apellidos"
+/>
 <label for="email">Correo: </label>
-<input type="email" name="email" required id="email" placeholder="email@domain.tld" />
-<label for="password">Password: </label>
-<input type="password" name="password" required id="password" />
-<label for="password2">Confirmar Password: </label>
-<input type="password" name="password2" required id="password2" />
+<input
+  type="email"
+  name="email"
+  required
+  id="email"
+  placeholder="email@domain.tld"
+/>
+<div class="flex flex-grow">
+  <label for="password">Password: </label>
+  <input type="password" name="password" required id="password" style="flex: 1;" />
+  <label for="password2">Confirmar Password: </label>
+  <input type="password" name="password2" required id="password2" style="flex: 1;" />
+</div>
 <label for="genero">Genero:</label>
 <select name="genero" required name="genero" id="genero">
   <option value="" disabled selected hidden>Seleccione una opción</option>
@@ -51,10 +65,12 @@ const formEmpresa = `
   id="email"
   placeholder="email@domain.tld"
 />
+<div class="flex">
 <label for="password">Password: </label>
-<input type="password" name="password" required id="password" />
+<input type="password" name="password" required id="password" style="flex: 1;" />
 <label for="password2">Confirmar Password: </label>
-<input type="password" name="password2" required id="password2" />
+<input type="password" name="password2" required id="password2" style="flex: 1;" />
+</div>
 <label for="logo">Seleccionar logo de la empresa: </label>
 <input
   id="logo"
@@ -71,6 +87,7 @@ const formEmpresa = `
   required
 ></textarea>
 <input class="main-button" type="submit" value="Registrar" />
+
 `;
 
 function handleTipoUsuarioChange(e) {
