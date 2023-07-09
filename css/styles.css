@@ -151,6 +151,10 @@ input:-webkit-autofill {
   justify-content: center;
 }
 
+.flex-space-evenly {
+  justify-content: space-evenly;
+}
+
 .flex-align-center { 
   align-items: center;
 }
