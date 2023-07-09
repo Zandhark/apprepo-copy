@@ -4,30 +4,22 @@ h1 {
     padding-bottom: 5%;
 }
 
-
-  
-.button {  
-    background-color: #28b6f6;
-    font-weight: 600;
+.button {
     font-size: 16px;
     padding: 15px;
     width: 180px;
     justify-content: center;
     margin-top: 50px;
-    color: #152641;
-    cursor: pointer;
-    border: #28b6f6;
 }
-  
 
-.seccion{
+.seccion {
     height: 450px;
     padding: 10px;
     display: flex;
     gap: 10px;
 }
 
-.image-landing{
+.image-landing {
     width: 80%;
     height: 80%;
     padding: 5%;
@@ -35,20 +27,30 @@ h1 {
     display: block;
 }
 
-.max-content{
+.max-content {
     min-width: 66.66666%;
     max-width: 66.66666%;
 }
 
-.last-line{
+.last-line {
     line-height: 1%;
     padding: 0% 0% 5% 0%;
 }
 
-.seccion-padding{
+.seccion-padding {
     padding: 2%;
 }
 
-ul{
+ul {
     line-height: 200%;
 }
+
+@media (max-width: 640px) {}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 1024px) {}
+
+@media (max-width: 1280px) {}
+
+@media (max-width: 1536px) {}

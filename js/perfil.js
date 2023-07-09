@@ -177,7 +177,6 @@ function renderProfile() {
       </p>
     </div>
     <p>${experience.description}</p>
-    <hr style="margin: 20px"/>    
     `;
     experienceSection.appendChild(experienceDiv);
   });
@@ -225,8 +224,7 @@ function renderProfile() {
         Desde ${education.startDate} Hasta ${education.endDate}
       </p>
     </div>
-    <p>${education.description}</p>
-    <hr style="margin: 20px"/>    
+    <p>${education.description}</p> 
     `;
     educationSection.appendChild(educationDiv);
   });

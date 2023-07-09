@@ -34,6 +34,13 @@ width: 100px;
   margin-left: 270px !important;
 }
 
+#main-content>div {
+  height: 100%;
+}
+
+.info-perfil {
+  margin: 10px;
+}
 .experience-box{
   margin: 10px 0;
 }
@@ -49,12 +56,14 @@ width: 100px;
   border-radius: 5%;
   padding: 10px;
   margin: auto;
+  transition: all .2s ease-in-out;
 }
 
 .skills-box:hover{
   background-color: var(--primary-color);
-  transition: all .2s ease-in-out;
+  color: var(--background-color);
   transform: scale(1.1); 
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
