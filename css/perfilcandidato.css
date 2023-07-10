@@ -8,6 +8,18 @@ h3 {
   color: var(--secondary-color);
 }
 
+li {
+  list-style-type: none;
+}
+
+li > a {
+  color: var(--primary-color);
+}
+
+.list-hover:hover{
+  color: var(--secondary-color);
+  transition: 0.1s ease-in-out;
+}
 
 #profile-img {
 margin: 20% 20%;
