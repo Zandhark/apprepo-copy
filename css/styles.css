@@ -107,6 +107,12 @@ textarea {
   color: #fff; 
 }
 
+textarea:focus {
+  outline: none;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color) ;
+}
+
 /* Chrome autofill background color fix */
 input:-webkit-autofill { 
   -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
@@ -176,7 +182,7 @@ input:-webkit-autofill {
 }
 
 .border {
-  border: 2px solid var(--secondary-color);
+  border: 1px solid var(--secondary-color);
   border-radius: 5px;
 }
 
@@ -186,6 +192,10 @@ input:-webkit-autofill {
 
 .secondary-color {
   color: var(--secondary-color);
+}
+
+.padding-box {
+  padding: 20px ;
 }
 
 /* Custom Clases & IDs */
@@ -209,17 +219,27 @@ input:-webkit-autofill {
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
+<<<<<<< HEAD
   background-color: var(--secondary-color);
   border: var(--secondary-color);
   color: #000000;
+=======
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: var(--background-color);
+  font-size: 16px;
+  font-weight: 600;
+>>>>>>> main
   cursor: pointer;
-  width: 75px;
-  height: 30px;
+  padding: 15px;
   text-align: center;
+  transition: 0.5s ease-in-out;
 }
 
 .main-button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  border: 1px solid var(--background-color);
 }
 
 #right-column {
