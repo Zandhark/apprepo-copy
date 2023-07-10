@@ -183,4 +183,14 @@ function renderNotifications() {
   });
 }
 
+function markAllAsRead() {
+  notifications.forEach((notification, index) => {
+    const notificationDiv = document.getElementById(`notification-${index}`);
+    const svgContainer = document.getElementById(`notification-svg-${index}`);
+    notification.read = true;
+    svgContainer.innerHTML = svgBell;
+    notificationDiv.classList.remove("unread-notification");
+  });
+}
+
 renderNotifications();
