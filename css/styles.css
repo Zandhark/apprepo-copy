@@ -202,12 +202,12 @@ input:-webkit-autofill {
 }
 
 .main-button {
-  margin: 10px 0;
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
   background-color: var(--secondary-color);
-  color: #fff;
+  border: var(--secondary-color);
+  color: #000000;
   cursor: pointer;
   width: 75px;
   height: 30px;

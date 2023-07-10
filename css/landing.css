@@ -1,54 +1,81 @@
 h1 {
-    color: #73dca7;
-    font-size: 380%;
-    padding-bottom: 5%;
+  color: var(--primary-color);
+  font-size: 380%;
+  padding-bottom: 5%;
+}
+
+.landing-button {
+  font-weight: 600;
+  font-size: 16px;
+  height: 50px;
+  width: 180px;
+  margin-top: 50px;
+}
+
+.box-seccion {
+  height: 450px;
+  padding: 10px;
+}
+
+.box-landing {
+  max-width: 75%;
+  height: 100%;
+  padding: 20px;
+}
+
+.landing-p {
+  font-size: 16px;
+  line-height: 200%;
+  padding-bottom: 20px;
+}
+
+.image-landing {
+  height: 100%;
+  margin: auto;
+}
+
+.max-content {
+  min-width: 66.66666%;
+  max-width: 66.66666%;
 }
 
 
-  
-.button {  
-    background-color: #28b6f6;
-    font-weight: 600;
-    font-size: 16px;
-    padding: 15px;
-    width: 180px;
-    justify-content: center;
-    margin-top: 50px;
-    color: #152641;
-    cursor: pointer;
-    border: #28b6f6;
-}
-  
 
-.seccion{
-    height: 450px;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
+ul {
+  line-height: 200%;
 }
 
-.image-landing{
-    width: 80%;
-    height: 80%;
+
+@media screen and (max-width: 768px) {
+  .seccion {
+    height: auto;
+  }
+  .image-landing {
+    max-width: 30%;
+  }
+  .max-content {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .seccion-padding {
     padding: 5%;
-    margin: auto;
-    display: block;
-}
+  }
+  #landing {
+    flex-direction: column;
+  }
 
-.max-content{
-    min-width: 66.66666%;
-    max-width: 66.66666%;
-}
+  h1 {
+    transition: 0.3s ease-in-out;
+    font-size: 200%;
+  }
 
-.last-line{
-    line-height: 1%;
-    padding: 0% 0% 5% 0%;
-}
+  .box-seccion {
+    flex-direction: column;
+    margin-top: 50px;
+  }
 
-.seccion-padding{
-    padding: 2%;
-}
-
-ul{
-    line-height: 200%;
+  .box-landing {
+    max-width: 100%;
+  }
 }
