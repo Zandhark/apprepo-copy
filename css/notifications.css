@@ -1,11 +1,6 @@
 .unread-notification {
   border-left: 4px solid var(--primary-color);
-}
-
-.notification:hover {
   background-color: #1d3357;
-  transition: 0.2s ease-in-out;
-  cursor: pointer;
 }
 
 svg, path { /* This is to prevent the svg from being selected */
