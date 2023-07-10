@@ -1,56 +1,143 @@
 h1 {
-    color: #73dca7;
-    font-size: 380%;
-    padding-bottom: 5%;
+  color: var(--primary-color);
+  font-size: 380%;
+  padding-bottom: 5%;
 }
 
-.button {
-    font-size: 16px;
-    padding: 15px;
-    width: 180px;
-    justify-content: center;
-    margin-top: 50px;
+.landing-button {
+  font-weight: 600;
+  font-size: 16px;
+  height: 50px;
+  width: 180px;
+  margin-top: 50px;
 }
 
-.seccion {
-    height: 450px;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
+.box-seccion {
+  height: 450px;
+  padding: 10px;
+}
+
+.box-landing {
+  width: 80%;
+  height: 100%;
+  padding: 40px;
+}
+
+.landing-p {
+  font-size: 16px;
+  line-height: 200%;
+  padding-bottom: 20px;
 }
 
 .image-landing {
-    width: 80%;
-    height: 80%;
-    padding: 5%;
-    margin: auto;
-    display: block;
+  height: 100%;
 }
 
-.max-content {
-    min-width: 66.66666%;
-    max-width: 66.66666%;
-}
-
-.last-line {
-    line-height: 1%;
-    padding: 0% 0% 5% 0%;
-}
-
-.seccion-padding {
-    padding: 2%;
+.max-content  {
+  min-width: 66.66666%;
+  max-width: 66.66666%;
 }
 
 ul {
-    line-height: 200%;
+  line-height: 200%;
+}
+
+
+@media screen and (max-width: 768px) {
+  
 }
 
 @media (max-width: 640px) {}
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+  .seccion {
+    height: auto;
+  }
+  .image-landing {
+    max-width: 30%;
+  }
+  .max-content {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .seccion-padding {
+    padding: 5%;
+  }
+  #landing {
+    flex-direction: column;
+  }
+
+  h1 {
+    transition: 0.3s ease-in-out;
+    font-size: 200%;
+  }
+
+  .box-seccion {
+    height: auto;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 !important;
+  }
+
+  .box-landing {
+    max-width: 100%;
+  }
+
+  footer{
+    flex-direction: column;
+  }
+
+  header>div>img{
+    display: none;
+  }
+  
+  header {
+    justify-content: center !important;
+    min-height: 4vh;
+  }
+}
 
 @media (max-width: 1024px) {}
 
-@media (max-width: 1280px) {}
+@media (max-width: 1280px) {
+  .seccion {
+    height: auto;
+    transition: 0.3s ease-in-out;
+  }
+  .image-landing {
+    max-width: 30%;
+    transition: 0.3s ease-in-out;
+  }
+  .max-content {
+    min-width: 100%;
+    max-width: 100%;
+    transition: 0.3s ease-in-out;
+  }
+
+  .seccion-padding {
+    padding: 5%;
+    transition: 0.3s ease-in-out;
+  }
+  /* #landing {
+    flex-direction: column;
+    transition: 0.3s ease-in-out;
+  } */
+
+  h1 {
+    transition: 0.3s ease-in-out;
+    font-size: 250%;
+  }
+
+  .box-seccion {
+    transition: 0.3s ease-in-out;
+    margin-top: 50px;
+  }
+
+  .box-landing {
+    transition: 0.3s ease-in-out;
+    max-width: 100%;
+  }
+}
 
 @media (max-width: 1536px) {}

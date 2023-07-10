@@ -149,12 +149,20 @@ input:-webkit-autofill {
   gap: 20px;
 }
 
+.flex-gap-40 {
+  gap: 40px;
+}
+
 .flex-space-between {
   justify-content: space-between;
 }
 
 .flex-space-center {
   justify-content: center;
+}
+
+.flex-space-evenly {
+  justify-content: space-evenly;
 }
 
 .flex-align-center { 
@@ -208,15 +216,20 @@ input:-webkit-autofill {
 }
 
 .main-button {
-  margin: 10px 0;
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
+<<<<<<< HEAD
+  background-color: var(--secondary-color);
+  border: var(--secondary-color);
+  color: #000000;
+=======
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
   color: var(--background-color);
   font-size: 16px;
   font-weight: 600;
+>>>>>>> main
   cursor: pointer;
   padding: 15px;
   text-align: center;
