@@ -18,7 +18,7 @@ h1 {
 }
 
 .box-landing {
-  max-width: 75%;
+  width: 80%;
   height: 100%;
   padding: 20px;
 }
@@ -31,7 +31,6 @@ h1 {
 
 .image-landing {
   height: 100%;
-  margin: auto;
 }
 
 .max-content {
