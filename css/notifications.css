@@ -3,6 +3,11 @@
   background-color: #1d3357;
 }
 
+[id^="notification-svg-"] {
+  cursor: pointer;
+}
+
+
 svg, path { /* This is to prevent the svg from being selected */
   pointer-events: none;
 }
