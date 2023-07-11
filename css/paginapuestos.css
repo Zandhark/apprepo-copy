@@ -10,3 +10,34 @@
     margin: 2% 0% 2% 2%;
 }
 
+.search{
+    width: fit-content;
+    height: fit-content;
+    margin-left: 2%;
+}
+
+.filtros{
+    padding: 1%;
+}
+
+.titulos{
+    padding-bottom: 3%;
+}
+
+#minsalario{
+    width: 100%;
+}
+
+button{
+    float: right;
+}
+
+.slider-input:focus{
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+.padiv{
+    padding-right: 3%;
+    padding-bottom: 2%;
+}
