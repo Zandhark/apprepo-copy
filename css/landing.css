@@ -42,11 +42,6 @@ ul {
   line-height: 200%;
 }
 
-
-@media screen and (max-width: 768px) {
-  
-}
-
 @media (max-width: 640px) {}
 
 @media (max-width: 768px) {
@@ -88,7 +83,7 @@ ul {
     flex-direction: column;
   }
 
-  header>div>img{
+  header>div>a>img{
     display: none;
   }
   
