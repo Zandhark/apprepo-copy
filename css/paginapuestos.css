@@ -1,0 +1,12 @@
+.puesto-PP {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    font-weight: 600;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+.seccion {
+    margin: 2% 0% 2% 2%;
+}
+
