@@ -117,12 +117,30 @@ function handlePasswordInput(e) {
   }
 }
 
+function generateRandomId() {
+  return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
+}
+
+function handleNewUser(usuario) {
+  let randomId = generateRandomId();
+  try {
+    const session = { ...usuario, id: randomId };
+    document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
+    document.cookie = `userId=${session.id}; path=/; max-age=3600`;
+    return session;
+  } catch (e) {
+    alert("Se produjo un error al iniciar sesión, intente nuevamente");
+    return false;
+  }
+}
+
 function handleFormSubmit(e) {
   e.preventDefault();
 
   const passwordValue = password.value;
 
   const email = document.getElementById("email").value;
+  let session;
   if (tipoUsuario === "usuario-final") {
     const nombre = document.getElementById("nombre").value;
     const apellidos = document.getElementById("apellidos").value;
@@ -138,8 +156,8 @@ function handleFormSubmit(e) {
       cv,
       fotografia,
     };
-
-    console.log(usuarioFinal)
+    session = handleNewUser(usuarioFinal);
+    console.log(usuarioFinal);
   } else if (tipoUsuario === "empresa") {
     console.log(e);
     const nombreEmpresa = document.getElementById("nombre-empresa").value;
@@ -152,6 +170,12 @@ function handleFormSubmit(e) {
       logo,
       descripcion,
     };
-    console.log(empresa)
+    session = handleNewUser(empresa);
+
+    console.log(empresa);
+  }
+  if (session) {
+    console.log(session);
+    location.href = "/perfil/";
   }
 }

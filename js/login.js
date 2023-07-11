@@ -7,12 +7,12 @@ function generateRandomId(){
 
 function handleLogin(login){
   let randomId = generateRandomId();
-  try{
+  try {
     const session = {...login, id:randomId};
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
     return session;
-  } catch (e){
+  } catch(e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente");
     return false;
   }
