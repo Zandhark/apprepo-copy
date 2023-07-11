@@ -46,6 +46,14 @@ footer {
   padding: 0 20px;
 }
 
+footer>p>a {
+  color: var(--background-color)
+}
+
+footer>p>a:hover {
+  color: var(--secondary-color)
+}
+
 hr {
   border: none;
   border-top: 1px solid var(--secondary-color);
