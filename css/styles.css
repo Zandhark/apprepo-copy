@@ -82,7 +82,7 @@ h2 {
 }
 
 select {
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--secondary-color);
   background-color: var(--background-color);
@@ -91,7 +91,8 @@ select {
 
 select:focus {
   outline: none;
-  border: 2px solid var(--primary-color);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
 }
 
 input {
