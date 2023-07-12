@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+  <link rel="stylesheet" href="/css/paginapuestos.css" type="text/css">
+  <link rel="stylesheet" href="/js/paginapuestos.js">
+  <script src="/js/puesto.js" defer></script>
+</head>
+
+<body>
+  <header class="border flex flex-space-between flex-align-center">
+    <div>
+      <img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px" />
+    </div>
+    <nav class="flex flex-gap-20">
+      <a href="/">Inicio</a>
+      <a href="/registro/">Registro</a>
+      <a href="/puestos/">Puesto de trabajo</a>
+      <a href="#">Acerca de</a>
+      <a href="/login/">Login</a>
+    </nav>
+  </header>
+  <hr />
+  <main class="flex flex-gap-20 flex-grow1">
+    <div id="left-column" class="flex-grow1 border filtros">
+      <h3 class="titulos">Filtrar puestos</h3>
+      <div class="flex">
+        <label for="busqueda">Buscar:</label>
+        <input class="search" type="text" name="busqueda" id="busqueda" placeholder="Buscar empresa/requisitos">
+      </div>
+      <br>
+      <label for="minsalario">Salario minimo:</label>
+      <input type="range" name="minsalario" min="0" max="8000000" value="4000000" step="50000" id="minsalario" class="slider-input">
+      <br>
+      <label for="minsalario">Salario maximo:</label>
+      <input type="range" name="minsalario" min="0" max="8000000" value="4000000" step="50000" id="minsalario" class="slider-input">
+    </div>
+    <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
+      <div class="border padiv" style="height: 100%">
+        <div class="seccion">
+        <div class="flex flex-align-center flex-gap-10" >
+          <h2 id="nombre-puesto"></h2>
+          <p class="puesto-PP" id="visibilidad"></p></div>
+        <div class="flex flex-gap-5 flex-align-center" id="info-empresa"></div>
+        </div>
+        <a href="/puestos/index.html"><button class="main-button";">Ver mas detalles</button></a>
+      </div>
+      <div class="border padiv" style="height: 100%">
+        <div class="seccion">
+          <div class="flex flex-align-center flex-gap-10" >
+            <h2 id="nombre-puesto"></h2>
+            <p class="puesto-PP" id="visibilidad"></p></div>
+          <div class="flex flex-gap-5 flex-align-center" id="info-empresa"></div>
+          </div>
+          <a href="/puestos/index.html"><button class="main-button";">Ver mas detalles</button></a>
+      </div>
+      <div class="border padiv" style="height: 100%">
+        <div class="seccion">
+          <div class="flex flex-align-center flex-gap-10" >
+            <h2 id="nombre-puesto"></h2>
+            <p class="puesto-PP" id="visibilidad"></p></div>
+          <div class="flex flex-gap-5 flex-align-center" id="info-empresa"></div>
+          </div>
+          <a href="/puestos/index.html"><button class="main-button";">Ver mas detalles</button></a>
+      </div>
+      <div class="border padiv" style="height: 100%">
+        <div class="seccion">
+          <div class="flex flex-align-center flex-gap-10" >
+            <h2 id="nombre-puesto"></h2>
+            <p class="puesto-PP" id="visibilidad"></p></div>
+          <div class="flex flex-gap-5 flex-align-center" id="info-empresa"></div>
+          </div>
+          <a href="/puestos/index.html"><button class="main-button";">Ver mas detalles</button></a>
+      </div>
+      <div class="border padiv" style="height: 100%">
+        <div class="seccion">
+          <div class="flex flex-align-center flex-gap-10" >
+            <h2 id="nombre-puesto"></h2>
+            <p class="puesto-PP" id="visibilidad"></p></div>
+          <div class="flex flex-gap-5 flex-align-center" id="info-empresa"></div>
+          </div>
+          <a href="/puestos/index.html"><button class="main-button";">Ver mas detalles</button></a>
+      </div>
+    </div>
+    <div id="right-column" class="flex flex-grow1"></div>
+  </main>
+  <footer class="flex flex-space-between flex-align-center">
+    <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark">
+    <p>Todos los derechos reservados &copy; 2023 JobSync</p>
+    <p>Contacto: info@example.com</p>
+  </footer>
+</body>
+
+</html>
