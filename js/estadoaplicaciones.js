@@ -95,6 +95,7 @@ function filtrarAplicaciones() {
   mainContent.innerHTML = "<h1>Mis aplicaciones</h1>";
 
   function filtrarEstado(item) {
+    if (estadoSeleccionado.value === "Todas") return true;
     return item.status === String(estadoSeleccionado.value);
   }
 
