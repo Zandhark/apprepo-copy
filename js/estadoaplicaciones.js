@@ -2,8 +2,10 @@ const mainContent = document.getElementById("main-content");
 const estadoSeleccionado = document.getElementById("select-estado");
 estadoSeleccionado.addEventListener("change", filtrarAplicaciones);
 
+let aplicaciones = [];
+
 function getJobApplications(userId) {
-  puestos = [
+  aplicaciones = [
     {
       id: 0,
       userId: 0,
@@ -88,10 +90,7 @@ function getJobApplications(userId) {
   ];
 }
 
-
-
 function filtrarAplicaciones() {
-  getJobApplications(0);
 
   mainContent.innerHTML = "<h1>Mis aplicaciones</h1>";
 
@@ -99,7 +98,7 @@ function filtrarAplicaciones() {
     return item.status === String(estadoSeleccionado.value);
   }
 
-  const puestosFiltrados = puestos.filter(filtrarEstado);
+  const puestosFiltrados = aplicaciones.filter(filtrarEstado);
 
   puestosFiltrados.forEach((puesto, index) => {
     const puestoDiv = document.createElement("div");
@@ -144,7 +143,7 @@ function filtrarAplicaciones() {
 function renderApplications() {
   getJobApplications(0);
 
-  puestos.forEach((puesto, index) => {
+  aplicaciones.forEach((puesto, index) => {
     const puestoDiv = document.createElement("div");
     puestoDiv.classList = "padding-box flex flex-align-center flex-gap-10";
     puestoDiv.id = `puesto-${index}`;
