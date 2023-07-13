@@ -98,14 +98,14 @@ function filtrarAplicaciones() {
     return item.status === String(estadoSeleccionado.value);
   }
 
-  const puestosFiltrados = aplicaciones.filter(filtrarEstado);
+  const aplicacionesFiltradas = aplicaciones.filter(filtrarEstado);
 
-  puestosFiltrados.forEach((puesto, index) => {
-    const puestoDiv = document.createElement("div");
-    puestoDiv.classList = "padding-box flex flex-align-center flex-gap-10";
-    puestoDiv.id = `puesto-${index}`;
+  aplicacionesFiltradas.forEach((puesto, index) => {
+    const aplicacionDiv = document.createElement("div");
+    aplicacionDiv.classList = "padding-box flex flex-align-center flex-gap-10";
+    aplicacionDiv.id = `puesto-${index}`;
 
-    puestoDiv.innerHTML = `
+    aplicacionDiv.innerHTML = `
       <div id="puesto-svg-${index}">
       <img class="img-style" src="${puesto.companyImg}" alt="imagen-empresa">
       </div>
@@ -136,24 +136,24 @@ function filtrarAplicaciones() {
     
     `;
 
-    mainContent.appendChild(puestoDiv);
+    mainContent.appendChild(aplicacionDiv);
   });
 }
 
 function renderApplications() {
   getJobApplications(0);
 
-  aplicaciones.forEach((puesto, index) => {
-    const puestoDiv = document.createElement("div");
-    puestoDiv.classList = "padding-box flex flex-align-center flex-gap-10";
-    puestoDiv.id = `puesto-${index}`;
+  aplicaciones.forEach((aplicacion, index) => {
+    const aplicacionDiv = document.createElement("div");
+    aplicacionDiv.classList = "padding-box flex flex-align-center flex-gap-10";
+    aplicacionDiv.id = `puesto-${index}`;
 
-    puestoDiv.innerHTML = `
+    aplicacionDiv.innerHTML = `
       <div id="puesto-svg-${index}">
-      <img class="img-style" src="${puesto.companyImg}" alt="imagen-empresa">
+      <img class="img-style" src="${aplicacion.companyImg}" alt="imagen-empresa">
       </div>
     <div style="width:75%">
-      <h2>${puesto.title}</h2>
+      <h2>${aplicacion.title}</h2>
       <div class="flex flex-align-center flex-gap-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -172,15 +172,15 @@ function renderApplications() {
           />
         </svg>
     
-        <p>${puesto.date}</p>
+        <p>${aplicacion.date}</p>
       </div>
-      <p class="notification-description">${puesto.description}</p>
+      <p class="notification-description">${aplicacion.description}</p>
     </div>
-    <h3 class="flex" style="align-items: center; text-align: right">${puesto.status}</h3>
+    <h3 class="flex" style="align-items: center; text-align: right">${aplicacion.status}</h3>
     
     `;
 
-    mainContent.appendChild(puestoDiv);
+    mainContent.appendChild(aplicacionDiv);
   });
 }
 
