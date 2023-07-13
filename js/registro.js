@@ -167,6 +167,18 @@ function handleRemoveExperience(removeButton) {
 
 function handleSubmit(e) {
   e.preventDefault();
+  if (tipoUsuario === "usuario-final") {
+    if (!formUsuarios.checkValidity() || !formExp.checkValidity()) {
+      formUsuarios.reportValidity();
+      formExp.reportValidity();
+      return;
+    }
+  } else if (tipoUsuario === "empresa") {
+    if (!formEmpresas.checkValidity()) {
+      formEmpresas.reportValidity();
+      return;
+    }
+  }
   handleFormSubmit();
 }
 
@@ -185,8 +197,7 @@ function handleUserForm() {
     const companyName = document.getElementById(`companyName-${i}`).value;
     const startDate = document.getElementById(`startDate-${i}`).value;
     const endDate = document.getElementById(`endDate-${i}`).value;
-    const jobDescription = document.getElementById(`jobDescription-${i}`)
-      .value;
+    const jobDescription = document.getElementById(`jobDescription-${i}`).value;
     const experiencia = {
       jobTitle,
       companyName,
@@ -210,14 +221,14 @@ function handleUserForm() {
 
   session = handleNewUser(usuarioFinal);
   console.log(usuarioFinal);
-  return session; 
+  return session;
 }
 
 function handleEmpresaForm() {
   let session = {};
   const nombreEmpresa = document.getElementById("nombre-empresa").value;
   const email = document.getElementById("email").value;
-  const passwordValue = password.value;
+  const passwordValue = passwordEmpresa.value;
   const logo = document.getElementById("logo").value;
   const descripcion = document.getElementById("descripcion").value;
   const empresa = {
@@ -233,18 +244,15 @@ function handleEmpresaForm() {
 }
 
 function handleFormSubmit() {
-
   let session;
 
-
   if (tipoUsuario === "usuario-final") {
-    handleUserForm();
+    session = handleUserForm();
   } else if (tipoUsuario === "empresa") {
-
+    session = handleEmpresaForm();
   }
   if (session) {
     console.log(session);
     location.href = "/perfil/";
   }
 }
-

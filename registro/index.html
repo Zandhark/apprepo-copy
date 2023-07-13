@@ -134,7 +134,6 @@
             <form
               class="flex flex-column flex-gap-5"
               id="form-empresas"
-              onsubmit="handleFormSubmit(event)"
             >
               <label for="nombre-empresa">Nombre de la empresa: </label>
               <input
@@ -185,7 +184,9 @@
                 rows="10"
                 required
               ></textarea>
-              <input class="main-button" type="submit" value="Registrar" />
+              <button class="main-button" onclick="handleSubmit(event)">
+                Enviar
+              </button>
             </form>
           </div>
         </div>
