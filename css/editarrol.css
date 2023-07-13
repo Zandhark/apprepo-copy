@@ -1,0 +1,113 @@
+h1,
+h2 {
+  padding: 10px;
+}
+
+h3 {
+  padding: 10px 0;
+  color: var(--secondary-color);
+}
+
+#profile-img {
+  margin: 20% 20%;
+  border-radius: 50%;
+  width: 100px;
+}
+
+.profile-paragraph-center {
+  text-align: center;
+  margin: 30px 30px;
+}
+
+.profile-paragraph {
+  text-align: left;
+  margin: 30px 30px;
+}
+
+#left-column {
+  width: 250px !important;
+  position: fixed;
+  min-height: 70vh;
+}
+
+#main-content {
+  margin-left: 270px !important;
+}
+
+#main-content>div {
+  height: 100%;
+}
+
+.info-perfil {
+  margin: 10px;
+  overflow-y: auto;
+  height: 350px;
+}
+
+.info-perfil::-webkit-scrollbar {
+  width: 10px;
+}
+
+.info-perfil::-webkit-scrollbar-track {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+.info-perfil::-webkit-scrollbar-thumb {
+  background-color: #4b8f6c;
+  border-radius: 5px;
+}
+
+.experience-box {
+  margin: 10px 0;
+}
+
+.skills-container {
+  padding: 10px;
+}
+
+.skills-box {
+  text-align: center;
+  width: 70px;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  border-radius: 5%;
+  padding: 10px;
+  margin: auto;
+  transition: all .2s ease-in-out;
+}
+
+.skills-box:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  #left-column {
+    width: 100% !important;
+    position: relative;
+  }
+
+  .experience-formation-container {
+    flex-wrap: wrap;
+  }
+
+  #main-content {
+    margin-left: 0px !important;
+  }
+
+  main {
+    flex: column !important;
+    flex-wrap: wrap;
+  }
+}
+
+.img-style {
+  width: 30px;
+  height: 30px;
+}
+
+.margin-20px {
+  margin: 20px 20px;
+}
