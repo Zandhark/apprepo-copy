@@ -73,6 +73,87 @@ function handleNewUser(usuario) {
   }
 }
 
+function handleAddExperience() {
+  const jobTitleInputLabel = document.createElement("label");
+  jobTitleInputLabel.setAttribute("for", "jobTitle");
+  jobTitleInputLabel.innerText = "Nombre del puesto";
+
+  const jobTitleInput = document.createElement("input");
+  jobTitleInput.setAttribute("type", "text");
+  jobTitleInput.setAttribute("name", "jobTitle");
+  jobTitleInput.setAttribute("placeholder", "Nombre del puesto");
+  jobTitleInput.setAttribute("required", true);
+
+  const companyNameInputLabel = document.createElement("label");
+  companyNameInputLabel.setAttribute("for", "companyName");
+  companyNameInputLabel.innerText = "Nombre de la empresa";
+
+  const companyName = document.createElement("input");
+  companyName.setAttribute("type", "text");
+  companyName.setAttribute("name", "companyName");
+  companyName.setAttribute("placeholder", "Nombre de la empresa");
+  companyName.setAttribute("required", true);
+
+  const startDateInputLabel = document.createElement("label");
+  startDateInputLabel.setAttribute("for", "startDate");
+  startDateInputLabel.innerText = "Fecha de inicio";
+
+  const startDate = document.createElement("input");
+  startDate.setAttribute("type", "date");
+  startDate.setAttribute("name", "startDate");
+
+  const endDateInputLabel = document.createElement("label");
+  endDateInputLabel.setAttribute("for", "endDate");
+  endDateInputLabel.innerText = "Fecha de fin";
+
+  const endDate = document.createElement("input");
+  endDate.setAttribute("type", "date");
+  endDate.setAttribute("name", "endDate");
+
+  const jobDescriptionInputLabel = document.createElement("label");
+  jobDescriptionInputLabel.setAttribute("for", "jobDescription");
+  jobDescriptionInputLabel.innerText = "Descripción del puesto";
+
+  const jobDescription = document.createElement("textarea");
+  jobDescription.setAttribute("name", "jobDescription");
+  jobDescription.setAttribute("placeholder", "Descripción del puesto");
+
+  const removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.innerText = "Eliminar";
+  removeButton.classList.add("main-button");
+  removeButton.onclick = function() {
+    handleRemoveExperience(removeButton);
+  }
+
+  const jobDiv = document.createElement("div");
+  jobDiv.classList.add("flex", "flex-column", "flex-gap-5", "div-exp");
+
+  jobDiv.appendChild(jobTitleInputLabel);
+  jobDiv.appendChild(jobTitleInput);
+  jobDiv.appendChild(companyNameInputLabel);
+  jobDiv.appendChild(companyName);
+  jobDiv.appendChild(startDateInputLabel);
+  jobDiv.appendChild(startDate);
+  jobDiv.appendChild(endDateInputLabel);
+  jobDiv.appendChild(endDate);
+  jobDiv.appendChild(jobDescriptionInputLabel);
+  jobDiv.appendChild(jobDescription);
+  jobDiv.appendChild(removeButton);
+
+  divExperiencia.appendChild(jobDiv);
+}
+
+function handleRemoveExperience(removeButton) {
+  const jobDiv = removeButton.parentNode;
+  divExperiencia.removeChild(jobDiv);
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  console.log(e)
+}
+
 function handleFormSubmit(e) {
   e.preventDefault();
 
@@ -119,64 +200,3 @@ function handleFormSubmit(e) {
   }
 }
 
-function handleAddExperience() {
-  const jobTitleInputLabel = document.createElement("label");
-  jobTitleInputLabel.setAttribute("for", "jobTitle");
-  jobTitleInputLabel.innerText = "Nombre del puesto";
-
-  const jobTitleInput = document.createElement("input");
-  jobTitleInput.setAttribute("type", "text");
-  jobTitleInput.setAttribute("name", "jobTitle");
-  jobTitleInput.setAttribute("placeholder", "Nombre del puesto");
-  jobTitleInput.setAttribute("required", true);
-
-  const companyNameInputLabel = document.createElement("label");
-  companyNameInputLabel.setAttribute("for", "companyName");
-  companyNameInputLabel.innerText = "Nombre de la empresa";
-
-  const companyName = document.createElement("input");
-  companyName.setAttribute("type", "text");
-  companyName.setAttribute("name", "companyName");
-  companyName.setAttribute("placeholder", "Nombre de la empresa");
-  companyName.setAttribute("required", true);
-
-  const startDateInputLabel = document.createElement("label");
-  startDateInputLabel.setAttribute("for", "startDate");
-  startDateInputLabel.innerText = "Fecha de inicio";
-
-  const startDate = document.createElement("input");
-  startDate.setAttribute("type", "date");
-  startDate.setAttribute("name", "startDate");
-
-  const endDateInputLabel = document.createElement("label");
-  endDateInputLabel.setAttribute("for", "endDate");
-  endDateInputLabel.innerText = "Fecha de fin";
-
-  const endDate = document.createElement("input");
-  endDate.setAttribute("type", "date");
-  endDate.setAttribute("name", "endDate");
-
-  const jobDescriptionInputLabel = document.createElement("label");
-  jobDescriptionInputLabel.setAttribute("for", "jobDescription");
-  jobDescriptionInputLabel.innerText = "Descripción del puesto";
-
-  const jobDescription = document.createElement("textarea");
-  jobDescription.setAttribute("name", "jobDescription");
-  jobDescription.setAttribute("placeholder", "Descripción del puesto");
-
-  const jobDiv = document.createElement("div");
-  jobDiv.classList.add("flex", "flex-column", "flex-gap-5", "div-exp");
-
-  jobDiv.appendChild(jobTitleInputLabel);
-  jobDiv.appendChild(jobTitleInput);
-  jobDiv.appendChild(companyNameInputLabel);
-  jobDiv.appendChild(companyName);
-  jobDiv.appendChild(startDateInputLabel);
-  jobDiv.appendChild(startDate);
-  jobDiv.appendChild(endDateInputLabel);
-  jobDiv.appendChild(endDate);
-  jobDiv.appendChild(jobDescriptionInputLabel);
-  jobDiv.appendChild(jobDescription);
-
-  divExperiencia.appendChild(jobDiv);
-}
