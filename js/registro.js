@@ -1,5 +1,6 @@
 const formUsuarios = document.getElementById("form-usuarios");
 const formEmpresas = document.getElementById("form-empresas");
+const formExp = document.getElementById("form-experiencia");
 const selectUsuario = document.getElementById("select-usuario");
 selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
@@ -111,4 +112,13 @@ function handleFormSubmit(e) {
     console.log(session);
     location.href = "/perfil/";
   }
+}
+
+function handleAddExperience() {
+  const experiencia = document.createElement("input");
+  experiencia.setAttribute("type", "text");
+  experiencia.setAttribute("name", "experiencia");
+  experiencia.setAttribute("placeholder", "Experiencia");
+  experiencia.setAttribute("required", "");
+  formExp.appendChild(experiencia, formUsuarios.lastElementChild);
 }
