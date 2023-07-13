@@ -11,6 +11,7 @@ function handleLogin(login){
     const session = {...login, id:randomId};
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
+    document.cookie = `userType=endUser; path=/; max-age=3600`
     return session;
   } catch(e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente.");
@@ -31,7 +32,7 @@ function handleFormSubmit(e) {
     const session = handleLogin(login);
     console.log(session)
     if (session && document.cookie.includes("userId")){
-      location.href = "/perfil/";
+      location.href = `${document.referrer}`;
     }
 
   } catch (error){
