@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="flex flex-space-center">
-          <div class="flex flex-column" id="form-usuarios">
+          <div class="flex flex-column flex-gap-5" id="div-usuarios">
             <form
               class="flex flex-column flex-gap-5"
               onsubmit="handleFormSubmit(event)"
@@ -118,15 +118,18 @@
               />
               <input class="main-button" type="submit" value="Registrar" />
             </form>
-            <form
-              id="form-experiencia"
-              class="flex flex-column flex-gap-5"
-            ></form>
-            <button onclick="handleAddExperience()" class="main-button">
-              Agregar Experiencia Laboral
-            </button>
+            <form id="form-experiencia" class="flex flex-column flex-gap-5">
+              <div id="div-experiencia" class="flex flex-column flex-gap-10">
+
+              </div>
+              <button onclick="handleAddExperience()" class="main-button">
+                Agregar Experiencia Laboral
+              </button>
+              <input class="main-button" type="submit" value="Enviar" />
+            </form>
           </div>
-          <div>
+          <!-- form para empresas -->
+          <div id="div-empresas">
             <form
               class="flex flex-column flex-gap-5"
               id="form-empresas"
