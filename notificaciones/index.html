@@ -11,12 +11,12 @@
     />
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
     <link rel="stylesheet" href="/css/notifications.css" type="text/css" />
-    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png">
+    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
     <script src="/js/notifications.js" defer></script>
   </head>
 
   <body>
-    <header class="border flex flex-space-between flex-align-center">
+    <header class="flex flex-space-between flex-align-center">
       <div>
         <img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px" />
       </div>
@@ -28,15 +28,14 @@
       </nav>
     </header>
     <hr />
-    <main class="flex flex-gap-20 flex-grow1">
-      <div id="left-column" class="flex flex-grow1 border flex-align-center">
-        <button class="main-button" onclick="markAllAsRead()">
-          Marcar todas como leídas
-        </button>
-      </div>
-      <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
-      </div>
-      <div id="right-column" class="flex flex-grow1"></div>
+    <main class="flex flex-column flex-gap-20 flex-grow1">
+      <div
+        id="main-content"
+        class="flex flex-grow2 flex-column flex-gap-20"
+      ></div>
+      <button class="main-button" onclick="markAllAsRead()">
+        Marcar todas como leídas
+      </button>
     </main>
     <footer class="flex flex-space-between flex-align-center">
       <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark" />
