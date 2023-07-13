@@ -3,120 +3,50 @@ const formEmpresas = document.getElementById("form-empresas");
 const selectUsuario = document.getElementById("select-usuario");
 selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
-let password, password2;
-
-const formUsuariosFinales = `
-<label for="name">Nombre: </label>
-<input type="text" name="name" required id="nombre" placeholder="Nombre" />
-<label for="lastname">Primer Apellido: </label>
-<input
-  type="text"
-  name="lastname"
-  required
-  id="apellidos"
-  placeholder="Apellidos"
-/>
-<label for="email">Correo: </label>
-<input
-  type="email"
-  name="email"
-  required
-  id="email"
-  placeholder="email@domain.tld"
-/>
-<div class="flex flex-grow">
-  <label for="password">Password: </label>
-  <input type="password" name="password" required id="password" style="flex: 1;" />
-  <label for="password2">Confirmar Password: </label>
-  <input type="password" name="password2" required id="password2" style="flex: 1;" />
-</div>
-<label for="genero">Genero:</label>
-<select name="genero" required name="genero" id="genero">
-  <option value="" disabled selected hidden>Seleccione una opción</option>
-  <option value="masculino">Masculino</option>
-  <option value="femenino">Femenino</option>
-  <option value="femenino">Prefiero no especificar</option>
-</select>
-<label for="cv">Seleccionar CV: </label>
-<input type="file" id="cv" accept=".pdf" />
-<label for="fotografia">Seleccionar fotografia: </label>
-<input
-  id="fotografia"
-  type="file"
-  id="fotografia"
-  accept="image/png, image/jpeg, image/jpg"
-/>
-<input class="main-button" type="submit" value="Registrar" />
-`;
-
-const formEmpresa = `
-<label for="nombre-empresa">Nombre de la empresa: </label>
-<input
-  type="text"
-  name="nombre-empresa"
-  required
-  id="nombre-empresa"
-  placeholder="Nombre de la empresa"
-/>
-<label for="email">Correo: </label>
-<input
-  type="email"
-  name="email"
-  required
-  id="email"
-  placeholder="email@domain.tld"
-/>
-<div class="flex">
-<label for="password">Password: </label>
-<input type="password" name="password" required id="password" style="flex: 1;" />
-<label for="password2">Confirmar Password: </label>
-<input type="password" name="password2" required id="password2" style="flex: 1;" />
-</div>
-<label for="logo">Seleccionar logo de la empresa: </label>
-<input
-  id="logo"
-  type="file"
-  accept="image/png, image/jpeg, image/jpg"
-  required
-/>
-<label for="descripcion">Descripción de la empresa: </label>
-<textarea
-  name="descripcion"
-  id="descripcion"
-  cols="30"
-  rows="10"
-  required
-></textarea>
-<input class="main-button" type="submit" value="Registrar" />
-
-`;
+let password, password2, passwordEmpresa, password2Empresa;
 
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
     formEmpresas.style.display = "none";
     formUsuarios.style.display = "flex";
+    password = document.getElementById("password");
+    password2 = document.getElementById("password2");
+    password2.addEventListener("input", handlePasswordInput);
   } else if (tipoUsuario === "empresa") {
     formUsuarios.style.display = "none";
     formEmpresas.style.display = "flex";
+    passwordEmpresa = document.getElementById("password-empresa");
+    password2Empresa = document.getElementById("password2-empresa");
+    password2Empresa.addEventListener("input", handlePasswordInput);
   }
-  password = document.getElementById("password");
-  password2 = document.getElementById("password2");
-
-  password2.addEventListener("input", handlePasswordInput);
 }
 
 function handlePasswordInput(e) {
-  const passwordValue = password.value;
-  const password2Value = password2.value;
-  if (passwordValue !== password2Value) {
-    password2.setCustomValidity("Las contraseñas no coinciden");
-    password2.reportValidity();
-    password2.classList.add("input-validation-error");
-  } else {
-    password2.setCustomValidity("");
-    password2.reportValidity();
-    password2.classList.remove("input-validation-error");
+  if (tipoUsuario === "usuario-final") {
+    const passwordValue = password.value;
+    const password2Value = password2.value;
+    if (passwordValue !== password2Value) {
+      password2.setCustomValidity("Las contraseñas no coinciden");
+      password2.reportValidity();
+      password2.classList.add("input-validation-error");
+    } else {
+      password2.setCustomValidity("");
+      password2.reportValidity();
+      password2.classList.remove("input-validation-error");
+    }
+  } else if (tipoUsuario === "empresa") {
+    const passwordValue = passwordEmpresa.value;
+    const password2Value = password2Empresa.value;
+    if (passwordValue !== password2Value) {
+      password2Empresa.setCustomValidity("Las contraseñas no coinciden");
+      password2Empresa.reportValidity();
+      password2Empresa.classList.add("input-validation-error");
+    } else {
+      password2Empresa.setCustomValidity("");
+      password2Empresa.reportValidity();
+      password2Empresa.classList.remove("input-validation-error");
+    }
   }
 }
 
