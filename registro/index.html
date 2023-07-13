@@ -53,8 +53,8 @@
         <div class="flex flex-space-center">
           <div class="flex flex-column flex-gap-5" id="div-usuarios">
             <form
-              class="flex flex-column flex-gap-5"
-              onsubmit="handleFormSubmit(event)"
+              class="flex flex-column flex-gap-5""
+              id="form-usuarios"
             >
               <label for="name">Nombre: </label>
               <input
@@ -117,14 +117,16 @@
                 accept="image/png, image/jpeg, image/jpg"
               />
             </form>
-            <form id="form-experiencia" class="flex flex-column flex-gap-5" onsubmit="handleSubmit(event)">
+            <form id="form-experiencia" class="flex flex-column flex-gap-5">
               <div id="div-experiencia" class="flex flex-column flex-gap-10">
 
               </div>
               <button onclick="handleAddExperience()" class="main-button">
                 Agregar Experiencia Laboral
               </button>
-              <input class="main-button" type="submit" value="Enviar" />
+              <button class="main-button" onclick="handleSubmit(event)">
+                Enviar
+              </button>
             </form>
           </div>
           <!-- form para empresas -->

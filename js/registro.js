@@ -11,7 +11,7 @@ selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
 let password, password2, passwordEmpresa, password2Empresa;
 
-let experienciaCounter = 0;
+let experienciaCounter = 0; // contador de lista de experiencia laboral
 
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
@@ -167,48 +167,62 @@ function handleRemoveExperience(removeButton) {
 
 function handleSubmit(e) {
   e.preventDefault();
-  console.log(e);
+  handleFormSubmit();
 }
 
-function handleFormSubmit(e) {
+function handleUserForm() {
+  const session = {};
+  const nombre = document.getElementById("nombre").value;
+  const apellidos = document.getElementById("apellidos").value;
+  const email = document.getElementById("email").value;
+  const passwordValue = password.value;
+  const genero = document.getElementById("genero").value;
+  const cv = document.getElementById("cv").value;
+  const fotografia = document.getElementById("fotografia").value;
+  const usuarioFinal = {
+    nombre,
+    apellidos,
+    email,
+    passwordValue,
+    genero,
+    cv,
+    fotografia,
+  };
+  
+  session = handleNewUser(usuarioFinal);
+  console.log(usuarioFinal);
+  return session; 
+}
+
+function handleEmpresaForm() {
+  const session = {};
+  const nombreEmpresa = document.getElementById("nombre-empresa").value;
+  const email = document.getElementById("email").value;
+  const passwordValue = password.value;
+  const logo = document.getElementById("logo").value;
+  const descripcion = document.getElementById("descripcion").value;
+  const empresa = {
+    nombreEmpresa,
+    email,
+    passwordValue,
+    logo,
+    descripcion,
+  };
+  session = handleNewUser(empresa);
+  console.log(empresa);
+  return session;
+}
+
+function handleFormSubmit() {
   e.preventDefault();
 
-  const passwordValue = password.value;
-
-  const email = document.getElementById("email").value;
   let session;
-  if (tipoUsuario === "usuario-final") {
-    const nombre = document.getElementById("nombre").value;
-    const apellidos = document.getElementById("apellidos").value;
-    const genero = document.getElementById("genero").value;
-    const cv = document.getElementById("cv").value;
-    const fotografia = document.getElementById("fotografia").value;
-    const usuarioFinal = {
-      nombre,
-      apellidos,
-      email,
-      passwordValue,
-      genero,
-      cv,
-      fotografia,
-    };
-    session = handleNewUser(usuarioFinal);
-    console.log(usuarioFinal);
-  } else if (tipoUsuario === "empresa") {
-    console.log(e);
-    const nombreEmpresa = document.getElementById("nombre-empresa").value;
-    const logo = document.getElementById("logo").value;
-    const descripcion = document.getElementById("descripcion").value;
-    const empresa = {
-      nombreEmpresa,
-      email,
-      passwordValue,
-      logo,
-      descripcion,
-    };
-    session = handleNewUser(empresa);
 
-    console.log(empresa);
+
+  if (tipoUsuario === "usuario-final") {
+    handleUserForm();
+  } else if (tipoUsuario === "empresa") {
+
   }
   if (session) {
     console.log(session);
