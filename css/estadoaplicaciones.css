@@ -1,0 +1,22 @@
+.unread-notification {
+  border-left: 4px solid var(--primary-color);
+  background-color: #1d3357;
+}
+
+[id^="notification-svg-"] {
+  cursor: pointer;
+}
+
+
+svg, path { /* This is to prevent the svg from being selected */
+  pointer-events: none;
+}
+
+.width {
+  width: 100%;
+}
+
+.img-style {
+  width: 100px;
+  height: 100px;
+}
