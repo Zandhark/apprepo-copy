@@ -171,7 +171,8 @@ function handleSubmit(e) {
 }
 
 function handleUserForm() {
-  const session = {};
+  let session = {};
+  const expedrienciaLaboral = [];
   const nombre = document.getElementById("nombre").value;
   const apellidos = document.getElementById("apellidos").value;
   const email = document.getElementById("email").value;
@@ -179,6 +180,23 @@ function handleUserForm() {
   const genero = document.getElementById("genero").value;
   const cv = document.getElementById("cv").value;
   const fotografia = document.getElementById("fotografia").value;
+  for (let i = 0; i < experienciaCounter; i++) {
+    const jobTitle = document.getElementById(`jobTitle-${i}`).value;
+    const companyName = document.getElementById(`companyName-${i}`).value;
+    const startDate = document.getElementById(`startDate-${i}`).value;
+    const endDate = document.getElementById(`endDate-${i}`).value;
+    const jobDescription = document.getElementById(`jobDescription-${i}`)
+      .value;
+    const experiencia = {
+      jobTitle,
+      companyName,
+      startDate,
+      endDate,
+      jobDescription,
+    };
+    expedrienciaLaboral.push(experiencia);
+  }
+
   const usuarioFinal = {
     nombre,
     apellidos,
@@ -187,15 +205,16 @@ function handleUserForm() {
     genero,
     cv,
     fotografia,
+    expedrienciaLaboral,
   };
-  
+
   session = handleNewUser(usuarioFinal);
   console.log(usuarioFinal);
   return session; 
 }
 
 function handleEmpresaForm() {
-  const session = {};
+  let session = {};
   const nombreEmpresa = document.getElementById("nombre-empresa").value;
   const email = document.getElementById("email").value;
   const passwordValue = password.value;
@@ -214,7 +233,6 @@ function handleEmpresaForm() {
 }
 
 function handleFormSubmit() {
-  e.preventDefault();
 
   let session;
 
