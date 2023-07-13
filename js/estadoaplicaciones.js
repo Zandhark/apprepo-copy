@@ -1,6 +1,6 @@
 const mainContent = document.getElementById("main-content");
 const estadoSeleccionado = document.getElementById("select-estado");
-estadoSeleccionado.addEventListener("change", filtrarPuestos);
+estadoSeleccionado.addEventListener("change", filtrarAplicaciones);
 
 function getJobApplications(userId) {
   puestos = [
@@ -90,7 +90,7 @@ function getJobApplications(userId) {
 
 
 
-function filtrarPuestos() {
+function filtrarAplicaciones() {
   getJobApplications(0);
 
   mainContent.innerHTML = "<h1>Mis aplicaciones</h1>";
