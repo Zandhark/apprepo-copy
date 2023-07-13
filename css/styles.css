@@ -76,7 +76,8 @@ nav a:hover {
   transform: scale(1.1);
 }
 
-h1, h2 {
+h1,
+h2 {
   color: var(--primary-color);
 }
 
@@ -184,6 +185,10 @@ input:-webkit-autofill {
   align-items: center;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -213,6 +218,26 @@ input:-webkit-autofill {
 .padding-box {
   padding: 20px;
 }
+
+.custom-scrollbar {
+  overflow: auto;
+  padding: 0 5px 0 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4b8f6c;
+  border-radius: 5px;
+}
+
 
 /* Custom Clases & IDs */
 
@@ -258,7 +283,6 @@ input:-webkit-autofill {
   transform: scale(1);
 }
 
-
 #right-column {
   min-height: 80vh;
   width: 33.3333333%;
@@ -268,6 +292,12 @@ input:-webkit-autofill {
   outline: none;
   border: 1px solid #ff1e1e !important;
   box-shadow: 0 0 5px #ff1e1e !important;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 @media (max-width: 768px) {

@@ -40,22 +40,7 @@ h3 {
 
 .info-perfil {
   margin: 10px;
-  overflow-y: auto;
   height: 350px;
-}
-
-.info-perfil::-webkit-scrollbar {
-  width: 10px;
-}
-
-.info-perfil::-webkit-scrollbar-track {
-  background: var(--primary-color);
-  border-radius: 5px;
-}
-
-.info-perfil::-webkit-scrollbar-thumb {
-  background-color: #4b8f6c;
-  border-radius: 5px;
 }
 
 .experience-box {
