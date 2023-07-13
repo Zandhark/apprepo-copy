@@ -1,4 +1,5 @@
-const form = document.getElementById("form-usuarios");
+const formUsuarios = document.getElementById("form-usuarios");
+const formEmpresas = document.getElementById("form-empresas");
 const selectUsuario = document.getElementById("select-usuario");
 selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
@@ -93,9 +94,11 @@ const formEmpresa = `
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
-    form.innerHTML = formUsuariosFinales;
+    formEmpresas.style.display = "none";
+    formUsuarios.style.display = "flex";
   } else if (tipoUsuario === "empresa") {
-    form.innerHTML = formEmpresa;
+    formUsuarios.style.display = "none";
+    formEmpresas.style.display = "flex";
   }
   password = document.getElementById("password");
   password2 = document.getElementById("password2");
