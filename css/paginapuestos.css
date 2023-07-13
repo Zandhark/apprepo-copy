@@ -1,43 +1,46 @@
+#main-content {
+    height: 80vh;
+}
+
 .puesto-PP {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: var(--background-color);
     font-weight: 600;
     padding: 5px;
     border-radius: 5px;
-  }
+}
 
 .seccion {
     margin: 2% 0% 2% 2%;
 }
 
-.search{
-    width: fit-content;
+.search {
+    width: 100%;
     height: fit-content;
-    margin-left: 2%;
 }
 
-.filtros{
+.filtros {
     padding: 1%;
 }
 
-.titulos{
+.titulos {
     padding-bottom: 3%;
 }
 
-#minsalario{
+#minsalario {
     width: 100%;
 }
 
-button{
+button {
     float: right;
 }
 
-.slider-input:focus{
+.slider-input:focus {
     border: none !important;
     box-shadow: none !important;
-  }
+}
 
-.padiv{
+.padiv {
     padding-right: 3%;
     padding-bottom: 2%;
 }

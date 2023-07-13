@@ -3,3 +3,26 @@
   box-shadow: none !important;
 
 }
+
+form>div{
+  padding: 40px;
+}
+
+form>div>div{
+ width: 50%;
+}
+
+svg{
+  width: 800px;
+  height: auto;
+  padding: 0 80px 0 0;
+  border-right: 1px solid var(--secondary-color);
+}
+
+.main-button{
+  width: 100%;
+}
+
+.main-button:hover{
+  transform: scale(1);
+}

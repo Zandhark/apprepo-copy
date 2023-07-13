@@ -7,6 +7,7 @@ const divExperiencia = document.getElementById("div-experiencia");
 
 const formExp = document.getElementById("form-experiencia");
 const selectUsuario = document.getElementById("select-usuario");
+const title = document.getElementById("title-register");
 selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
 let password, password2, passwordEmpresa, password2Empresa;
@@ -16,12 +17,14 @@ let experienciaCounter = 0; // contador de lista de experiencia laboral
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
+    title.innerText = "Registro de usuario final";
     divEmpresas.style.display = "none";
     divUsuarios.style.display = "flex";
     password = document.getElementById("password");
     password2 = document.getElementById("password2");
     password2.addEventListener("input", handlePasswordInput);
   } else if (tipoUsuario === "empresa") {
+    title.innerText = "Registro de empresa";
     divUsuarios.style.display = "none";
     divEmpresas.style.display = "flex";
     passwordEmpresa = document.getElementById("password-empresa");

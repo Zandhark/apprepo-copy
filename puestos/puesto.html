@@ -15,35 +15,33 @@
 </head>
 
 <body>
-  <header class="border flex flex-space-between flex-align-center">
+  <header class="flex flex-space-between flex-align-center">
     <div>
       <img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px" />
     </div>
     <nav class="flex flex-gap-20" id="menu-nav"></nav>
   </header>
-  </header>
-  <hr />
   <main class="flex flex-gap-20">
-    <div id="left-column" class="flex flex-grow1 border"></div>
     <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
       <div class="border main-content-box">
-        <div class="flex flex-align-center flex-gap-10" >
+        <div class="flex flex-align-center flex-gap-10">
           <h2 id="nombre-puesto"></h2>
           <p class="puesto-PP" id="visibilidad"></p>
         </div>
         <div class="flex flex-gap-5 flex-align-center" id="info-empresa">
-          
-        </div>
 
-        <div class="information-box flex-column">
-          <h3>Sobre el puesto o trabajo</h3>
-          <p id="descripcion-puesto">
-          </p>
         </div>
+        <div class="flex flex-gap-40">
+          <div class="information-box flex-column">
+            <h3>Sobre el puesto o trabajo</h3>
+            <p id="descripcion-puesto">
+            </p>
+          </div>
 
-        <div class="information-box flex-column">
-          <h3>Requisitos mínimos</h3>
-          <ul id="requisitos-list">
+          <div class="information-box flex-column">
+            <h3>Requisitos mínimos</h3>
+            <ul id="requisitos-list">
+          </div>
         </div>
         <div class="button-box float-right">
           <button class="border main-button" onclick="handleApply()">
