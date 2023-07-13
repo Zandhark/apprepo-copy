@@ -32,7 +32,7 @@ function handleFormSubmit(e) {
     const session = handleLogin(login);
     console.log(session)
     if (session && document.cookie.includes("userId")){
-      location.href = "/perfil/";
+      location.href = `${document.referrer}`;
     }
 
   } catch (error){

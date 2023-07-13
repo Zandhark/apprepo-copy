@@ -1,5 +1,6 @@
 const nav = document.getElementById("menu-nav");
 let userType;
+console.log(document.referrer)
 
 if (document.cookie.includes("userType")) {
   userType = document.cookie.split(";").find((item) => item.includes("userType")).split("=")[1];
