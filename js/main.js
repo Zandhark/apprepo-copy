@@ -29,7 +29,6 @@ function renderMenu() {
   let userNav;
   if (userType == "endUser") { // Verifica el tipo de usuario y renderiza el menu correspondiente
     userNav = `
-      <a href="/">Inicio</a>
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/empresas/">Empresas</a>
       <a href="/notificaciones/">Notificaciones</a>
@@ -38,7 +37,6 @@ function renderMenu() {
     `;
   } else if (userType === "manager" || userType === "reclutador") {
     userNav = `
-      <a href="/">Inicio</a>
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/empresas/">Empresas</a>
       <a href="/candidatos/">Candidatos</a>
@@ -48,7 +46,6 @@ function renderMenu() {
     `;
   } else if (userType === "administrador") {
     userNav = `
-      <a href="/">Inicio</a>
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/empresas/">Empresas</a>
       <a href="/candidatos/">Candidatos</a>
