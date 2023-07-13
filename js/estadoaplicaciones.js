@@ -1,6 +1,6 @@
 const mainContent = document.getElementById("main-content");
 
-function getStatus(userId) {
+function getJobApplications(userId) {
   puestos = [
     {
       id: 0,
@@ -96,7 +96,7 @@ function getStatus(userId) {
 }
 
 window.onload = function renderPuestos() {
-  getStatus(0);
+  getJobApplications(0);
 
   puestos.forEach((puesto, index) => {
     const puestoDiv = document.createElement("div");
@@ -146,7 +146,7 @@ estadoSeleccionado.addEventListener("change", filtrarPuestos);
 
 
 function filtrarPuestos() {
-  getStatus(0);
+  getJobApplications(0);
 
   mainContent.innerHTML="<h1>Mis aplicaciones</h1>"
   
