@@ -100,17 +100,17 @@ function filtrarAplicaciones() {
 
   const aplicacionesFiltradas = aplicaciones.filter(filtrarEstado);
 
-  aplicacionesFiltradas.forEach((puesto, index) => {
+  aplicacionesFiltradas.forEach((aplicacion, index) => {
     const aplicacionDiv = document.createElement("div");
     aplicacionDiv.classList = "padding-box flex flex-align-center flex-gap-10";
-    aplicacionDiv.id = `puesto-${index}`;
+    aplicacionDiv.id = `aplicacion-${index}`;
 
     aplicacionDiv.innerHTML = `
-    <div id="puesto-svg-${index}">
-      <img class="img-style" src="${puesto.companyImg}" alt="imagen-empresa" />
+    <div id="aplicacion-svg-${index}">
+      <img class="img-style" src="${aplicacion.companyImg}" alt="imagen-empresa" />
       </div>
     <div style="width: 75%">
-      <h2>${puesto.title}</h2>
+      <h2>${aplicacion.title}</h2>
       <div class="flex flex-align-center flex-gap-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -128,12 +128,12 @@ function filtrarAplicaciones() {
           />
         </svg>
     
-        <p>${puesto.date}</p>
+        <p>${aplicacion.date}</p>
       </div>
-      <p class="notification-description">${puesto.description}</p>
+      <p class="notification-description">${aplicacion.description}</p>
     </div>
     <h3 class="flex" style="align-items: center; text-align: right">
-      ${puesto.status}
+      ${aplicacion.status}
     </h3> 
     `;
 
