@@ -11,6 +11,8 @@ selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
 let password, password2, passwordEmpresa, password2Empresa;
 
+let experienciaCounter = 0;
+
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
@@ -83,6 +85,7 @@ function handleAddExperience() {
   jobTitleInput.setAttribute("name", "jobTitle");
   jobTitleInput.setAttribute("placeholder", "Nombre del puesto");
   jobTitleInput.setAttribute("required", true);
+  jobTitleInput.id = `jobTitle-${experienciaCounter}`;
 
   const companyNameInputLabel = document.createElement("label");
   companyNameInputLabel.setAttribute("for", "companyName");
@@ -93,6 +96,7 @@ function handleAddExperience() {
   companyName.setAttribute("name", "companyName");
   companyName.setAttribute("placeholder", "Nombre de la empresa");
   companyName.setAttribute("required", true);
+  companyName.id = `companyName-${experienciaCounter}`;
 
   const startDateInputLabel = document.createElement("label");
   startDateInputLabel.setAttribute("for", "startDate");
@@ -101,6 +105,10 @@ function handleAddExperience() {
   const startDate = document.createElement("input");
   startDate.setAttribute("type", "date");
   startDate.setAttribute("name", "startDate");
+  startDate.setAttribute("placeholder", "Fecha de inicio");
+  startDate.setAttribute("required", true);
+  startDate.setAttribute("max", new Date().toISOString().split("T")[0]);
+  startDate.id = `startDate-${experienciaCounter}`;
 
   const endDateInputLabel = document.createElement("label");
   endDateInputLabel.setAttribute("for", "endDate");
@@ -109,6 +117,10 @@ function handleAddExperience() {
   const endDate = document.createElement("input");
   endDate.setAttribute("type", "date");
   endDate.setAttribute("name", "endDate");
+  endDate.setAttribute("placeholder", "Fecha de fin");
+  endDate.setAttribute("required", true);
+  endDate.setAttribute("max", new Date().toISOString().split("T")[0]);
+  endDate.id = `endDate-${experienciaCounter}`;
 
   const jobDescriptionInputLabel = document.createElement("label");
   jobDescriptionInputLabel.setAttribute("for", "jobDescription");
@@ -117,14 +129,16 @@ function handleAddExperience() {
   const jobDescription = document.createElement("textarea");
   jobDescription.setAttribute("name", "jobDescription");
   jobDescription.setAttribute("placeholder", "Descripción del puesto");
+  jobDescription.setAttribute("required", true);
+  jobDescription.id = `jobDescription-${experienciaCounter}`;
 
   const removeButton = document.createElement("button");
   removeButton.type = "button";
   removeButton.innerText = "Eliminar";
   removeButton.classList.add("main-button");
-  removeButton.onclick = function() {
+  removeButton.onclick = function () {
     handleRemoveExperience(removeButton);
-  }
+  };
 
   const jobDiv = document.createElement("div");
   jobDiv.classList.add("flex", "flex-column", "flex-gap-5", "div-exp");
@@ -142,16 +156,18 @@ function handleAddExperience() {
   jobDiv.appendChild(removeButton);
 
   divExperiencia.appendChild(jobDiv);
+  experienciaCounter++;
 }
 
 function handleRemoveExperience(removeButton) {
   const jobDiv = removeButton.parentNode;
   divExperiencia.removeChild(jobDiv);
+  experienciaCounter--;
 }
 
 function handleSubmit(e) {
   e.preventDefault();
-  console.log(e)
+  console.log(e);
 }
 
 function handleFormSubmit(e) {
