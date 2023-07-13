@@ -27,7 +27,7 @@ const svgCheck = `
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="w-6 h-6"
+    class="w-6 h-6 pulsate-bell"
     style="height: 30px; width: 30px"
   >
     <path
@@ -96,110 +96,6 @@ function getNotifications(userId) {
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       date: "2021-05-01",
       read: false,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
     },
     {
       id: 0,

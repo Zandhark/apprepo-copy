@@ -24,13 +24,15 @@ body {
 
 header {
   min-height: 5vh;
-  margin: 20px 30px;
+  padding: 10px 0px;
   color: var(--primary-color);
   top: 0;
   left: 0;
+  z-index: 10000;
   position: sticky;
   background-color: var(--background-color);
   border-bottom: 1px solid var(--secondary-color);
+  box-shadow: 0 0 5px 0 var(--secondary-color);
 }
 
 main {
@@ -65,11 +67,13 @@ nav {
 
 nav a {
   color: var(--primary-color);
+  transition: 0.2s ease-in-out;
+  padding: 16px;
 }
+
 nav a:hover {
   color: var(--secondary-color);
   transform: scale(1.1);
-  transition: 0.1s ease-in-out;
 }
 
 h1, h2 {
@@ -77,20 +81,21 @@ h1, h2 {
 }
 
 select {
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--secondary-color);
   background-color: var(--background-color);
   color: #fff;
 }
 
-select:focus{
+select:focus {
   outline: none;
-  border: 2px solid var(--primary-color);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
 }
 
 input {
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--secondary-color);
   background-color: var(--background-color);
@@ -99,31 +104,31 @@ input {
 
 input:focus {
   outline: none;
-  border: 2px solid var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color) ;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
 }
 
-::placeholder{
+::placeholder {
   color: #fff;
   opacity: 0.8;
 }
 
 textarea {
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--secondary-color);
   background-color: var(--background-color);
-  color: #fff; 
+  color: #fff;
 }
 
 textarea:focus {
   outline: none;
-  border: 2px solid var(--primary-color);
-  box-shadow: 0 0 10px var(--primary-color) ;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
 }
 
 /* Chrome autofill background color fix */
-input:-webkit-autofill { 
+input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
   -webkit-text-fill-color: #fff;
 }
@@ -154,6 +159,7 @@ input:-webkit-autofill {
 .flex-gap-10 {
   gap: 10px;
 }
+
 .flex-gap-20 {
   gap: 20px;
 }
@@ -174,7 +180,7 @@ input:-webkit-autofill {
   justify-content: space-evenly;
 }
 
-.flex-align-center { 
+.flex-align-center {
   align-items: center;
 }
 
@@ -191,8 +197,9 @@ input:-webkit-autofill {
 }
 
 .border {
-  border: 1px solid var(--secondary-color);
+  /* border: 1px solid var(--secondary-color); */
   border-radius: 5px;
+  background: #1d3357;
 }
 
 .primary-color {
@@ -204,7 +211,7 @@ input:-webkit-autofill {
 }
 
 .padding-box {
-  padding: 20px ;
+  padding: 20px;
 }
 
 /* Custom Clases & IDs */
@@ -219,7 +226,7 @@ input:-webkit-autofill {
   width: 100%;
 }
 
-.main-content-box{
+.main-content-box {
   height: 100%;
   padding: 30px;
 }
@@ -228,20 +235,29 @@ input:-webkit-autofill {
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
-  background-color: var(--secondary-color);
-  border: var(--secondary-color);
-  color: #000000;
+  background-color: transparent;
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  box-shadow: 0 0 5px 0 var(--secondary-color);
   cursor: pointer;
   padding: 15px;
   text-align: center;
-  transition: 0.5s ease-in-out;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
 }
 
 .main-button:hover {
   background-color: var(--secondary-color);
   color: var(--background-color);
-  border: 1px solid var(--background-color);
+  border: 1px solid var(--secondary-color);
+  box-shadow: 0 0 5px 0 var(--secondary-color);
+  transform: scale(1.1);
 }
+
+.main-button:active {
+  transform: scale(1);
+}
+
 
 #right-column {
   min-height: 80vh;
@@ -250,6 +266,12 @@ input:-webkit-autofill {
 
 .input-validation-error {
   outline: none;
-  border: 2px solid #ff1e1e !important;
-  box-shadow: 0 0 10px #ff1e1e !important;
+  border: 1px solid #ff1e1e !important;
+  box-shadow: 0 0 5px #ff1e1e !important;
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
 }
