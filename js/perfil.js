@@ -2,14 +2,6 @@ const siteCookie = document.cookie;
 const userCookie = siteCookie.split(";")[1]; // Returns the value of the cookie
 const userId = userCookie.split("=")[1]; // Returns the value of the cookie
 
-console.log(userId);
-// Verificar si el usuario inició sesión
-// if (userId){
-//   alert(`Bienvenido ${userId}`)
-// } else {
-//   alert("No se ha iniciado sesión")
-//   location.href = "/login/";
-// }
 
 const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
