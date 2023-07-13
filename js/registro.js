@@ -1,100 +1,160 @@
 const form = document.getElementById("form-usuarios");
 const selectUsuario = document.getElementById("select-usuario");
+const title = document.getElementById("title-register");
 selectUsuario.addEventListener("change", handleTipoUsuarioChange);
 let tipoUsuario;
 let password, password2;
 
 const formUsuariosFinales = `
-<label for="name">Nombre: </label>
-<input type="text" name="name" required id="nombre" placeholder="Nombre" />
-<label for="lastname">Primer Apellido: </label>
-<input
-  type="text"
-  name="lastname"
-  required
-  id="apellidos"
-  placeholder="Apellidos"
-/>
-<label for="email">Correo: </label>
-<input
-  type="email"
-  name="email"
-  required
-  id="email"
-  placeholder="email@domain.tld"
-/>
-<div class="flex flex-grow">
-  <label for="password">Password: </label>
-  <input type="password" name="password" required id="password" style="flex: 1;" />
-  <label for="password2">Confirmar Password: </label>
-  <input type="password" name="password2" required id="password2" style="flex: 1;" />
-</div>
-<label for="genero">Genero:</label>
-<select name="genero" required name="genero" id="genero">
-  <option value="" disabled selected hidden>Seleccione una opción</option>
-  <option value="masculino">Masculino</option>
-  <option value="femenino">Femenino</option>
-  <option value="femenino">Prefiero no especificar</option>
-</select>
-<label for="cv">Seleccionar CV: </label>
-<input type="file" id="cv" accept=".pdf" />
-<label for="fotografia">Seleccionar fotografia: </label>
-<input
-  id="fotografia"
-  type="file"
-  id="fotografia"
-  accept="image/png, image/jpeg, image/jpg"
-/>
-<input class="main-button" type="submit" value="Registrar" />
+<div class="input-container">
+              <label for="name">Nombre: </label>
+              <input
+                type="text"
+                name="name"
+                required
+                id="nombre"
+                placeholder="Nombre"
+              />
+            </div>
+            <div class="input-container">
+              <label for="lastname">Primer Apellido: </label>
+              <input
+                type="text"
+                name="lastname"
+                required
+                id="apellidos"
+                placeholder="Apellidos"
+              />
+            </div>
+
+            <div class="input-container">
+              <label for="email">Correo: </label>
+              <input
+                type="email"
+                name="email"
+                required
+                id="email"
+                placeholder="email@domain.tld"
+              />
+            </div>
+            <div class="input-container">
+              <label for="password">Contraseña: </label>
+              <input
+                type="password"
+                name="password"
+                required
+                id="password"
+                style="flex: 1"
+              />
+            </div>
+            <div class="input-container">
+              <label for="password2">Confirmar contraseña: </label>
+              <input
+                type="password"
+                name="password2"
+                required
+                id="password2"
+                style="flex: 1"
+              />
+            </div>
+            <div class="input-container">
+              <label for="genero">Género:</label>
+              <select name="genero" required name="genero" id="genero">
+                <option value="" disabled selected hidden>
+                  Seleccione una opción
+                </option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="femenino">Prefiero no especificar</option>
+              </select>
+            </div>
+            <div class="input-container">
+              <label for="cv">Seleccionar curriculum: </label>
+              <input type="file" id="cv" accept=".pdf" />
+            </div>
+            <div class="input-container">
+              <label for="fotografia">Seleccionar fotografia: </label>
+              <input
+                id="fotografia"
+                type="file"
+                id="fotografia"
+                accept="image/png, image/jpeg, image/jpg"
+              />
+            </div>
+            <input class="main-button" type="submit" value="Registrar" />
 `;
 
 const formEmpresa = `
-<label for="nombre-empresa">Nombre de la empresa: </label>
-<input
-  type="text"
-  name="nombre-empresa"
-  required
-  id="nombre-empresa"
-  placeholder="Nombre de la empresa"
-/>
-<label for="email">Correo: </label>
-<input
-  type="email"
-  name="email"
-  required
-  id="email"
-  placeholder="email@domain.tld"
-/>
-<div class="flex">
-<label for="password">Password: </label>
-<input type="password" name="password" required id="password" style="flex: 1;" />
-<label for="password2">Confirmar Password: </label>
-<input type="password" name="password2" required id="password2" style="flex: 1;" />
-</div>
-<label for="logo">Seleccionar logo de la empresa: </label>
-<input
-  id="logo"
-  type="file"
-  accept="image/png, image/jpeg, image/jpg"
-  required
-/>
-<label for="descripcion">Descripción de la empresa: </label>
-<textarea
-  name="descripcion"
-  id="descripcion"
-  cols="30"
-  rows="10"
-  required
-></textarea>
-<input class="main-button" type="submit" value="Registrar" />
+<div class="input-container">
+              <label for="nombre-empresa">Nombre de la empresa: </label>
+              <input
+                type="text"
+                name="nombre-empresa"
+                required
+                id="nombre-empresa"
+                placeholder="Nombre de la empresa"
+              />
+            </div>
+            <div class="input-container">
+              <label for="email">Correo: </label>
+              <input
+                type="email"
+                name="email"
+                required
+                id="email"
+                placeholder="email@domain.tld"
+              />
+            </div>
+            <div class="input-container">
+              <label for="password">Contraseña: </label>
+              <input
+                type="password"
+                name="password"
+                required
+                id="password"
+                style="flex: 1"
+              />
+            </div>
+            <div class="input-container">
+              <label for="password2">Confirmar contraseña: </label>
+              <input
+                type="password"
+                name="password2"
+                required
+                id="password2"
+                style="flex: 1"
+              />
+            </div>
+            <div class="input-container">
+              <label for="logo">Seleccionar logo de la empresa: </label>
+              <input
+                id="logo"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                required
+              />
+            </div>
+            <div class="input-container">
+              <label for="descripcion">Descripción de la empresa: </label>
+              <textarea
+                name="descripcion"
+                id="descripcion"
+                cols="30"
+                rows="10"
+                required
+              ></textarea>
+            </div>
+            <input class="main-button" type="submit" value="Registrar" />
 
 `;
 
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
+    title.innerText = "Registro de usuario final";
     form.innerHTML = formUsuariosFinales;
   } else if (tipoUsuario === "empresa") {
+    title.innerText = "Registro de empresa";
     form.innerHTML = formEmpresa;
   }
   password = document.getElementById("password");

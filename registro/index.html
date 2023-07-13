@@ -22,43 +22,49 @@
       </div>
       <nav class="flex flex-gap-20" id="menu-nav"></nav>
     </header>
-    <hr />
-    <main class="flex flex-gap-10">
-      <div id="left-column" class="flex flex-grow1"></div>
-      <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
-        <div class="flex flex-gap-10 flex-align-center">
-          <div>
-            <img
-              src="/assets/registro_select.svg"
-              alt="seleccion"
-              style="height: 100px"
-            />
-          </div>
-          <div>
-            <label for="select-usuario">Tipo de usuario:</label>
-            <select
-              name="select-usuario"
-              required
-              name="select-usuario"
-              id="select-usuario"
+    <main>
+      <div id="main-content" class="flex flex-gap-20">
+        <div
+          class="flex flex-column flex-space-center flex-align-center flex-gap-20"
+        >
+          <h1 id="title-register">Registro</h1>
+          <div class="flex flex-gap-40 flex-space-center flex-align-center border padding-box">
+            <div
+              class="flex flex-column flex-space-center flex-align-center flex-gap-20 text-align-center"
             >
-              <option value="" disabled selected hidden>
-                Seleccione el tipo de usuario
-              </option>
-              <option value="usuario-final">Usuario Final</option>
-              <option value="empresa">Empresa</option>
-            </select>
+              <div>
+                <img
+                  src="/assets/registro_select.svg"
+                  alt="seleccion"
+                  style="height: 400px"
+                />
+              </div>
+              <div class="input-container">
+                <label for="select-usuario">Tipo de usuario:</label>
+                <select
+                  name="select-usuario"
+                  required
+                  name="select-usuario"
+                  id="select-usuario"
+                >
+                  <option value="" disabled selected hidden>
+                    Seleccione el tipo de usuario
+                  </option>
+                  <option value="usuario-final">Usuario Final</option>
+                  <option value="empresa">Empresa</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex flex-space-center">
+              <form
+                class="flex flex-column flex-space-center flex-align-center flex-gap-5"
+                id="form-usuarios"
+                onsubmit="handleFormSubmit(event)"
+              ></form>
+            </div>
           </div>
-        </div>
-        <div class="flex flex-space-center">
-          <form
-            class="flex flex-column flex-gap-5"
-            id="form-usuarios"
-            onsubmit="handleFormSubmit(event)"
-          ></form>
         </div>
       </div>
-      <div id="right-column" class="flex flex-grow1"></div>
     </main>
     <footer class="flex flex-space-between flex-align-center">
       <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark" />
