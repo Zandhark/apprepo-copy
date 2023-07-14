@@ -24,9 +24,19 @@ function renderMenu() {
       <a href="/perfil/">Mi Perfil</a>
       <a href="javascript:handleCloseSession();">Cerrar sesion</a>
     `;
-  } else if (userType === "manager" || userType === "reclutador") {
+  } else if (userType === "reclutador") {
     userNav = `
       <a href="/puestos/">Puestos de Trabajo</a>
+      <a href="/empresas/">Empresas</a>
+      <a href="/candidatos/">Candidatos</a>
+      <a href="/notificaciones/">Notificaciones</a>
+      <a href="/perfil/">Mi Perfil</a>
+      <a href="javascript:handleCloseSession();">Cerrar sesion</a>
+    `;
+  } else if (userType === "manager") {
+    userNav = `
+      <a href="/puestos/">Puestos de Trabajo</a>
+      <a href="/puestos/nuevo/">Nuevo puesto</a>
       <a href="/empresas/">Empresas</a>
       <a href="/candidatos/">Candidatos</a>
       <a href="/notificaciones/">Notificaciones</a>
