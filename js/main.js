@@ -6,7 +6,7 @@ if (document.cookie.includes("userType")) {
 }
 
 
-function handleCloseSession() {
+function handleCloseSession() { // Maneja cierre de sesion, borra las cookies y redirige a la pagina de inicio
   document.cookie = "usuario=; path=/; max-age=0";
   document.cookie = "userId=; path=/; max-age=0";
   document.cookie = "userType=; path=/; max-age=0";
