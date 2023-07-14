@@ -79,9 +79,18 @@ function handleNewUser(usuario) {
 }
 
 function handleAddExperience() {
+  divExperiencia.classList.remove("hidden"); // remove hidden para visualizar el div padre "divExperiencia"
+  const titleExperience = document.createElement("h4");
+  titleExperience.innerText =
+    `Datos experiencia laboral ` + (experienciaCounter + 1);
+
   const jobTitleInputLabel = document.createElement("label");
   jobTitleInputLabel.setAttribute("for", "jobTitle");
   jobTitleInputLabel.innerText = "Nombre del puesto";
+
+  const div = document.createElement("div");
+  div.classList.add("input-container");
+  div.appendChild(jobTitleInputLabel);
 
   const jobTitleInput = document.createElement("input");
   jobTitleInput.setAttribute("type", "text");
@@ -146,6 +155,8 @@ function handleAddExperience() {
   const jobDiv = document.createElement("div");
   jobDiv.classList.add("flex", "flex-column", "flex-gap-5", "div-exp");
 
+  jobDiv.appendChild(titleExperience);
+
   jobDiv.appendChild(jobTitleInputLabel);
   jobDiv.appendChild(jobTitleInput);
   jobDiv.appendChild(companyNameInputLabel);
@@ -165,7 +176,19 @@ function handleAddExperience() {
 function handleRemoveExperience(removeButton) {
   const jobDiv = removeButton.parentNode;
   divExperiencia.removeChild(jobDiv);
+  jobDiv.classList.add("hidden"); //ocultar el div "jobDiv"
   experienciaCounter--;
+
+  if (experienciaCounter == 0) {
+    divExperiencia.classList.add("hidden");//Si el contador es 0 no existen div "jobDiv" entonces se oculta el padre "divExperiencia"
+  }
+
+  //Para cambiar el número del titulo de la experiencia dependiendo de su index actual
+  const divs = divExperiencia.querySelectorAll(".div-exp");
+  divs.forEach((div, index) => {
+    const title = div.querySelector("h4");
+    title.innerText = `Datos experiencia laboral ${index + 1}`;
+  });
 }
 
 function handleSubmit(e) {

@@ -81,6 +81,10 @@ h2 {
   color: var(--primary-color);
 }
 
+a:hover {
+  color: var(--secondary-color);
+}
+
 select {
   padding: 10px;
   border-radius: 5px;
@@ -238,6 +242,9 @@ input:-webkit-autofill {
   border-radius: 5px;
 }
 
+.hidden {
+  display: none;
+}
 
 /* Custom Clases & IDs */
 

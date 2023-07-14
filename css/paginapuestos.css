@@ -1,41 +1,53 @@
 #main-content {
-    height: 80vh;
+  height: 80vh;
 }
 
 .puesto-PP {
-    background-color: var(--secondary-color);
-    color: var(--background-color);
-    font-weight: 600;
-    padding: 5px;
-    border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .seccion {
-    margin: 2% 0% 2% 2%;
+  margin: 2% 0% 2% 2%;
 }
 
 .search {
-    width: 100%;
-    height: fit-content;
+  width: 100%;
+  height: fit-content;
 }
 
 .filtros {
-    padding: 1%;
+  padding: 1%;
 }
 
 .titulos {
-    padding-bottom: 3%;
+  padding-bottom: 3%;
 }
 
 #minsalario {
-    width: 100%;
+  width: 100%;
 }
 
 button {
-    float: right;
+  float: right;
 }
 
 .slider-input:focus {
-    border: none !important;
-    box-shadow: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+h3 {
+  color: var(--secondary-color);
+}
+
+.puestos {
+  padding: 20px;
+}
+
+.info-puestos {
+  width: 75%;
 }
