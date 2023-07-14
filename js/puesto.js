@@ -34,7 +34,13 @@ function renderPuesto() {
       ${puesto.empresa.descripcion}
     </p>
   `;
-  descripcionPuesto.innerText = puesto.descripcion;
+  descripcionPuesto.innerHTML = `
+    <p>${puesto.descripcion}</p>
+    <p>
+      <strong>Salario:</strong> ${puesto.rangoSalario[0]} - ${puesto.rangoSalario[1]}
+    </p>
+  `;
+
   puesto.requisitos.forEach((requisito) => {
     const li = document.createElement("li");
     li.innerText = requisito;
