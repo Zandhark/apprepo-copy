@@ -1,27 +1,16 @@
 const nav = document.getElementById("menu-nav");
 let userType;
-console.log(document.referrer)
 
 if (document.cookie.includes("userType")) {
   userType = document.cookie.split(";").find((item) => item.includes("userType")).split("=")[1];
 }
 
-console.log(userType)
-
-function verifyUserSession() {
-// Verificar si el usuario inició sesión
-// if (userId){
-//   alert(`Bienvenido ${userId}`)
-// } else {
-//   alert("No se ha iniciado sesión")
-//   location.href = "/login/";
-// }
-} 
 
 function handleCloseSession() {
   document.cookie = "usuario=; path=/; max-age=0";
   document.cookie = "userId=; path=/; max-age=0";
   document.cookie = "userType=; path=/; max-age=0";
+  document.cookie = "sessionId=; path=/; max-age=0";
   location.href = "/";
 }
 
