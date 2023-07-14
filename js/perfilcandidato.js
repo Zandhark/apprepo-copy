@@ -11,6 +11,10 @@ const skillsSection = document.getElementById("skills");
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
 
+function handleInvitacion() {
+    alert("Invitación enviada");
+}
+
 function getUserDetails(userId) {
   const candidatos = [
     {
