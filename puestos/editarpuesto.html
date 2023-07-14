@@ -1,100 +1,126 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Puestos de Trabajo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/css/puestos.css" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
+    <script src="/js/main.js" defer></script>
+    <script src="/js/session.js" defer></script>
+    <script src="/js/nuevopuesto.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Puestos de Trabajo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css" type="text/css" />
-  <link rel="stylesheet" href="/css/puestos.css" type="text/css" />
-  <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png">
-  <script src="/js/main.js" defer></script>
-  <script src="/js/session.js" defer></script>
-  <script src="/js/nuevopuesto.js" defer></script>
-</head>
+  <body>
+    <header class="border flex flex-space-between flex-align-center">
+      <div>
+        <img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px" />
+      </div>
+      <nav class="flex flex-gap-20" id="menu-nav"></nav>
+    </header>
+    <hr />
+    <main class="flex flex-gap-20">
+      <div
+        id="main-content"
+        class="flex flex-column flex-align-center"
+        style="max-width: 80%"
+      >
+        <div class="border main-content-box">
+          <form>
+            <div class="flex flex-align-center flex-gap-10">
+              <h2>
+                <label for="puesto">Nombre del puesto:</label>
+                <input type="text" name="puesto" id="puesto" />
+              </h2>
+              <p class="puesto-PP">
+                <label for="visibilidad">Visibilidad:</label>
+                <select name="visibilidad" id="visibilidad">
+                  <option value="" disabled selected hidden>
+                    Seleccione la visibilidad del puesto
+                  </option>
+                  <option value="usuario-final">Publico</option>
+                  <option value="empresa">Privado</option>
+                </select>
+              </p>
+            </div>
+            <div style="width: 100%">
+              <p>Rango Salarial:</p>
+              <input
+                style="width: 100%"
+                type="range"
+                min="0"
+                max="8000000"
+                value="0"
+                id="slider1"
+                step="10000"
+                class="slider-input"
+              />
+              <br />
+              <input
+                style="width: 100%"
+                type="range"
+                min="0"
+                max="8000000"
+                value="0"
+                id="slider2"
+                step="10000"
+                class="slider-input"
+              />
+              <div class="flex">
+                <p style="width: 100%">Min: <span id="value1">0</span></p>
+                <p style="width: 100%; text-align: end">
+                  Max: <span id="value2">8,000,000</span>
+                </p>
+              </div>
+            </div>
 
-<body>
-  <header class="border flex flex-space-between flex-align-center">
-    <div>
-      <img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px" />
-    </div>
-    <nav class="flex flex-gap-20" id="menu-nav"></nav>
-  </header>
-  </header>
-  <hr />
-  <main class="flex flex-gap-20">
-    <div id="main-content" class="flex flex-column flex-align-center" style="max-width: 80%;">
-      <div class="border main-content-box">
-        <form>
-          <div class="flex flex-align-center flex-gap-10" >
-            <h2> <label for="puesto">Nombre del puesto:</label>
-          <input type="text" name="puesto" id="puesto" >
-          </h2>
-            <p class="puesto-PP"><label for="visibilidad">Visibilidad:</label>
-          <select name="visibilidad" id="visibilidad">
-              <option value="" disabled selected hidden>
-                  Seleccione la visibilidad del puesto
-                </option>
-                <option value="usuario-final">Publico</option>
-                <option value="empresa">Privado</option>
-          </select>
-          </p>
-          </div>
-        <div style="width: 100%">
-          <p>Rango Salarial:</p>
-          <input
-            style="width: 100%"
-            type="range"
-            min="0"
-            max="8000000"
-            value="0"
-            id="slider1"
-            step="10000"
-            class="slider-input"
-          />
-          <br />
-          <input
-            style="width: 100%"
-            type="range"
-            min="0"
-            max="8000000"
-            value="0"
-            id="slider2"
-            step="10000"
-            class="slider-input"
-          />
-          <div class="flex">
-            <p style="width: 100%">Min: <span id="value1">0</span></p>
-            <p style="width: 100%; text-align: end">
-              Max: <span id="value2">8,000,000</span>
-            </p>
-          </div>
+            <div class="information-box flex-column">
+              <h3>Sobre el puesto o trabajo</h3>
+              <textarea
+                name="infopuesto"
+                id="infopuesto"
+                cols="90"
+                rows="10"
+              ></textarea>
+            </div>
+            <div class="information-box flex-column">
+              <h3>Requisitos mínimos</h3>
+              <textarea
+                name="requisitos"
+                id="requisitos"
+                cols="90"
+                rows="10"
+              ></textarea>
+            </div>
+            <div class="information-box flex-column">
+              <h3>Atributos deseables</h3>
+              <textarea
+                name="atributos"
+                id="atributos"
+                cols="90"
+                rows="10"
+              ></textarea>
+            </div>
+            <input
+              class="main-button button-box float-right"
+              type="submit"
+              value="Guardar"
+              onclick="alert('Cambios guardados')"
+            />
+          </form>
         </div>
-
-      <div class="information-box flex-column">
-        <h3>Sobre el puesto o trabajo</h3>
-        <textarea name="infopuesto" id="infopuesto" cols="90" rows="10"></textarea>
       </div>
-      <div class="information-box flex-column">
-        <h3>Requisitos mínimos</h3>
-        <textarea name="requisitos" id="requisitos" cols="90" rows="10"></textarea>
-      </div>
-      <div class="information-box flex-column">
-        <h3>Atributos deseables</h3>
-        <textarea name="atributos" id="atributos" cols="90" rows="10"></textarea>
-      </div>
-      <input class="main-button button-box float-right" type="submit" value="Guardar" onclick="alert('Cambios guardados')"/>
-        </form>
-      </div>
-    </div>
-  </main>
-  <footer class="flex flex-space-between flex-align-center">
-    <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark">
-    <p>Todos los derechos reservados &copy; 2023 JobSync</p>
-    <p>Contacto: info@example.com</p>
-  </footer>
-</body>
-
+    </main>
+    <footer class="flex flex-space-between flex-align-center">
+      <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark" />
+      <p>Todos los derechos reservados &copy; 2023 JobSync</p>
+      <p>Contacto: info@example.com</p>
+    </footer>
+  </body>
 </html>
