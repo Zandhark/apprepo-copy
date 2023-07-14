@@ -76,8 +76,8 @@ function getNotifications(userId) {
     {
       id: 0,
       userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Ha sido invitado al puesto de: Desarrollador Web",
+      description: "Estado de la aplicacion: En Revision.",
       date: "2021-05-01",
       read: false,
     },
