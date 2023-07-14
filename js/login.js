@@ -1,19 +1,23 @@
 const usuario = document.getElementById("username");
 const password = document.getElementById("password");
 
-function generateRandomId(){
+function generateRandomId() {
   return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
 }
 
-function handleLogin(login){
+function handleLogin(login) {
   try {
-    const session = {...login, id:generateRandomId(), sessionId:generateRandomId()};
+    const session = {
+      ...login,
+      id: generateRandomId(),
+      sessionId: generateRandomId(),
+    };
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
     document.cookie = `userType=endUser; path=/; max-age=3600`;
     return session;
-  } catch(e) {
+  } catch (e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente.");
     return false;
   }
@@ -28,14 +32,17 @@ function handleFormSubmit(e) {
     password: passwordValue,
   };
 
-  try{
+  try {
     const session = handleLogin(login);
 
-    if (session && document.cookie.includes("userId")){
-      location.href = `${document.referrer}`;
+    if (session && document.cookie.includes("userId")) {
+      if (document.referrer === window.location.href || document.referrer === "") {
+        location.href = "/";
+      } else {
+        location.href = `${document.referrer}`;
+      }
     }
-
-  } catch (error){
+  } catch (error) {
     console.log(error);
   }
 }

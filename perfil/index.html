@@ -26,18 +26,20 @@
       <nav class="flex flex-gap-20" id="menu-nav"></nav>
     </header>
     <main class="flex">
-      <div id="left-column" class="flex flex-column flex-align-center border">
+      <div
+        id="left-column"
+        class="flex flex-column flex-align-center flex-gap-20 border"
+      >
         <img src="" alt="foto de perfil" id="profile-img" />
         <h1 id="user-name"></h1>
         <h2 class="secondary-color" id="title"></h2>
         <p class="profile-paragraph-center" id="user-description"></p>
-        <button
-          class="flex-align-center main-button"
-          type="button"
-          href="http://"
-        >
-          Editar perfil
-        </button>
+        <a href="/perfil/editar.html">
+          <button class="main-button" type="button">Editar perfil</button>
+        </a>
+        <a href="/perfil/estadoaplicaciones.html">
+          <button class="main-button">Ver mis aplicaciones</button>
+        </a>
       </div>
       <div
         id="main-content"
@@ -52,12 +54,18 @@
         <div class="flex flex-gap-20 experience-formation-container">
           <div>
             <h2>Experiencia laboral</h2>
-            <div class="flex flex-column info-perfil custom-scrollbar" id="experiencia"></div>
+            <div
+              class="flex flex-column info-perfil custom-scrollbar"
+              id="experiencia"
+            ></div>
           </div>
           <hr />
           <div>
             <h2>Formacion academica</h2>
-            <div class="flex flex-column info-perfil custom-scrollbar" id="educacion"></div>
+            <div
+              class="flex flex-column info-perfil custom-scrollbar"
+              id="educacion"
+            ></div>
           </div>
         </div>
         <hr />
