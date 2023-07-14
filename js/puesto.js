@@ -5,9 +5,21 @@ const descripcionPuesto = document.getElementById("descripcion-puesto");
 const requisitos = document.getElementById("requisitos-list");
 const urlParams = new URLSearchParams(window.location.search);
 let jobId = urlParams.get("id");
+let sessionId;
+
+if (sessionId === undefined) {
+  sessionId = document.cookie
+    .split(";")
+    .find((item) => item.includes("sessionId"))
+    .split("=")[1];
+  console.log(sessionId);
+} else {
+  console.log(sessionId);
+}
 
 if (jobId === null) {
-  jobId = "Wizzard";
+  alert("No se encontró el puesto");
+  location.href = "/puestos";
 }
 
 function renderPuesto() {
@@ -106,8 +118,14 @@ function getJob(id) {
 }
 
 function handleApply() {
-  alert(`Ha aplicado al puesto ${jobId}`);
-  location.href = "/perfil/";
+  if (sessionId === undefined) {
+    alert("Debe iniciar sesión para aplicar a un puesto");
+    location.href = "/login/";
+    return;
+  } else if (sessionId) {
+    alert(`Ha aplicado al puesto ${jobId}`);
+    location.href = "/perfil/";
+  }
 }
 
 renderPuesto();
