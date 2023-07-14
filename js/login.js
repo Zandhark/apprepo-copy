@@ -6,12 +6,12 @@ function generateRandomId(){
 }
 
 function handleLogin(login){
-  let randomId = generateRandomId();
   try {
-    const session = {...login, id:randomId};
+    const session = {...login, id:generateRandomId(), sessionId:generateRandomId()};
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
-    document.cookie = `userType=endUser; path=/; max-age=3600`
+    document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
+    document.cookie = `userType=endUser; path=/; max-age=3600`;
     return session;
   } catch(e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente.");
@@ -30,7 +30,7 @@ function handleFormSubmit(e) {
 
   try{
     const session = handleLogin(login);
-    console.log(session)
+
     if (session && document.cookie.includes("userId")){
       location.href = `${document.referrer}`;
     }
