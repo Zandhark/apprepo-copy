@@ -15,7 +15,7 @@ function handleLogin(login) {
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
-    document.cookie = `userType=manager; path=/; max-age=3600`;
+    document.cookie = `userType=endUser; path=/; max-age=3600`;
     return session;
   } catch (e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente.");
