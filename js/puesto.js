@@ -7,14 +7,13 @@ const urlParams = new URLSearchParams(window.location.search);
 let jobId = urlParams.get("id");
 let sessionId;
 
-if (sessionId === undefined) {
+try{
   sessionId = document.cookie
     .split(";")
     .find((item) => item.includes("sessionId"))
     .split("=")[1];
-  console.log(sessionId);
-} else {
-  console.log(sessionId);
+} catch (error) {
+  
 }
 
 if (jobId === null) {
