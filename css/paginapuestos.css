@@ -40,11 +40,6 @@ button {
   box-shadow: none !important;
 }
 
-.padiv {
-  padding-right: 3%;
-  padding-bottom: 2%;
-}
-
 h3 {
   color: var(--secondary-color);
 }
