@@ -68,7 +68,7 @@ function getUserDetails(userId) {
         endDate: "2020-01-01",
       },
       {
-        title: "Educacion Media",
+        title: "Educación Media",
         institution: "Escuela de wizzards",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
