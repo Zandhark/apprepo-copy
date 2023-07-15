@@ -68,9 +68,11 @@ function generateRandomId() {
 function handleNewUser(usuario) {
   let randomId = generateRandomId();
   try {
-    const session = { ...usuario, id: randomId };
+    const session = { ...usuario, id: randomId, sessionId: randomId };
     document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
+    document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
+    document.cookie = `userType=${usuario.tipoUsuario}; path=/; max-age=3600`;
     return session;
   } catch (e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente");
@@ -180,7 +182,7 @@ function handleRemoveExperience(removeButton) {
   experienciaCounter--;
 
   if (experienciaCounter == 0) {
-    divExperiencia.classList.add("hidden");//Si el contador es 0 no existen div "jobDiv" entonces se oculta el padre "divExperiencia"
+    divExperiencia.classList.add("hidden"); //Si el contador es 0 no existen div "jobDiv" entonces se oculta el padre "divExperiencia"
   }
 
   //Para cambiar el número del titulo de la experiencia dependiendo de su index actual
@@ -243,10 +245,10 @@ function handleUserForm() {
     cv,
     fotografia,
     expedrienciaLaboral,
+    tipoUsuario: "usuario-final",
   };
 
   session = handleNewUser(usuarioFinal);
-  console.log(usuarioFinal);
   return session;
 }
 
@@ -263,6 +265,7 @@ function handleEmpresaForm() {
     passwordValue,
     logo,
     descripcion,
+    tipoUsuario: "empresa",
   };
   session = handleNewUser(empresa);
   console.log(empresa);
