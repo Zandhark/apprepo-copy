@@ -22,7 +22,7 @@ function renderMenu() {
       <a href="/empresas/">Empresas</a>
       <a href="/notificaciones/">Notificaciones</a>
       <a href="/perfil/">Mi Perfil</a>
-      <a href="javascript:handleCloseSession();">Cerrar sesion</a>
+      <a href="javascript:handleCloseSession();">Cerrar Sesión</a>
     `;
   } else if (userType === "reclutador") {
     userNav = `
