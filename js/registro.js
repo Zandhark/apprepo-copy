@@ -69,7 +69,7 @@ function handleNewUser(usuario) {
   let randomId = generateRandomId();
   try {
     const session = { ...usuario, id: randomId, sessionId: randomId };
-    document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
+    document.cookie = `usuario=${session.email}; path=/; max-age=3600`;
     document.cookie = `userId=${session.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
     document.cookie = `userType=${usuario.tipoUsuario}; path=/; max-age=3600`;
@@ -245,7 +245,7 @@ function handleUserForm() {
     cv,
     fotografia,
     expedrienciaLaboral,
-    tipoUsuario: "usuario-final",
+    tipoUsuario: "endUser",
   };
 
   session = handleNewUser(usuarioFinal);
@@ -265,7 +265,7 @@ function handleEmpresaForm() {
     passwordValue,
     logo,
     descripcion,
-    tipoUsuario: "empresa",
+    tipoUsuario: "administrador",
   };
   session = handleNewUser(empresa);
   console.log(empresa);
