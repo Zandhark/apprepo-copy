@@ -47,7 +47,6 @@ function renderMenu() {
     userNav = `
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/empresas/">Empresas</a>
-      <a href="/candidatos/">Candidatos</a>
       <a href="/notificaciones/">Notificaciones</a>
       <a href="/perfil/">Mi Perfil</a>
       <a href="javascript:handleCloseSession();">Cerrar sesion</a>
