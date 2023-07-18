@@ -285,3 +285,45 @@ function handleFormSubmit() {
     location.href = "/perfil/";
   }
 }
+
+function fileValidation() {
+  const inputsFile = document.querySelectorAll('input[type="file"]');
+
+  inputsFile.forEach((input) => {
+    input.addEventListener("change", (event) => {
+      const selectedFile = event.target.files[0];
+      input.classList.remove("input-validation-error");
+
+      if (selectedFile) {
+        const acceptValue = input.accept;
+        const allowedExtensions = acceptValue
+          .split(",")
+          .map((ext) => ext.trim())
+          .map((ext) => ext.replace(".", ""))
+          .map((ext) => ext.replace("image/", ""));
+        const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+          alert(
+            "Archivo con formato incorrecto.\nPor favor seleccione uno nuevamente."
+          );
+          input.classList.add("input-validation-error");
+          input.value = "";
+        }
+
+        const fileSize = selectedFile.size;
+        const maxSize = 3 * 1024 * 1024; // 3MB
+
+        if (fileSize > maxSize) {
+          alert(
+            "El archivo seleccionado excede el tamaño máximo de 3 MB.\nPor favor seleccione uno nuevamente."
+          );
+          input.classList.add(".input-validation-error");
+          input.value = "";
+        }
+      }
+    });
+  });
+}
+
+fileValidation();
