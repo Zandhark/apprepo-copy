@@ -14,6 +14,16 @@ app.get("/api/puestos", (req, res) => {
   res.json(puestos);
 });
 
+app.get("/api/puestos/:id", (req, res) => {
+  const puestos = getJobs();
+  const puesto = puestos.find((puesto) => puesto.id === parseInt(req.params.id));
+  if (!puesto) {
+    res.status(404).json({ error: "No se encontró el puesto" });
+    return;
+  }
+  res.json(puesto);
+});
+
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
   const user = login(email);
