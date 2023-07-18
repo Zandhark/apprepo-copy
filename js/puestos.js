@@ -67,10 +67,13 @@ async function getJobs() {
   //     },
   //   },
   // ];
-  const response = await fetch("http://localhost:3000/api/puestos");
-  const puestos = await response.json();
-  
-  return puestos;
+  try {
+    const response = await fetch("http://localhost:3000/api/puestos");
+    const puestos = await response.json();
+    return puestos;
+  } catch (e) {
+    alert("Error al obtener los puestos");
+  }
 }
 
 async function renderPuestos() {

@@ -51,3 +51,11 @@ function handleFormSubmit(e) {
     console.log(error);
   }
 }
+
+async function test() {
+  const response = await fetch("http://localhost:3000/api/login");
+  const usuarios = await response.json();
+  console.log(usuarios);
+}
+
+test();
