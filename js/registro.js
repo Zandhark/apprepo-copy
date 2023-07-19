@@ -66,14 +66,7 @@ function generateRandomId() {
 }
 
 async function handleNewUser(usuario) {
-  consokle.log(usuario);
   try {
-    // const session = { ...usuario, id: randomId, sessionId: randomId };
-    // document.cookie = `usuario=${session.email}; path=/; max-age=3600`;
-    // document.cookie = `userId=${session.id}; path=/; max-age=3600`;
-    // document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
-    // document.cookie = `userType=${usuario.tipoUsuario}; path=/; max-age=3600`;
-    // return session;
     const response = await fetch("http://localhost:3000/api/registro", {
       method: "POST",
       headers: {
@@ -81,11 +74,12 @@ async function handleNewUser(usuario) {
       },
       body: JSON.stringify(usuario),
     });
+    
     const data = await response.json();
     document.cookie = `userId=${data.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
     document.cookie = `userType=${data.type}; path=/; max-age=3600`;
-    
+
     return data;
   } catch (e) {
     alert("Se produjo un error al iniciar sesión, intente nuevamente");
