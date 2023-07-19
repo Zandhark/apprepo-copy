@@ -318,7 +318,7 @@ function fileValidation() {
           alert(
             "El archivo seleccionado excede el tamaño máximo de 3 MB.\nPor favor seleccione uno nuevamente."
           );
-          input.classList.add(".input-validation-error");
+          input.classList.add("input-validation-error");
           input.value = "";
         }
       }
