@@ -22,16 +22,11 @@ async function handleLogin(login) {
     if (user.error) {
       throw new Error(user.error);
     }
-    // const session = {
-    //   ...login,
-    //   id: generateRandomId(),
-    //   sessionId: generateRandomId(),
-    // };
-    // document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
-    // document.cookie = `userId=${session.id}; path=/; max-age=3600`;
-    // document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
-    // document.cookie = `userType=${login.tipoUsuario}; path=/; max-age=3600`; // temp code, remove
-    // return session;
+    document.cookie = `userId=${user.id}; path=/; max-age=3600`;
+    document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
+    document.cookie = `userType=${user.type}; path=/; max-age=3600`;
+    
+    return session;
   } catch (e) {
     // alert("Se produjo un error al iniciar sesión, intente nuevamente.");
     alert(e)
