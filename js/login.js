@@ -7,21 +7,29 @@ function generateRandomId() {
   return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
 }
 
-function handleLogin(login) {
+async function handleLogin(login) {
   
   try {
-    const session = {
-      ...login,
-      id: generateRandomId(),
-      sessionId: generateRandomId(),
-    };
-    document.cookie = `usuario=${session.usuario}; path=/; max-age=3600`;
-    document.cookie = `userId=${session.id}; path=/; max-age=3600`;
-    document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
-    document.cookie = `userType=${login.tipoUsuario}; path=/; max-age=3600`; // temp code, remove
+
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(login),
+    });
+    const user = await response.json();
+    if (user.error) {
+      throw new Error(user.error);
+    }
+    document.cookie = `userId=${user.id}; path=/; max-age=3600`;
+    document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
+    document.cookie = `userType=${user.type}; path=/; max-age=3600`;
+    
     return session;
   } catch (e) {
-    alert("Se produjo un error al iniciar sesión, intente nuevamente.");
+    // alert("Se produjo un error al iniciar sesión, intente nuevamente.");
+    alert(e)
     return false;
   }
 }
@@ -32,7 +40,7 @@ function handleFormSubmit(e) {
   const usuarioValue = usuario.value;
   const passwordValue = password.value;
   const login = {
-    usuario: usuarioValue,
+    email: usuarioValue,
     password: passwordValue,
     tipoUsuario: tipoUsuario,
   };
