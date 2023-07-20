@@ -3,6 +3,7 @@ const login = require("./login.js");
 const registro = require("./registro.js");
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
