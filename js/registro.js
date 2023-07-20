@@ -34,30 +34,57 @@ function handleTipoUsuarioChange(e) {
 }
 
 function handlePasswordInput(e) {
+  let passwordValue, password2Value, passwordInput;
+
   if (tipoUsuario === "usuario-final") {
-    const passwordValue = password.value;
-    const password2Value = password2.value;
-    if (passwordValue !== password2Value) {
-      password2.setCustomValidity("Las contraseñas no coinciden");
-      password2.reportValidity();
-      password2.classList.add("input-validation-error");
-    } else {
-      password2.setCustomValidity("");
-      password2.reportValidity();
-      password2.classList.remove("input-validation-error");
-    }
+    passwordValue = password.value;
+    password2Value = password2.value;
+    passwordInput = password2;
   } else if (tipoUsuario === "empresa") {
-    const passwordValue = passwordEmpresa.value;
-    const password2Value = password2Empresa.value;
+    passwordValue = passwordEmpresa.value;
+    password2Value = password2Empresa.value;
+    passwordInput = password2Empresa;
+  }
+
+  if (passwordValue.length <= password2Value.length) {
     if (passwordValue !== password2Value) {
-      password2Empresa.setCustomValidity("Las contraseñas no coinciden");
-      password2Empresa.reportValidity();
-      password2Empresa.classList.add("input-validation-error");
+      passwordInput.setCustomValidity("Las contraseñas no coinciden");
     } else {
-      password2Empresa.setCustomValidity("");
-      password2Empresa.reportValidity();
-      password2Empresa.classList.remove("input-validation-error");
+      passwordInput.setCustomValidity("");
     }
+    passwordInput.reportValidity();
+    passwordInput.classList.toggle(
+      "input-validation-error",
+      passwordValue !== password2Value
+    );
+  }
+  passwordInput.addEventListener("change", handlePasswordBlur);
+}
+
+function handlePasswordBlur() {
+  let passwordValue, password2Value, passwordInput;
+
+  if (tipoUsuario === "usuario-final") {
+    passwordValue = password.value;
+    password2Value = password2.value;
+    passwordInput = password2;
+  } else if (tipoUsuario === "empresa") {
+    passwordValue = passwordEmpresa.value;
+    password2Value = password2Empresa.value;
+    passwordInput = password2Empresa;
+  }
+
+  if (passwordValue.length > 0) {
+    if (passwordValue !== password2Value) {
+      passwordInput.setCustomValidity("Las contraseñas no coinciden");
+    } else {
+      passwordInput.setCustomValidity("");
+    }
+    passwordInput.reportValidity();
+    passwordInput.classList.toggle(
+      "input-validation-error",
+      passwordValue !== password2Value
+    );
   }
 }
 
