@@ -4,20 +4,20 @@ const Schema = mongoose.Schema;
 const notificacionSchema = new Schema(
   {
     userId: {
-      type: String,
-      require: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     title: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      require: false,
+      required: false,
     },
     read: {
       type: Boolean,
-      require: true,
+      required: true,
     },
   },
   { timestamps: true }

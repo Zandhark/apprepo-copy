@@ -4,28 +4,28 @@ const Schema = mongoose.Schema;
 const puestoSchema = new Schema({
   nombre: {
     type: String,
-    require: true,
+    required: true,
   },
   descripcion: {
     type: String,
-    require: true,
+    required: true,
   },
   rangoSalario: [
     {
       type: Number,
-      require: true,
+      required: true,
     },
   ],
   requisitos: [
     {
       type: String,
-      require: true,
+      required: true,
     },
   ],
   empresa: {
     id: {
       type: String,
-      require: true,
+      required: true,
     },
   }
 }, { timestamps: true });

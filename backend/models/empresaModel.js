@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 const empresaSchema = new Schema({
   nombre: {
     type: String,
-    require: true,
+    required: true,
   },
   shortDesc: {
     type: String,
-    require: true,
+    required: true,
   },
   descripcion: {
     type: String,
-    require: true,
+    required: true,
   },
   logo: {
     type: String,
-    require: true,
+    required: true,
   },
 }, { timestamps: true });
 

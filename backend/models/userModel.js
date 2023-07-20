@@ -5,54 +5,60 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
+      lowercase: true
+      
     },
     password: {
       type: String,
-      require: true,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
     },
     userDescription: {
       type: String,
-      require: false,
+      required: false,
     },
     profileImg: {
       type: String,
-      require: true,
+      required: true,
     },
     curriculum: {
       type: String,
-      require: true,
+      required: true,
     },
     about: {
       type: String,
-      require: false,
+      required: false,
     },
     experience: [
       {
         title: {
           type: String,
-          require: false,
+          required: false,
         },
         company: {
           type: String,
-          require: false,
+          required: false,
         },
         description: {
           type: String,
-          require: false,
+          required: false,
         },
         startDate: {
           type: Date,
-          require: false,
+          required: false,
         },
         endDate: {
           type: Date,
-          require: false,
+          required: false,
         },
       },
     ],
@@ -60,23 +66,23 @@ const userSchema = new Schema(
       {
         title: {
           type: String,
-          require: false,
+          required: false,
         },
         institution: {
           type: String,
-          require: false,
+          required: false,
         },
         description: {
           type: String,
-          require: false,
+          required: false,
         },
         startDate: {
           type: Date,
-          require: false,
+          required: false,
         },
         endDate: {
           type: Date,
-          require: false,
+          required: false,
         },
       },
     ],
@@ -84,7 +90,7 @@ const userSchema = new Schema(
       {
         name: {
           type: String,
-          require: false,
+          required: false,
         },
       },
     ],
@@ -92,11 +98,11 @@ const userSchema = new Schema(
       {
         name: {
           type: String,
-          require: false,
+          required: false,
         },
         level: {
           type: String,
-          require: false,
+          required: false,
         },
       },
     ],
