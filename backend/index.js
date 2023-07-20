@@ -43,6 +43,9 @@ app.post("/api/registro", (req, res) => {
   try {
     const usuario = req.body;
     const response = registro(usuario);
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
     res.status(200).json(response);
   } catch (e) {
     res.status(400).json({ error: e.message });

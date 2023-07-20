@@ -76,14 +76,17 @@ async function handleNewUser(usuario) {
     });
     
     const data = await response.json();
-    console.log(data)
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
     document.cookie = `userId=${data.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
     document.cookie = `userType=${data.type}; path=/; max-age=3600`;
 
     return data;
   } catch (e) {
-    alert("Se produjo un error al iniciar sesión, intente nuevamente");
+    alert(e);
     return false;
   }
 }
