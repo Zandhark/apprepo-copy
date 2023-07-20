@@ -76,6 +76,7 @@ async function handleNewUser(usuario) {
     });
     
     const data = await response.json();
+    console.log(data)
     document.cookie = `userId=${data.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
     document.cookie = `userType=${data.type}; path=/; max-age=3600`;

@@ -8,12 +8,12 @@ function registro(usuario) {
       throw new Error("El usuario ya existe");
     } else {
       const id = data.users.length + 1;
-      const newUser = { 
+      const newUser = {
         id: id,
         name: usuario.nombre,
         email: usuario.email,
         password: usuario.passwordValue,
-        type: usuario.type,
+        type: usuario.tipoUsuario,
         genero: usuario.genero,
         title: "",
         userDescription: "",
@@ -25,9 +25,9 @@ function registro(usuario) {
         skills: [],
         languages: [],
       };
+      data.users.push(newUser);
+      return newUser;
     }
-    data.users.push(newUser);
-    return newUser;
   } catch (e) {
     return e;
   }

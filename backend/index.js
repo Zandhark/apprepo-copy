@@ -6,7 +6,6 @@ const cors = require("cors");
 
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
 
@@ -17,12 +16,14 @@ app.get("/api/puestos", (req, res) => {
 
 app.get("/api/puestos/:id", (req, res) => {
   const puestos = getJobs();
-  const puesto = puestos.find((puesto) => puesto.id === parseInt(req.params.id));
+  const puesto = puestos.find(
+    (puesto) => puesto.id === parseInt(req.params.id)
+  );
   if (!puesto) {
     res.status(404).json({ error: "No se encontró el puesto" });
     return;
   }
-  res.json(puesto);
+  res.status(200).json(puesto);
 });
 
 app.post("/api/login", (req, res) => {
@@ -39,9 +40,13 @@ app.post("/api/login", (req, res) => {
 });
 
 app.post("/api/registro", (req, res) => {
-  const usuario = req.body;
-  registro(usuario);
-  res.status(200).json(usuario);
+  try {
+    const usuario = req.body;
+    const response = registro(usuario);
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.listen(3000, () => {
