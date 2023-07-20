@@ -1,5 +1,6 @@
 const getJobs = require("./getJobs.js");
 const login = require("./login.js");
+const registro = require("./registro.js");
 const express = require("express");
 const cors = require("cors");
 
@@ -35,6 +36,12 @@ app.post("/api/login", (req, res) => {
     return;
   }
   res.json(user);
+});
+
+app.post("/api/registro", (req, res) => {
+  const usuario = req.body;
+  registro(usuario);
+  res.status(200).json(usuario);
 });
 
 app.listen(3000, () => {
