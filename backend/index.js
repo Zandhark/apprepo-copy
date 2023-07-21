@@ -9,7 +9,7 @@ const cors = require("cors");
 const app = express();
 
 const mongoose = require("mongoose");
-const uri = `mongodb+srv://cenfotec:${process.env.MONGODB_PASS}@cenfotec.swucoqv.mongodb.net/jobsync?retryWrites=true&w=majority`;
+const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
