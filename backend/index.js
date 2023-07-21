@@ -33,17 +33,16 @@ app.get("/api/puestos/:id", (req, res) => {
   res.status(200).json(puesto);
 });
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = login(email);
-  if (!user) {
-    res.status(401).json({ error: "Usuario incorrecto" });
-    return;
-  } else if (user.password !== password) {
-    res.status(401).json({ error: "Contraseña incorrecta" });
-    return;
+  try {
+    const response = await login(email, password);
+    console.log(response.session);
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
   }
-  res.json(user);
+  
 });
 
 app.post("/api/registro", async (req, res) => {
@@ -73,7 +72,14 @@ app.post("/api/session", async (req, res) => {
   }
 });
 
-app.post("/api/session/:id", async (req, res) => {
+app.delete("/api/session/delete/:id", async (req, res) => {
+});
+
+app.delete("/api/session/delete", async (req, res) => { // admin stuff to cleanup sessions
+  const Session = require("./models/sessionModel.js");
+  const response = await Session.deleteMany({});
+  console.log(response)
+  res.status(200).json({ message: "Sessions deleted" })
 });
 
 
