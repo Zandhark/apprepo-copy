@@ -6,7 +6,7 @@ if (document.cookie.includes("userType")) {
 }
 
 
-async function handleCloseSession() { // Maneja cierre de sesion, borra las cookies y redirige a la pagina de inicio
+async function handleCloseSession() { // Maneja cierre de sesion, borra las cookies, borra la sesion del DB y redirige a la pagina de inicio
   const sessionId = document.cookie.split(";").find((item) => item.includes("sessionId")).split("=")[1];
   const response = await fetch(`http://localhost:3000/api/session/delete/${sessionId}`, {
     method: "DELETE",
