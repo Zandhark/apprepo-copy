@@ -1,4 +1,3 @@
-require("dotenv").config();
 const Session = require("./models/sessionModel.js");
 
 async function newSession(userId) {

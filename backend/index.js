@@ -73,6 +73,9 @@ app.post("/api/session", async (req, res) => {
   }
 });
 
+app.post("/api/session/:id", async (req, res) => {
+});
+
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
