@@ -7,7 +7,7 @@ const experienceSchema = new Schema({
   },
   companyName: {
     type: String,
-    required: handleTipoUsuarioChange,
+    required: true,
   },
   jobDescription: {
     type: String,

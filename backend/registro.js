@@ -1,8 +1,7 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
-const uri = `mongodb+srv://cenfotec:${process.env.MONGODB_PASS}@cenfotec.swucoqv.mongodb.net/jobsync?retryWrites=true&w=majority`;
 
 const User = require("./models/userModel.js");
+
 
 async function registro(usuario) {
 

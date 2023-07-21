@@ -1,6 +1,8 @@
 const getJobs = require("./getJobs.js");
 const login = require("./login.js");
 const registro = require("./registro.js");
+const newSession = require("./session.js");
+
 const express = require("express");
 const cors = require("cors");
 
@@ -57,6 +59,20 @@ app.post("/api/registro", async (req, res) => {
     res.status(400).json({ error: e.message });
   }
 });
+
+app.post("/api/session", async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const session = await newSession(userId);
+    if (session instanceof Error) {
+      throw new Error(session.message);
+    }
+    res.status(200).json(session);
+  } catch(e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
