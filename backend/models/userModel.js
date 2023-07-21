@@ -26,14 +26,8 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    profileImg: {
-      type: String,
-      required: true,
-    },
-    curriculum: {
-      type: String,
-      required: true,
-    },
+    profileImg: String,
+    curriculum: String,
     about: {
       type: String,
       required: false,

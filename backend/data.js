@@ -422,14 +422,14 @@ const notifications = [
   },
 ];
 
-const aplicaciones = (aplicaciones = [
+const aplicaciones = [
   {
     id: 0,
     userId: 0,
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Enviada",
   },
   {
@@ -438,7 +438,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Aceptada",
   },
   {
@@ -447,7 +447,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "En Revisión",
   },
   {
@@ -456,7 +456,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Denegada",
   },
   {
@@ -465,7 +465,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Enviada",
   },
   {
@@ -474,7 +474,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Enviada",
   },
   {
@@ -483,7 +483,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Enviada",
   },
   {
@@ -492,7 +492,7 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Enviada",
   },
   {
@@ -501,10 +501,10 @@ const aplicaciones = (aplicaciones = [
     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     date: "2021-05-01",
-    companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
+    companyImg: `http://example/assets/perfildeusuario-defaultprofileimg.jpeg`,
     status: "Enviada",
   },
-]);
+];
 
 module.exports = {
   users,

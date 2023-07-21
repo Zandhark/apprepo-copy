@@ -76,18 +76,24 @@ async function handleNewUser(usuario) {
     });
     
     const data = await response.json();
+    console.log(data);
     if (data.error) {
       throw new Error(data.error);
     }
-
+    
     document.cookie = `userId=${data.id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
     document.cookie = `userType=${data.type}; path=/; max-age=3600`;
 
     return data;
   } catch (e) {
-    alert(e);
-    return false;
+    if (e.message.includes("E11000")) {
+      alert(`El correo ${usuario.email} ya se encuentra registrado.`);
+      return false;
+    } else {
+      alert(e.message);
+      return false;
+    }
   }
 }
 

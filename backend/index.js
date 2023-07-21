@@ -3,7 +3,6 @@ const login = require("./login.js");
 const registro = require("./registro.js");
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 
@@ -40,10 +39,11 @@ app.post("/api/login", (req, res) => {
   res.json(user);
 });
 
-app.post("/api/registro", (req, res) => {
+app.post("/api/registro", async (req, res) => {
   try {
     const usuario = req.body;
-    const response = registro(usuario);
+    const response = await registro(usuario);
+    console.log(response);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
