@@ -23,6 +23,47 @@ const experienceSchema = new Schema({
   },
 });
 
+const educationSchema = new Schema({
+  title: {
+    type: String,
+    required: false,
+  },
+  institution: {
+    type: String,
+    required: false,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  startDate: {
+    type: Date,
+    required: false,
+  },
+  endDate: {
+    type: Date,
+    required: false,
+  },
+});
+
+const skillsSchema = new Schema({
+  name: {
+    type: String,
+    required: false,
+  },
+});
+
+const languagesSchema = new Schema({
+  name: {
+    type: String,
+    required: false,
+  },
+  level: {
+    type: String,
+    required: false,
+  },
+});
+
 const userSchema = new Schema(
   {
     name: {
@@ -54,50 +95,9 @@ const userSchema = new Schema(
       required: false,
     },
     experience: [experienceSchema],
-    education: [
-      {
-        title: {
-          type: String,
-          required: false,
-        },
-        institution: {
-          type: String,
-          required: false,
-        },
-        description: {
-          type: String,
-          required: false,
-        },
-        startDate: {
-          type: Date,
-          required: false,
-        },
-        endDate: {
-          type: Date,
-          required: false,
-        },
-      },
-    ],
-    skills: [
-      {
-        name: {
-          type: String,
-          required: false,
-        },
-      },
-    ],
-    languages: [
-      {
-        name: {
-          type: String,
-          required: false,
-        },
-        level: {
-          type: String,
-          required: false,
-        },
-      },
-    ],
+    education: [educationSchema],
+    skills: [skillsSchema],
+    languages: [languagesSchema],
   },
   { timestamps: true }
 );
