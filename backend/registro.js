@@ -5,8 +5,8 @@ const uri = `mongodb+srv://cenfotec:${process.env.MONGODB_PASS}@cenfotec.swucoqv
 const User = require("./models/userModel.js");
 
 async function registro(usuario) {
+
   try {
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     const user = new User({
       name: usuario.nombre,
       email: usuario.email,
@@ -24,11 +24,9 @@ async function registro(usuario) {
       languages: [],
     });
     await user.save();
-    mongoose.connection.close();
     return user;
   } catch (e) {
     console.log(e.message);
-    mongoose.connection.close();
     return e;
   }
 }

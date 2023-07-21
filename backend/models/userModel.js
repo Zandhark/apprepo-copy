@@ -1,5 +1,27 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const experienceSchema = new Schema({
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  companyName: {
+    type: String,
+    required: handleTipoUsuarioChange,
+  },
+  jobDescription: {
+    type: String,
+    required: true,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  endDate: {
+    type: Date,
+    required: true,
+  },
+});
 
 const userSchema = new Schema(
   {
@@ -11,8 +33,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true
-      
+      lowercase: true,
     },
     password: {
       type: String,
@@ -32,30 +53,7 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    experience: [
-      {
-        title: {
-          type: String,
-          required: false,
-        },
-        company: {
-          type: String,
-          required: false,
-        },
-        description: {
-          type: String,
-          required: false,
-        },
-        startDate: {
-          type: Date,
-          required: false,
-        },
-        endDate: {
-          type: Date,
-          required: false,
-        },
-      },
-    ],
+    experience: [experienceSchema],
     education: [
       {
         title: {
