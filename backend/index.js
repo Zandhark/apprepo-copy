@@ -73,6 +73,14 @@ app.post("/api/session", async (req, res) => {
 });
 
 app.delete("/api/session/delete/:id", async (req, res) => {
+  const Session = require("./models/sessionModel.js");
+  try {
+    const response = await Session.deleteOne({ _id: req.params.id });
+  console.log(response)
+  res.status(200).json({ message: "Session deleted" })
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.delete("/api/session/delete", async (req, res) => { // admin stuff to cleanup sessions
