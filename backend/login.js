@@ -1,16 +1,25 @@
+const mongoose = require("mongoose");
+const newSession = require("./session.js");
+const User = require("./models/userModel.js");
 
-
-function fetchUser(email) {
-  const data = require('./data.js');
-  const users = data.users;
-
-  return users.find((user) => user.email === email);
-}
-
-function login(email) {
+async function login(email, password) {
   try {
-    const user = fetchUser(email);
-    return user;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      throw new Error("Usuario incorrecto");
+      
+    }
+    if (user.password !== password) {
+      throw new Error("Contraseña incorrecta");
+
+    }
+
+    const session = await newSession(user._id);
+    const response = {
+      user: user,
+      session: session,
+    };
+    return response;
   } catch (e) {
     return e;
   }

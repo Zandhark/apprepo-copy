@@ -92,18 +92,43 @@ function generateRandomId() {
   return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
 }
 
-function handleNewUser(usuario) {
-  let randomId = generateRandomId();
+async function handleNewUser(usuario) {
   try {
-    const session = { ...usuario, id: randomId, sessionId: randomId };
-    document.cookie = `usuario=${session.email}; path=/; max-age=3600`;
-    document.cookie = `userId=${session.id}; path=/; max-age=3600`;
-    document.cookie = `sessionId=${session.sessionId}; path=/; max-age=3600`;
-    document.cookie = `userType=${usuario.tipoUsuario}; path=/; max-age=3600`;
-    return session;
+    const response = await fetch("http://localhost:3000/api/registro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuario),
+    });
+    
+    const data = await response.json();
+    console.log(data);
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    const session = await fetch("http://localhost:3000/api/session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: data._id }),
+    });
+    const sessionData = await session.json();
+
+    document.cookie = `userId=${data._id}; path=/; max-age=3600`;
+    document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
+    document.cookie = `userType=${data.type}; path=/; max-age=3600`;
+
+    return data;
   } catch (e) {
-    alert("Se produjo un error al iniciar sesión, intente nuevamente");
-    return false;
+    if (e.message.includes("E11000")) {
+      alert(`El correo ${usuario.email} ya se encuentra registrado.`);
+      return false;
+    } else {
+      alert(e.message);
+      return false;
+    }
   }
 }
 
@@ -237,7 +262,7 @@ function handleSubmit(e) {
   handleFormSubmit();
 }
 
-function handleUserForm() {
+async function handleUserForm() {
   let session = {};
   const expedrienciaLaboral = [];
   const nombre = document.getElementById("nombre").value;
@@ -275,11 +300,11 @@ function handleUserForm() {
     tipoUsuario: "endUser",
   };
 
-  session = handleNewUser(usuarioFinal);
+  session = await handleNewUser(usuarioFinal);
   return session;
 }
 
-function handleEmpresaForm() {
+async function handleEmpresaForm() {
   let session = {};
   const nombreEmpresa = document.getElementById("nombre-empresa").value;
   const email = document.getElementById("email").value;
@@ -294,18 +319,17 @@ function handleEmpresaForm() {
     descripcion,
     tipoUsuario: "administrador",
   };
-  session = handleNewUser(empresa);
-  console.log(empresa);
+  session = await handleNewUser(empresa);
   return session;
 }
 
-function handleFormSubmit() {
+async function handleFormSubmit() {
   let session;
 
   if (tipoUsuario === "usuario-final") {
-    session = handleUserForm();
+    session = await handleUserForm();
   } else if (tipoUsuario === "empresa") {
-    session = handleEmpresaForm();
+    session = await handleEmpresaForm();
   }
   if (session) {
     console.log(session);

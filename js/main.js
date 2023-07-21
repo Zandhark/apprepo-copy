@@ -6,11 +6,20 @@ if (document.cookie.includes("userType")) {
 }
 
 
-function handleCloseSession() { // Maneja cierre de sesion, borra las cookies y redirige a la pagina de inicio
-  document.cookie = "usuario=; path=/; max-age=0";
+async function handleCloseSession() { // Maneja cierre de sesion, borra las cookies, borra la sesion del DB y redirige a la pagina de inicio
+  const sessionId = document.cookie.split(";").find((item) => item.includes("sessionId")).split("=")[1];
+  const response = await fetch(`http://localhost:3000/api/session/delete/${sessionId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const session = await response.json();
+
   document.cookie = "userId=; path=/; max-age=0";
   document.cookie = "userType=; path=/; max-age=0";
   document.cookie = "sessionId=; path=/; max-age=0";
+  alert("Sesion cerrada")
   location.href = "/";
 }
 

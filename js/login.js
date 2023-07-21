@@ -3,11 +3,7 @@ const password = document.getElementById("password");
 const userSelect = document.getElementById("tipousuario");// temp code, remove
 
 
-function generateRandomId() {
-  return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
-}
-
-async function handleLogin(login) {
+async function handleLogin(user) {
   
   try {
 
@@ -16,37 +12,35 @@ async function handleLogin(login) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(login),
+      body: JSON.stringify(user),
     });
-    const user = await response.json();
+    const login = await response.json();
     if (user.error) {
       throw new Error(user.error);
     }
-    document.cookie = `userId=${user.id}; path=/; max-age=3600`;
-    document.cookie = `sessionId=${generateRandomId()}; path=/; max-age=3600`;
-    document.cookie = `userType=${user.type}; path=/; max-age=3600`;
+    document.cookie = `userId=${login.user._id}; path=/; max-age=3600`;
+    document.cookie = `sessionId=${login.session._id}; path=/; max-age=3600`;
+    document.cookie = `userType=${login.user.type}; path=/; max-age=3600`;
     
-    return session;
+    return login;
   } catch (e) {
-    // alert("Se produjo un error al iniciar sesión, intente nuevamente.");
     alert(e)
     return false;
   }
 }
 
-function handleFormSubmit(e) {
+async function handleFormSubmit(e) {
   e.preventDefault();
-  const tipoUsuario = userSelect.value; // temp code, remove
+
   const usuarioValue = usuario.value;
   const passwordValue = password.value;
-  const login = {
+  const user = {
     email: usuarioValue,
     password: passwordValue,
-    tipoUsuario: tipoUsuario,
   };
 
   try {
-    const session = handleLogin(login);
+    const session = await handleLogin(user);
 
     if (session && document.cookie.includes("userId")) {
       if (document.referrer === window.location.href || document.referrer === "") {
