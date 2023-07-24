@@ -16,9 +16,16 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/puestos", (req, res) => {
-  const puestos = getJobs();
-  res.json(puestos);
+app.get("/api/puestos", async (req, res) => {
+  try {
+    const puestos = await getJobs();
+    if (puestos instanceof Error) {
+      throw new Error(puestos.message);
+    }
+    res.json(puestos);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.get("/api/puestos/:id", (req, res) => {
@@ -42,7 +49,6 @@ app.post("/api/login", async (req, res) => {
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
-  
 });
 
 app.post("/api/registro", async (req, res) => {
@@ -67,7 +73,7 @@ app.post("/api/session", async (req, res) => {
       throw new Error(session.message);
     }
     res.status(200).json(session);
-  } catch(e) {
+  } catch (e) {
     res.status(400).json({ error: e.message });
   }
 });
@@ -76,20 +82,20 @@ app.delete("/api/session/delete/:id", async (req, res) => {
   const Session = require("./models/sessionModel.js");
   try {
     const response = await Session.deleteOne({ _id: req.params.id });
-  console.log(response)
-  res.status(200).json({ message: "Session deleted" })
+    console.log(response);
+    res.status(200).json({ message: "Session deleted" });
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
 });
 
-app.delete("/api/session/delete", async (req, res) => { // admin stuff to cleanup sessions
+app.delete("/api/session/delete", async (req, res) => {
+  // admin stuff to cleanup sessions
   const Session = require("./models/sessionModel.js");
   const response = await Session.deleteMany({});
-  console.log(response)
-  res.status(200).json({ message: "Sessions deleted" })
+  console.log(response);
+  res.status(200).json({ message: "Sessions deleted" });
 });
-
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");

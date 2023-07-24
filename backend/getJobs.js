@@ -1,10 +1,13 @@
-const 
+const Puesto = require('./models/puestoModel');
 
-function getJobs() {
-  const data = require('./data.js');
-  const puestos = data.puestos;
 
+async function getJobs() {
+  try {
+    const puestos = await Puesto.find().populate('empresa');
   return puestos;
+  } catch (e) {
+    return e;
+  }
 }
 
 module.exports = getJobs;
