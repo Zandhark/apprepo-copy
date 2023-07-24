@@ -70,13 +70,13 @@ function renderInvitations() {
     >
       <div>
         <h2>${invitation.title}</h2>
-        <h3>Estado de la aplicacion: ${invitation.status}</h3>
+        <h3>Estado de la aplicación: ${invitation.status}</h3>
         <div class="flex flex-align-center flex-gap-5">
           <p>${invitation.description}</p>
         </div>
       </div>
       <a href="/invitaciones/invitacion.html?id=${invitation.id}">
-        <button class="main-button">Ver invitacion</button>
+        <button class="main-button">Ver invitación</button>
       </a>
     </div>
 

@@ -40,7 +40,7 @@ function renderMenu() {
       <a href="/candidatos/">Candidatos</a>
       <a href="/notificaciones/">Notificaciones</a>
       <a href="/perfil/">Mi Perfil</a>
-      <a href="javascript:handleCloseSession();">Cerrar sesion</a>
+      <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === "manager") {
     userNav = `
@@ -50,7 +50,7 @@ function renderMenu() {
       <a href="/candidatos/">Candidatos</a>
       <a href="/notificaciones/">Notificaciones</a>
       <a href="/perfil/">Mi Perfil</a>
-      <a href="javascript:handleCloseSession();">Cerrar sesion</a>
+      <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === "administrador") {
     userNav = `
@@ -58,7 +58,7 @@ function renderMenu() {
       <a href="/empresas/">Empresas</a>
       <a href="/notificaciones/">Notificaciones</a>
       <a href="/perfil/">Mi Perfil</a>
-      <a href="javascript:handleCloseSession();">Cerrar sesion</a>
+      <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === undefined) {
     userNav = `
@@ -66,7 +66,7 @@ function renderMenu() {
       <a href="/registro/">Registro</a>
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/empresas/">Empresas</a>
-      <a href="/login/">Login</a>
+      <a href="/login/">Iniciar sesión</a>
   `;
   }
   nav.innerHTML = userNav;
