@@ -13,9 +13,6 @@ async function newSession(userId) {
   }
 }
 
-async function deleteSession(sessionId) {
-  const response = await Session.deleteOne({ _id: sessionId });
-}
 
 module.exports = newSession;
 

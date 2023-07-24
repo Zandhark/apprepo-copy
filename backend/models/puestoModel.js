@@ -24,6 +24,15 @@ const puestoSchema = new Schema({
   ],
   empresa: {
     id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Empresa",
+    },
+    nombre: {
+      type: String,
+      required: true,
+    },
+    logo: {
       type: String,
       required: true,
     },
@@ -32,3 +41,5 @@ const puestoSchema = new Schema({
 
 
 const Puesto = mongoose.model("Puesto", puestoSchema);
+
+module.exports = Puesto;
