@@ -88,10 +88,6 @@ function handlePasswordBlur() {
   }
 }
 
-function generateRandomId() {
-  return (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
-}
-
 async function handleNewUser(usuario) {
   try {
     const response = await fetch("http://localhost:3000/api/registro", {
