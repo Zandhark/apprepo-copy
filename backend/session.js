@@ -14,4 +14,3 @@ async function newSession(userId) {
 }
 
 module.exports = newSession;
-
