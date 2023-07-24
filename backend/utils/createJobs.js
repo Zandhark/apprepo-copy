@@ -16,7 +16,7 @@ function returnVisibility() {
 
 function generateTwoRandomNumbers(min, max) {
   const num1 = Math.floor(Math.random() * (max - min + 1) + min);
-  const num2 = Math.floor(Math.random() * (max - min + 1) + min);
+  const num2 = Math.floor(Math.random() * (max - num1 + 1) + num1);
   return [num1, num2];
 }
 
@@ -52,12 +52,7 @@ async function run() {
             "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
           ],
           visibilidad: returnVisibility(),
-          empresa: {
-            id: empresas[index]._id,
-            nombre: empresas[index].nombre,
-            descripcion: empresas[index].descripcion,
-            logo: empresas[index].logo,
-          },
+          empresa: empresas[index]._id,
         }
       );
       await puesto.save();
