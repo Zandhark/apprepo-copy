@@ -28,16 +28,17 @@ app.get("/api/puestos", async (req, res) => {
   }
 });
 
-app.get("/api/puestos/:id", (req, res) => {
-  const puestos = getJobs();
-  const puesto = puestos.find(
-    (puesto) => puesto.id === parseInt(req.params.id)
-  );
-  if (!puesto) {
-    res.status(404).json({ error: "No se encontró el puesto" });
-    return;
+app.get("/api/puestos/:id", async (req, res) => {
+  const Puesto = require("./models/puestoModel.js");
+  try {
+    const puesto = await Puesto.findById(req.params.id).populate("empresa");
+    if (puesto instanceof Error) {
+      throw new Error(puesto.message);
+    }
+    res.status(200).json(puesto);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
   }
-  res.status(200).json(puesto);
 });
 
 app.post("/api/login", async (req, res) => {

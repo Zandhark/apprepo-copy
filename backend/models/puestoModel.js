@@ -23,6 +23,10 @@ const puestoSchema = new Schema(
         required: true,
       },
     ],
+    visibilidad: {
+      type: String,
+      required: true,
+    },
     empresa: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
