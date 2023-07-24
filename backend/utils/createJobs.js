@@ -54,9 +54,9 @@ async function run() {
           visibilidad: returnVisibility(),
           empresa: {
             id: empresas[index]._id,
-            nombre: `Empresa 0`,
-            descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            logo: "https://via.placeholder.com/100",
+            nombre: empresas[index].nombre,
+            descripcion: empresas[index].descripcion,
+            logo: empresas[index].logo,
           },
         }
       );
