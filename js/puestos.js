@@ -11,11 +11,16 @@ async function getJobs() {
 async function renderPuestos() {
   const puestos = await getJobs();
   const puestosContainer = document.getElementById("main-content");
+  
   puestos.forEach((puesto, index) => {
+    const parsedDate = new Date(puesto.createdAt);
+    const timeDifference = Date.now() - parsedDate;
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+    const days = Math.abs(Math.floor(daysDifference))
     puestosContainer.innerHTML += `
     <div
       class="border flex flex-gap-20 puestos flex-align-center"
-      id="puesto-${puesto.id}"
+      id="puesto-${puesto._id}"
     >
       <div class="flex flex-column flex-gap-10 info-puestos">
         <h2 id="titulo-puesto-${index}">${puesto.nombre}</h2>
@@ -23,11 +28,11 @@ async function renderPuestos() {
         <p id="desc-puesto">
           ${puesto.descripcion}
         </p>
-        <p id="fecha">Fecha: ${puesto.fecha}</p>
-        <p id="rango-salario">Rango Salarial: ${puesto.rangoSalario[0]}~${puesto.rangoSalario[1]}</p>
+        <p id="fecha">Publicado hace ${days} días</p>
+        <p id="rango-salario">Rango Salarial: ₡${puesto.rangoSalario[0]}~ ₡${puesto.rangoSalario[1]}</p>
       </div>
       <div class="flex flex-grow1 flex-align-center flex-space-center">
-        <a href="/puestos/puesto.html?id=${puesto.id}">
+        <a href="/puestos/puesto.html?id=${puesto._id}">
           <button class="main-button">Ver mas</button>
         </a>
       </div>

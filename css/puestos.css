@@ -14,3 +14,10 @@
 .button-box {
   margin-top: 50px;
 }
+
+a {
+  color: var(--secondary-color);
+}
+a:hover{
+  color: var(--primary-color);
+}
