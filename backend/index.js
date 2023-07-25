@@ -5,6 +5,7 @@ const newSession = require("./session.js");
 
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -12,6 +13,10 @@ const mongoose = require("mongoose");
 const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const Puesto = require("./models/puestoModel.js");
+const Empresa = require("./models/empresaModel.js");
+const Session = require("./models/sessionModel.js");
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +34,7 @@ app.get("/api/puestos", async (req, res) => {
 });
 
 app.get("/api/puestos/:id", async (req, res) => {
-  const Puesto = require("./models/puestoModel.js");
+  
   try {
     const puesto = await Puesto.findById(req.params.id).populate("empresa");
     if (puesto instanceof Error) {
@@ -39,6 +44,50 @@ app.get("/api/puestos/:id", async (req, res) => {
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
+});
+
+app.get("/api/puestos/new", async (req, res) => {
+});
+
+app.get("/api/puestos/empresa/:id", async (req, res) => {
+  try {
+    const puestos = await Puesto.find({ empresa: req.params.id });
+    if (puestos instanceof Error) {
+      throw new Error(puestos.message);
+    }
+    res.status(200).json(puestos);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.get("/api/empresas", async (req, res) => {
+  
+  try {
+    const empresas = await Empresa.find({});
+    if (empresas instanceof Error) {
+      throw new Error(empresas.message);
+    }
+    res.status(200).json(empresas);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.get("/api/empresas/:id", async (req, res) => {
+    
+    try {
+      const empresa = await Empresa.findById(req.params.id);
+      if (empresa instanceof Error) {
+        throw new Error(empresa.message);
+      }
+      res.status(200).json(empresa);
+    } catch (e) {
+      res.status(400).json({ error: e.message });
+    }
+});
+
+app.get("/api/empresas/new", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
@@ -80,7 +129,7 @@ app.post("/api/session", async (req, res) => {
 });
 
 app.delete("/api/session/delete/:id", async (req, res) => {
-  const Session = require("./models/sessionModel.js");
+  
   try {
     const response = await Session.deleteOne({ _id: req.params.id });
     console.log(response);
