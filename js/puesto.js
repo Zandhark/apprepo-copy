@@ -45,12 +45,13 @@ async function renderPuesto() {
   nombrePuesto.innerText = puesto.nombre;
   visibilidad.innerText = puesto.visibilidad;
   infoEmpresa.innerHTML = `
-    <img src="${puesto.empresa.logo}" alt="${puesto.empresa.nombre}" />
-    <p>
-      <strong>${puesto.empresa.nombre}</strong>
-      <br />
-      ${puesto.empresa.descripcion}
-    </p>
+  <img src="${puesto.empresa.logo}" alt="${puesto.empresa.nombre}" />
+  <p>
+    <a href="/empresas/perfil.html?id=${puesto.empresa._id}"
+      ><strong>${puesto.empresa.nombre}</strong></a>
+    <br />
+    ${puesto.empresa.shortDesc}
+  </p>
   `;
   descripcionPuesto.innerHTML = `
     <p>${puesto.descripcion}</p>
