@@ -12,7 +12,7 @@ async function renderPuestos() {
   const puestos = await getJobs();
   const puestosContainer = document.getElementById("main-content");
   
-  puestos.forEach((puesto, index) => {
+  puestos.forEach((puesto) => {
     const parsedDate = new Date(puesto.createdAt);
     const timeDifference = Date.now() - parsedDate;
     const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
@@ -23,12 +23,13 @@ async function renderPuestos() {
       id="puesto-${puesto._id}"
     >
       <div class="flex flex-column flex-gap-10 info-puestos">
-        <h2 id="titulo-puesto-${index}">${puesto.nombre}</h2>
-        <h3 id="nombre-empresa-${index}">${puesto.empresa.nombre}</h3>
+        <h2 id="titulo-puesto-${puesto._id}">${puesto.nombre}</h2>
+        <h3 id="nombre-empresa-${puesto._id}">${puesto.empresa.nombre}</h3>
         <p id="desc-puesto">
           ${puesto.descripcion}
         </p>
-        <p id="fecha">Publicado hace ${days} días</p>
+        ${days < 1 ? `<p id="fecha-publicacion">Publicado hace menos de un dia.</p>` : `<p id="fecha-publicacion">Publicado hace ${days} dias.</p>`}
+        
         <p id="rango-salario">Rango Salarial: ₡${puesto.rangoSalario[0]}~ ₡${puesto.rangoSalario[1]}</p>
       </div>
       <div class="flex flex-grow1 flex-align-center flex-space-center">

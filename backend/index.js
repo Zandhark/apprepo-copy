@@ -90,6 +90,15 @@ app.get("/api/empresas/:id", async (req, res) => {
 app.get("/api/empresas/new", async (req, res) => {
 });
 
+app.get("/api/notificaciones", async (req, res) => {
+});
+
+app.patch("/api/notificaciones/update:id", async (req, res) => {
+});
+
+app.post("/api/notificaciones/nueva", async (req, res) => {
+});
+
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   try {

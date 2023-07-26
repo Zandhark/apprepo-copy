@@ -45,3 +45,10 @@
     border: 2px solid var(--secondary-color);
     border-radius: 5px;
 }
+
+.company-jobs {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--background-color);
+}
