@@ -15,7 +15,6 @@ async function getCompanies() {
 }
 
 function searchCompanies() {
-  console.log("searchCompanies");
   const searchValue = searchInput.value;
   const empresasFiltradas = empresas.filter((empresa) => {
     return empresa.nombre.toLowerCase().includes(searchValue.toLowerCase());
