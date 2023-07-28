@@ -97,7 +97,7 @@ async function handleNewUser(usuario) {
       },
       body: JSON.stringify(usuario),
     });
-    
+
     const data = await response.json();
     console.log(data);
     if (data.error) {
@@ -171,6 +171,7 @@ function handleAddExperience() {
   startDate.setAttribute("required", true);
   startDate.setAttribute("max", new Date().toISOString().split("T")[0]);
   startDate.id = `startDate-${experienciaCounter}`;
+  startDate.addEventListener("input", datesValidation);
 
   const endDateInputLabel = document.createElement("label");
   endDateInputLabel.setAttribute("for", "endDate");
@@ -221,6 +222,17 @@ function handleAddExperience() {
 
   divExperiencia.appendChild(jobDiv);
   experienciaCounter++;
+}
+
+function datesValidation() {
+  const experienciaCounter = parseInt(this.id.split("-")[1]);
+  const startDateValue = new Date(this.value);
+  const endDate = document.getElementById(`endDate-${experienciaCounter}`);
+  endDate.value = "";
+
+  if (!isNaN(startDateValue.getTime())) {
+    endDate.setAttribute("min", this.value);
+  }
 }
 
 function handleRemoveExperience(removeButton) {
