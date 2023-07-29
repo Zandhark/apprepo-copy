@@ -96,15 +96,6 @@ app.patch("/api/empresas/update:id", async (req, res) => { // actualiza una empr
 app.get("/api/empresas/new", async (req, res) => { //crea una nueva empresa
 });
 
-app.get("/api/notificaciones", async (req, res) => { //retorna lista de notificaciones
-});
-
-app.patch("/api/notificaciones/update:id", async (req, res) => { // actualiza estado de una notificacion
-});
-
-app.post("/api/notificaciones/new", async (req, res) => { // crea una nueva notificacion
-});
-
 app.get("/api/usuarios", async (req, res) => { // retorna lista de usuarios
 });
 
