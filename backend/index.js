@@ -17,13 +17,14 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const Puesto = require("./models/puestoModel.js");
 const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
+const Notificacion = require("./models/notificacionModel.js");
 
 app.use(cors());
 app.use(express.json());
 
 app.get("/api/puestos", async (req, res) => { // retorna la lista de puestos
   try {
-    const puestos = await getJobs();
+    const puestos = await Puestos.find().populate('empresa');
     if (puestos instanceof Error) {
       throw new Error(puestos.message);
     }
@@ -50,6 +51,7 @@ app.get("/api/puestos/new", async (req, res) => { // agrega nuevo puesto
 });
 
 app.delete("/api/puestos/delete/:id", async (req, res) => { // borra un puesto
+
 });
 
 app.get("/api/puestos/empresa/:id", async (req, res) => { // retorna los puestos de una empresa
@@ -93,7 +95,27 @@ app.get("/api/empresas/:id", async (req, res) => { // retorna una empresa depend
 app.patch("/api/empresas/update/:id", async (req, res) => { // actualiza una empresa
 });
 
-app.get("/api/empresas/new", async (req, res) => { //crea una nueva empresa
+app.post("/api/empresas/new", async (req, res) => { //crea una nueva empresa
+  try {
+    const data = req.body;
+    const empresa = new Empresa({
+      nombre: data.nombre,
+      email: data.email,
+      password: data.password,
+      logo: data.logo,
+      descripcion: data.descripcion,
+      type: data.tipoUsuario,
+    });
+    const response = await empresa.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    console.log(response);
+    res.status(200).json(response);
+
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.get("/api/usuarios", async (req, res) => { // retorna lista de usuarios

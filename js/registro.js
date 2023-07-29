@@ -23,7 +23,7 @@ function handleTipoUsuarioChange(e) {
     password = document.getElementById("password");
     password2 = document.getElementById("password2");
     password2.addEventListener("input", handlePasswordInput);
-  } else if (tipoUsuario === "empresa") {
+  } else if (tipoUsuario === "administrador") {
     title.innerText = "Registro de empresa";
     divUsuarios.style.display = "none";
     divEmpresas.style.display = "flex";
@@ -68,7 +68,7 @@ function handlePasswordBlur() {
     passwordValue = password.value;
     password2Value = password2.value;
     passwordInput = password2;
-  } else if (tipoUsuario === "empresa") {
+  } else if (tipoUsuario === "administrador") {
     passwordValue = passwordEmpresa.value;
     password2Value = password2Empresa.value;
     passwordInput = password2Empresa;
@@ -89,41 +89,82 @@ function handlePasswordBlur() {
 }
 
 async function handleNewUser(usuario) {
-  try {
-    const response = await fetch("http://localhost:3000/api/registro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(usuario),
-    });
+  if (usuario.tipoUsuario === "usuario-final") {
+    try {
+      const response = await fetch("http://localhost:3000/api/registro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuario),
+      });
 
-    const data = await response.json();
-    console.log(data);
-    if (data.error) {
-      throw new Error(data.error);
+      const data = await response.json();
+      console.log(data);
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      const session = await fetch("http://localhost:3000/api/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: data._id }),
+      });
+      const sessionData = await session.json();
+
+      document.cookie = `userId=${data._id}; path=/; max-age=3600`;
+      document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
+      document.cookie = `userType=${data.type}; path=/; max-age=3600`;
+
+      return data;
+    } catch (e) {
+      if (e.message.includes("E11000")) {
+        alert(`El correo ${usuario.email} ya se encuentra registrado.`);
+        return false;
+      } else {
+        alert(e.message);
+        return false;
+      }
     }
-    const session = await fetch("http://localhost:3000/api/session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: data._id }),
-    });
-    const sessionData = await session.json();
+  } else if (usuario.tipoUsuario === "administrador") {
+    console.log("administrador")
+    try {
+      const response = await fetch("http://localhost:3000/api/empresas/new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuario),
+      });
 
-    document.cookie = `userId=${data._id}; path=/; max-age=3600`;
-    document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
-    document.cookie = `userType=${data.type}; path=/; max-age=3600`;
+      const data = await response.json();
+      console.log(data);
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      const session = await fetch("http://localhost:3000/api/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: data._id }),
+      });
+      const sessionData = await session.json();
 
-    return data;
-  } catch (e) {
-    if (e.message.includes("E11000")) {
-      alert(`El correo ${usuario.email} ya se encuentra registrado.`);
-      return false;
-    } else {
-      alert(e.message);
-      return false;
+      document.cookie = `userId=${data._id}; path=/; max-age=3600`;
+      document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
+      document.cookie = `userType=${data.type}; path=/; max-age=3600`;
+
+      return data;
+    } catch (e) {
+      if (e.message.includes("E11000")) {
+        alert(`El correo ${usuario.email} ya se encuentra registrado.`);
+        return false;
+      } else {
+        alert(e.message);
+        return false;
+      }
     }
   }
 }
@@ -255,13 +296,14 @@ function handleRemoveExperience(removeButton) {
 
 function handleSubmit(e) {
   e.preventDefault();
+
   if (tipoUsuario === "usuario-final") {
     if (!formUsuarios.checkValidity() || !formExp.checkValidity()) {
       formUsuarios.reportValidity();
       formExp.reportValidity();
       return;
     }
-  } else if (tipoUsuario === "empresa") {
+  } else if (tipoUsuario === "administrador") {
     if (!formEmpresas.checkValidity()) {
       formEmpresas.reportValidity();
       return;
@@ -315,16 +357,16 @@ async function handleUserForm() {
 async function handleEmpresaForm() {
   let session = {};
   const nombreEmpresa = document.getElementById("nombre-empresa").value;
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email-empresa").value;
   const passwordValue = passwordEmpresa.value;
   const logo = document.getElementById("logo").value;
   const descripcion = document.getElementById("descripcion").value;
   const empresa = {
-    nombreEmpresa,
-    email,
-    passwordValue,
-    logo,
-    descripcion,
+    nombre: nombreEmpresa,
+    email: email,
+    password: passwordValue,
+    logo: logo,
+    descripcion: descripcion,
     tipoUsuario: "administrador",
   };
   session = await handleNewUser(empresa);
@@ -336,7 +378,7 @@ async function handleFormSubmit() {
 
   if (tipoUsuario === "usuario-final") {
     session = await handleUserForm();
-  } else if (tipoUsuario === "empresa") {
+  } else if (tipoUsuario === "administrador") {
     session = await handleEmpresaForm();
   }
   if (session) {
