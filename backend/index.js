@@ -49,7 +49,7 @@ app.get("/api/puestos/:id", async (req, res) => { // retorna un puesto dependien
 app.get("/api/puestos/new", async (req, res) => { // agrega nuevo puesto
 });
 
-app.delete("/api/puestos/delete:id", async (req, res) => { // borra un puesto
+app.delete("/api/puestos/delete/:id", async (req, res) => { // borra un puesto
 });
 
 app.get("/api/puestos/empresa/:id", async (req, res) => { // retorna los puestos de una empresa
@@ -90,7 +90,7 @@ app.get("/api/empresas/:id", async (req, res) => { // retorna una empresa depend
     }
 });
 
-app.patch("/api/empresas/update:id", async (req, res) => { // actualiza una empresa
+app.patch("/api/empresas/update/:id", async (req, res) => { // actualiza una empresa
 });
 
 app.get("/api/empresas/new", async (req, res) => { //crea una nueva empresa
@@ -99,13 +99,13 @@ app.get("/api/empresas/new", async (req, res) => { //crea una nueva empresa
 app.get("/api/usuarios", async (req, res) => { // retorna lista de usuarios
 });
 
-app.patch("/api/usuarios/update:id", async (req, res) => { // actualiza un usuario
+app.patch("/api/usuarios/update/:id", async (req, res) => { // actualiza un usuario
 });
 
 app.get("/api/notificaciones", async (req, res) => { // retorna lista de notificaciones
 });
 
-app.get("/api/notificaciones:userId", async (req, res) => { // retorna lista de notificaciones de un usuario
+app.get("/api/notificaciones/:userId", async (req, res) => { // retorna lista de notificaciones de un usuario
 });
 
 app.post("/api/notificaciones/new", async (req, res) => { // crea una nueva notificacion
