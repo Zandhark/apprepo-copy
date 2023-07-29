@@ -17,13 +17,14 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const Puesto = require("./models/puestoModel.js");
 const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
+const Notificacion = require("./models/notificacionModel.js");
 
 app.use(cors());
 app.use(express.json());
 
 app.get("/api/puestos", async (req, res) => { // retorna la lista de puestos
   try {
-    const puestos = await getJobs();
+    const puestos = await Puestos.find().populate('empresa');
     if (puestos instanceof Error) {
       throw new Error(puestos.message);
     }
@@ -50,6 +51,7 @@ app.get("/api/puestos/new", async (req, res) => { // agrega nuevo puesto
 });
 
 app.delete("/api/puestos/delete/:id", async (req, res) => { // borra un puesto
+
 });
 
 app.get("/api/puestos/empresa/:id", async (req, res) => { // retorna los puestos de una empresa
