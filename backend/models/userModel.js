@@ -84,16 +84,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    userDescription: {
-      type: String,
-      required: false,
-    },
+    userDescription: String,
     profileImg: String,
     curriculum: String,
     about: {
       type: String,
       required: false,
     },
+    role: String,
     experience: [experienceSchema],
     education: [educationSchema],
     skills: [skillsSchema],

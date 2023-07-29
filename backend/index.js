@@ -93,7 +93,27 @@ app.get("/api/empresas/:id", async (req, res) => { // retorna una empresa depend
 app.patch("/api/empresas/update/:id", async (req, res) => { // actualiza una empresa
 });
 
-app.get("/api/empresas/new", async (req, res) => { //crea una nueva empresa
+app.post("/api/empresas/new", async (req, res) => { //crea una nueva empresa
+  try {
+    const data = req.body;
+    const empresa = new Empresa({
+      nombre: data.nombre,
+      email: data.email,
+      password: data.password,
+      logo: data.logo,
+      descripcion: data.descripcion,
+      type: data.tipoUsuario,
+    });
+    const response = await empresa.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    console.log(response);
+    res.status(200).json(response);
+
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.get("/api/usuarios", async (req, res) => { // retorna lista de usuarios

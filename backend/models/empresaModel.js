@@ -6,15 +6,25 @@ const empresaSchema = new Schema({
     type: String,
     required: true,
   },
-  shortDesc: {
+  email: {
     type: String,
     required: true,
+    unique:true
   },
-  descripcion: {
+  password: {
     type: String,
     required: true,
   },
   logo: {
+    type: String,
+    required: true,
+  },
+  shortDesc: String,
+  descripcion: {
+    type: String,
+    required: true,
+  },
+  type: {
     type: String,
     required: true,
   },
