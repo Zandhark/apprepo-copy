@@ -1,4 +1,3 @@
-const getJobs = require("./getJobs.js");
 const login = require("./login.js");
 const registro = require("./registro.js");
 const newSession = require("./session.js");
@@ -18,6 +17,7 @@ const Puesto = require("./models/puestoModel.js");
 const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
 const Notificacion = require("./models/notificacionModel.js");
+const User = require("./models/userModel.js");
 
 app.use(cors());
 app.use(express.json());
@@ -119,6 +119,20 @@ app.post("/api/empresas/new", async (req, res) => { //crea una nueva empresa
 });
 
 app.get("/api/usuarios", async (req, res) => { // retorna lista de usuarios
+});
+
+app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dependiendo del id
+  try {
+    const user = await User.findById(req.params.userId);
+    console.log(user)
+    if (user instanceof Error) {
+      throw new Error(user.message);
+    }
+    
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.patch("/api/usuarios/update/:id", async (req, res) => { // actualiza un usuario

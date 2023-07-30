@@ -1,7 +1,7 @@
-const siteCookie = document.cookie;
-const userCookie = siteCookie.split(";")[1]; // Returns the value of the cookie
-const userId = userCookie.split("=")[1]; // Returns the value of the cookie
-
+const userId = document.cookie
+  .split(";")
+  .find((item) => item.includes("userId"))
+  .split("=")[1];
 
 const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
@@ -12,115 +12,20 @@ const experienceSection = document.getElementById("experiencia");
 const educationSection = document.getElementById("educacion");
 const skillsSection = document.getElementById("skills");
 
-function getUserDetails(userId) {
-  const userDetails = {
-    id: userId,
-    name: "John Doe",
-    email: "test@mail.nope",
-    title: "UI/UX Developer",
-    userDescription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-    profileImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-    curriculum: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-    about:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-    experience: [
-      {
-        title: "UI/UX Developer",
-        company: "Google",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-        startDate: "2019-01-01",
-        endDate: "2020-01-01",
-      },
-      {
-        title: "Rust Developer",
-        company: "Linux foundation",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-        startDate: "2019-01-01",
-        endDate: "2020-01-01",
-      },
-      {
-        title: "Kotlin Developer",
-        company: "NVIDIA",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-        startDate: "2019-01-01",
-        endDate: "2020-01-01",
-      },
-      {
-        title: "Linux Systems administrator",
-        company: "Valve",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-        startDate: "2019-01-01",
-        endDate: "2020-01-01",
-      },
-    ],
-    education: [
-      {
-        title: "Bachillerato",
-        institution: "Colegio de wizzards",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-        startDate: "2019-01-01",
-        endDate: "2020-01-01",
-      },
-      {
-        title: "Educación Media",
-        institution: "Escuela de wizzards",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam id aliquam aliquam, nunc ipsum ultricies nunc, vitae aliquam nisl nunc eu nisi.",
-        startDate: "2019-01-01",
-        endDate: "2020-01-01",
-      },
-    ],
-    skills: [
-      {
-        name: "HTML",
-      },
-      {
-        name: "Rust",
-      },
-      {
-        name: "Linux",
-      },
-      {
-        name: "ZFS",
-      },
-      {
-        name: "Kotlin",
-      },
-      {
-        name: "Flutter",
-      },
-      {
-        name: "Dart",
-      },
-      {
-        name: "C++",
-      },
-      {
-        name: "C",
-      },
-    ],
-    languages: [
-      {
-        name: "English",
-        level: "B2",
-      },
-      {
-        name: "Español",
-        level: "Nativo",
-      },
-    ],
-  };
+async function getUserDetails(userId) {
+  const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const userDetails = await response.json();
   return userDetails;
 }
 
-function renderProfile() {
-  const userDetails = getUserDetails(userId);
+async function renderProfile() {
+  const userDetails = await getUserDetails(userId);
+  console.log(userDetails);
   profileImg.src = userDetails.profileImg;
   userDescription.innerText = userDetails.userDescription;
   userName.innerText = userDetails.name;
