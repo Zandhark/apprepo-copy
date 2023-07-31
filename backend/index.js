@@ -5,6 +5,7 @@ const newSession = require("./session.js");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const compression = require("compression");
 
 const app = express();
 
@@ -21,10 +22,11 @@ const User = require("./models/userModel.js");
 
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 
 app.get("/api/puestos", async (req, res) => { // retorna la lista de puestos
   try {
-    const puestos = await Puestos.find().populate('empresa');
+    const puestos = await Puesto.find().populate('empresa');
     if (puestos instanceof Error) {
       throw new Error(puestos.message);
     }
