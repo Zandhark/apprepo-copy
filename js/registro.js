@@ -339,7 +339,7 @@ async function handleUserForm() {
   }
 
   const usuarioFinal = {
-    nombre,
+    nombre: nombre + " " + apellidos,
     apellidos,
     email,
     passwordValue,
