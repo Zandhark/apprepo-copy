@@ -166,13 +166,30 @@ app.post("/api/login", async (req, res) => { // login de usuario
 app.post("/api/registro", async (req, res) => { // registra un nuevo usuario final
   try {
     const usuario = req.body;
-    const response = await registro(usuario);
+    const user = new User({
+      name: usuario.nombre,
+      email: usuario.email,
+      password: usuario.passwordValue,
+      type: usuario.tipoUsuario,
+      genero: usuario.genero,
+      title: "",
+      userDescription: "",
+      profileImg: usuario.fotografia,
+      curriculum: usuario.cv,
+      about: "",
+      experience: usuario.expedrienciaLaboral,
+      education: [],
+      skills: [],
+      languages: [],
+    });
+    const response = await user.save();
     console.log(response);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
     res.status(200).json(response);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
