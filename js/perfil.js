@@ -27,12 +27,18 @@ async function renderProfile() {
   const userDetails = await getUserDetails(userId);
   console.log(userDetails);
   profileImg.src = userDetails.profileImg;
-  userDescription.innerText = userDetails.userDescription;
+  if (userDetails.userDescription === "") {
+    userDescription.innerText = "Agrega una descripción";
+  } else {
+    userDescription.innerText = userDetails.userDescription;
+  }
+
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
   userDetails.experience.forEach((experience) => {
     const experienceDiv = document.createElement("div");
     experienceDiv.classList.add("experience-box");
+    experienceDiv.id = experience._id;
     experienceDiv.innerHTML = `
     <h3>${experience.jobTitle}</h3>
     <div class="flex">
@@ -74,6 +80,7 @@ async function renderProfile() {
       </p>
     </div>
     <p>${experience.jobDescription}</p>
+    
     `;
     experienceSection.appendChild(experienceDiv);
   });
@@ -134,15 +141,23 @@ async function renderProfile() {
     `;
     educationSection.appendChild(educationDiv);
   }
-
-  userDetails.skills.forEach((skills) => {
+  if (userDetails.skills.length > 0) {
+    userDetails.skills.forEach((skills) => {
+      const skillsDiv = document.createElement("div");
+      skillsDiv.classList.add("skills-box");
+      skillsDiv.innerHTML = `
+      <h4>${skills.name}</h3>
+      `;
+      skillsSection.appendChild(skillsDiv);
+    });
+  } else {
     const skillsDiv = document.createElement("div");
-    skillsDiv.classList.add("skills-box");
     skillsDiv.innerHTML = `
-    <h4>${skills.name}</h3>
+    <h3>No hay habilidades registradas</h3>
+    <button class="main-button">Agregar</button>
     `;
     skillsSection.appendChild(skillsDiv);
-  });
+  }
 }
 
 renderProfile();
