@@ -80,6 +80,7 @@ async function renderProfile() {
       </p>
     </div>
     <p>${experience.jobDescription}</p>
+    <button class="main-button" style="margin-top: 10px">Agregar</button>
     
     `;
     experienceSection.appendChild(experienceDiv);
@@ -128,7 +129,8 @@ async function renderProfile() {
           Desde ${education.startDate} Hasta ${education.endDate}
         </p>
       </div>
-      <p>${education.description}</p> 
+      <p>${education.description}</p>
+      <button class="main-button" style="margin-top: 10px">Agregar</button>
       `;
       educationSection.appendChild(educationDiv);
     });
