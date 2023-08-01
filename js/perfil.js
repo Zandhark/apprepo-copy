@@ -16,13 +16,25 @@ const modalAbout = document.getElementById("about-modal");
 const aboutInput = document.getElementById("about-modal-text");
 const shortAboutSave = document.getElementById("save-shortAbout");
 const shortAboutEdit = document.getElementById("edit-shortAbout");
+const expModal = document.getElementById("exp-modal");
+
+function datesValidation() {
+  const startDateValue = new Date(this.value);
+  const endDate = document.getElementById(`endDate`);
+  endDate.value = "";
+
+  if (!isNaN(startDateValue.getTime())) {
+    endDate.setAttribute("min", this.value);
+  }
+}
 
 function handleModalAbout() {
   aboutInput.value = userAbout.innerText;
   modalAbout.style.display = "block";
 }
 
-async function handleAboutSubmit() {
+async function handleAboutSubmit(e) {
+  e.preventDefault();
   const newAbout = aboutInput.value;
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
     method: "PATCH",
@@ -37,13 +49,26 @@ async function handleAboutSubmit() {
   modalAbout.style.display = "none";
 }
 
+function handleExpModal(e) {
+  e.preventDefault();
+  if (e.target.innerText === "Cancelar") {
+    expModal.style.display = "none";
+    return;
+  }
+  datesValidation();
+  expModal.style.display = "block";
+}
+
+
+
+
+
 function handleShortDescription() {
   shortAboutSave.style.display = "block";
   shortAboutEdit.style.display = "none";
   userDescription.contentEditable = true;
   userDescription.classList.add("editable-content");
   userDescription.focus();
-  
 }
 
 async function handleShortDescriptionSave() {
@@ -62,7 +87,6 @@ async function handleShortDescriptionSave() {
   shortAboutEdit.style.display = "block";
   userDescription.contentEditable = false;
 }
-
 
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
@@ -87,11 +111,16 @@ async function renderProfile() {
 
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
-  userDetails.experience.forEach((experience) => {
-    const experienceDiv = document.createElement("div");
-    experienceDiv.classList.add("experience-box");
-    experienceDiv.id = experience._id;
-    experienceDiv.innerHTML = `
+  if (userDetails.experience.length === 0) {
+    experienceSection.innerHTML = `
+    <button class="main-button" style="margin-top: 10px" onclick="">Agregar</button>
+    `;
+  } else {
+    userDetails.experience.forEach((experience) => {
+      const experienceDiv = document.createElement("div");
+      experienceDiv.classList.add("experience-box");
+      experienceDiv.id = experience._id;
+      experienceDiv.innerHTML = `
     <h3>${experience.jobTitle}</h3>
     <div class="flex">
       <svg
@@ -132,11 +161,11 @@ async function renderProfile() {
       </p>
     </div>
     <p>${experience.jobDescription}</p>
-    <button class="main-button" style="margin-top: 10px">Agregar</button>
     
     `;
-    experienceSection.appendChild(experienceDiv);
-  });
+      experienceSection.appendChild(experienceDiv);
+    });
+  }
   if (userDetails.education.length > 0) {
     userDetails.education.forEach((education) => {
       const educationDiv = document.createElement("div");
@@ -191,7 +220,6 @@ async function renderProfile() {
     educationDiv.classList.add("experience-box");
     educationDiv.innerHTML = `
     <h3>No hay educación registrada</h3>
-    <button class="main-button">Agregar</button>
     `;
     educationSection.appendChild(educationDiv);
   }

@@ -46,6 +46,7 @@
             id="edit-shortAbout"
             onclick="handleShortDescription()"
           >
+            <title>Editar</title>
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -64,6 +65,7 @@
             style="display: none"
             onclick="handleShortDescriptionSave()"
           >
+            <title>Guardar</title>
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -93,7 +95,9 @@
               class="w-6 h-6 edit-icon"
               id="edit-about"
               onclick="handleModalAbout()"
+              alt="Editar"
             >
+              <title>Editar</title>
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -111,6 +115,13 @@
               class="flex flex-column info-perfil custom-scrollbar"
               id="experiencia"
             ></div>
+            <button
+              class="main-button"
+              style="margin-top: 10px"
+              onclick="handleExpModal(event)"
+            >
+              Agregar
+            </button>
           </div>
           <hr />
           <div id="formacion-academica" style="min-width: 50%">
@@ -119,6 +130,9 @@
               class="flex flex-column info-perfil custom-scrollbar"
               id="educacion"
             ></div>
+            <button class="main-button" style="margin-top: 10px">
+              Agregar
+            </button>
           </div>
         </div>
         <hr />
@@ -130,8 +144,9 @@
           ></div>
         </div>
       </div>
-      <div id="about-modal">
-        <div id="about-modal-content" class="flex flex-column">
+      <!-- Modal de about -->
+      <div id="about-modal" class="modal">
+        <div id="about-modal-content" class="flex flex-column modal-content">
           <h2>Acerca de</h2>
           <form>
             <textarea
@@ -142,6 +157,62 @@
             ></textarea>
             <input type="submit" value="Guardar" class="main-button" />
           </form>
+        </div>
+      </div>
+      <!-- Modal de experiencia laboral -->
+      <div id="exp-modal" class="modal">
+        <div class="modal-content">
+          <div class="flex flex-column flex-gap-5 div-exp">
+            <h4>Agregar nueva experiencia laboral</h4>
+            <label for="jobTitle">Nombre del puesto</label
+            ><input
+              type="text"
+              name="jobTitle"
+              placeholder="Nombre del puesto"
+              required="true"
+              id="jobTitle"
+            /><label for="companyName">Nombre de la empresa</label
+            ><input
+              type="text"
+              name="companyName"
+              placeholder="Nombre de la empresa"
+              required="true"
+              id="companyName"
+            /><label for="startDate">Fecha de inicio</label
+            ><input
+              type="date"
+              name="startDate"
+              placeholder="Fecha de inicio"
+              required="true"
+              max="2023-08-01"
+              id="startDate"
+            /><label for="endDate">Fecha de fin</label
+            ><input
+              type="date"
+              name="endDate"
+              placeholder="Fecha de fin"
+              required="true"
+              max="2023-08-01"
+              id="endDate"
+            /><label for="jobDescription">Descripción del puesto</label
+            ><textarea
+              name="jobDescription"
+              placeholder="Descripción del puesto"
+              required="true"
+              id="jobDescription"
+            ></textarea>
+            <div class="flex flex-gap-10">
+              <button class="main-button" onclick="handleExpModal(event)">
+                Cancelar
+              </button>
+              <button
+                class="main-button"
+                onclick="handleExpSave(event)"
+                id="save-exp"
+              >
+                Guardar
+              </button>
+          </div>
         </div>
       </div>
     </main>

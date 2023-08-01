@@ -87,7 +87,7 @@ h3 {
   color: var(--secondary-color) !important;
 }
 
-#about-modal {
+.modal {
   display: none;
   z-index: 1;
   position: fixed;
@@ -99,14 +99,15 @@ h3 {
   background-color: #152641b2;
 }
 
-#about-modal-content {
+.modal-content {
   background-color: var(--background-color);
   margin: 15% auto;
   padding: 20px;
   border: 1px solid var(--secondary-color);
   border-radius: 5px;
   width: 80%;
-  height: 400px;
+  min-height: 400px;
+  max-height: 80%;
   max-width: 800px;
 }
 
