@@ -14,6 +14,8 @@ const skillsSection = document.getElementById("skills");
 const editAboutBtn = document.getElementById("edit-about");
 const modalAbout = document.getElementById("about-modal");
 const aboutInput = document.getElementById("about-modal-text");
+const shortAboutSave = document.getElementById("save-shortAbout");
+const shortAboutEdit = document.getElementById("edit-shortAbout");
 
 function handleModalAbout() {
   aboutInput.value = userAbout.innerText;
@@ -33,6 +35,32 @@ async function handleAboutSubmit() {
   console.log(updatedUser);
   userAbout.innerText = updatedUser.about;
   modalAbout.style.display = "none";
+}
+
+function handleShortDescription() {
+  shortAboutSave.style.display = "block";
+  shortAboutEdit.style.display = "none";
+  userDescription.contentEditable = true;
+  userDescription.classList.add("editable-content");
+  userDescription.focus();
+  
+}
+
+async function handleShortDescriptionSave() {
+  const newShortDescription = userDescription.innerText;
+  // const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+  //   method: "PATCH",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({ userDescription: newShortDescription }),
+  // });
+  // const updatedUser = await response.json();
+  // console.log(updatedUser);
+  userDescription.classList.remove("editable-content");
+  shortAboutSave.style.display = "none";
+  shortAboutEdit.style.display = "block";
+  userDescription.contentEditable = false;
 }
 
 

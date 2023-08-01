@@ -16,7 +16,9 @@ h3 {
 
 .profile-paragraph-center {
   text-align: center;
-  margin: 30px 30px;
+  margin: auto;
+  max-width: 200px;
+  overflow-wrap: break-word;
 }
 
 .profile-paragraph {
@@ -112,6 +114,20 @@ h3 {
   width: 100%;
   height: 95%;
   margin: 10px 0;
+}
+
+.editable-content {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 2px;
+  max-width: 210px;
+  overflow-wrap: break-word;
+}
+
+.editable-content:focus {
+  outline: none;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 768px) {
