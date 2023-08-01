@@ -68,6 +68,52 @@ h3 {
   cursor: pointer;
 }
 
+.edit-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--secondary-color) !important;
+}
+
+.edit-icon:hover {
+  color: var(--primary-color) !important;
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+}
+
+.edit-icon:active {
+  transform: scale(1.2);
+  color: var(--secondary-color) !important;
+}
+
+#about-modal {
+  display: none;
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #152641b2;
+}
+
+#about-modal-content {
+  background-color: var(--background-color);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  width: 80%;
+  height: 400px;
+  max-width: 800px;
+}
+
+#about-modal-content textarea {
+  width: 100%;
+  height: 95%;
+  margin: 10px 0;
+}
+
 @media screen and (max-width: 768px) {
   #left-column {
     width: 100% !important;

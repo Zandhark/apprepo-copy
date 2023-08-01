@@ -11,6 +11,30 @@ const userAbout = document.getElementById("user-about");
 const experienceSection = document.getElementById("experiencia");
 const educationSection = document.getElementById("educacion");
 const skillsSection = document.getElementById("skills");
+const editAboutBtn = document.getElementById("edit-about");
+const modalAbout = document.getElementById("about-modal");
+const aboutInput = document.getElementById("about-modal-text");
+
+function handleModalAbout() {
+  modalAbout.style.display = "block";
+}
+
+async function handleAboutSubmit() {
+  aboutInput.value = userAbout.innerText;
+  const newAbout = aboutInput.value;
+  const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ about: newAbout }),
+  });
+  const updatedUser = await response.json();
+  console.log(updatedUser);
+  userAbout.innerText = updatedUser.about;
+  modalAbout.style.display = "none";
+}
+
 
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {

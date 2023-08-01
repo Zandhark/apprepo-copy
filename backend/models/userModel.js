@@ -88,10 +88,7 @@ const userSchema = new Schema(
     userDescription: String,
     profileImg: String,
     curriculum: String,
-    about: {
-      type: String,
-      required: false,
-    },
+    about:String,
     role: String,
     experience: [experienceSchema],
     education: [educationSchema],
