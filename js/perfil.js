@@ -16,11 +16,11 @@ const modalAbout = document.getElementById("about-modal");
 const aboutInput = document.getElementById("about-modal-text");
 
 function handleModalAbout() {
+  aboutInput.value = userAbout.innerText;
   modalAbout.style.display = "block";
 }
 
 async function handleAboutSubmit() {
-  aboutInput.value = userAbout.innerText;
   const newAbout = aboutInput.value;
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
     method: "PATCH",
