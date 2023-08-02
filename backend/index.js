@@ -146,6 +146,15 @@ app.post("/api/empresas/new", async (req, res) => {
 
 app.get("/api/usuarios", async (req, res) => {
   // retorna lista de usuarios
+  try {
+    const usuarios = await Users.find({});
+    if (usuarios instanceof Error) {
+      throw new Error(usuarios.message);
+    }
+    res.status(200).json(usuarios);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.patch("/api/usuarios/update/:id", async (req, res) => {
