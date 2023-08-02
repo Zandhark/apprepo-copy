@@ -152,12 +152,17 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
   // actualiza un usuario
 });
 
-app.get("/api/notificaciones", async (req, res) => {
-  // retorna lista de notificaciones
-});
-
 app.get("/api/notificaciones/:userId", async (req, res) => {
   // retorna lista de notificaciones de un usuario
+  try {
+    const notificacion = await Notificacion.findById(req.params.userId);
+    if (notificacion instanceof Error) {
+      throw new Error(notificacion.message);
+    }
+    res.status(200).json(notificacion);
+  }catch (e){
+  res.status(400).json({ error: e.message });
+  }
 });
 
 app.post("/api/notificaciones/new", async (req, res) => {
