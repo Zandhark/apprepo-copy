@@ -36,7 +36,8 @@ header {
 }
 
 main {
-  margin: 20px 30px;
+  max-width: 1700px;
+  margin: 20px 100px;
 }
 
 footer {
