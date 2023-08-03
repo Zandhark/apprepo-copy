@@ -69,7 +69,7 @@ function handleExpModal(e) {
 }
 
 async function handleExpModalSubmit(e) {
-  console.log("Submit")
+  console.log("Submit");
   const jobTitle = document.getElementById("jobTitle").value;
   const companyName = document.getElementById("companyName").value;
   const startDate = document.getElementById("startDate").value;
@@ -149,7 +149,6 @@ function handleEduModal(e) {
 }
 
 async function handleEduModalSubmit(e) {
-
   const eduTitle = document.getElementById("eduTitle").value;
   const institution = document.getElementById("institution").value;
   const eduStartDate = document.getElementById("eduStartDate").value;
@@ -182,7 +181,6 @@ async function handleEduModalSubmit(e) {
     eduModal.style.display = "none";
   }
 }
-
 
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
@@ -271,6 +269,9 @@ async function renderProfile() {
   if (userDetails.education.length > 0) {
     userDetails.education.forEach((education) => {
       const educationDiv = document.createElement("div");
+      const startDate = new Date(education.startDate).toISOString().split("T")[0];
+      const endDate = new Date(education.endDate).toISOString().split("T")[0];
+
       educationDiv.classList.add("experience-box");
       educationDiv.innerHTML = `
       <h3>${education.title}</h3>
@@ -309,7 +310,7 @@ async function renderProfile() {
           />
         </svg>
         <p style="margin-left: 10px">
-          Desde ${education.startDate} Hasta ${education.endDate}
+          Desde ${startDate} Hasta ${endDate}
         </p>
       </div>
       <p>${education.description}</p>
@@ -317,7 +318,7 @@ async function renderProfile() {
       educationSection.appendChild(educationDiv);
     });
   } else {
-    educationSection.innerHTML=`
+    educationSection.innerHTML = `
       <h3>No hay educación registrada</h3>
     `;
   }
