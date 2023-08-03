@@ -1,3 +1,7 @@
+#puestos-disponibles {
+    height: 400px;
+}
+
 .border-company {
     border: 2px;
     border-radius: 5px;
@@ -25,9 +29,9 @@
     margin-top: -0.4rem;
 }
 
-.button {  
+.button {
     background-color: var(--background-color);
-    color: #fff;    
+    color: #fff;
     font-weight: 600;
     font-size: 15px;
     padding: 5px;
