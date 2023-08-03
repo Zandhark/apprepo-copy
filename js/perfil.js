@@ -317,12 +317,9 @@ async function renderProfile() {
       educationSection.appendChild(educationDiv);
     });
   } else {
-    const educationDiv = document.createElement("div");
-    educationDiv.classList.add("experience-box");
-    educationDiv.innerHTML = `
-    <h3>No hay educación registrada</h3>
+    educationSection.innerHTML=`
+      <h3>No hay educación registrada</h3>
     `;
-    educationSection.appendChild(educationDiv);
   }
   if (userDetails.skills.length > 0) {
     userDetails.skills.forEach((skills) => {
