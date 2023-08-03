@@ -17,6 +17,7 @@ const aboutInput = document.getElementById("about-modal-text");
 const shortAboutSave = document.getElementById("save-shortAbout");
 const shortAboutEdit = document.getElementById("edit-shortAbout");
 const expModal = document.getElementById("exp-modal");
+const eduModal = document.getElementById("edu-modal");
 
 function datesValidation() {
   const startDateValue = new Date(this.value);
@@ -36,17 +37,24 @@ function handleModalAbout() {
 async function handleAboutSubmit(e) {
   e.preventDefault();
   const newAbout = aboutInput.value;
-  const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ about: newAbout }),
-  });
-  const updatedUser = await response.json();
-  console.log(updatedUser);
-  userAbout.innerText = updatedUser.about;
-  modalAbout.style.display = "none";
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ about: newAbout }),
+      }
+    );
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    userAbout.innerText = updatedUser.about;
+  } catch (e) {
+    alert("Error al actualizar el perfil");
+    modalAbout.style.display = "none";
+  }
 }
 
 function handleExpModal(e) {
@@ -59,9 +67,39 @@ function handleExpModal(e) {
   expModal.style.display = "block";
 }
 
-
-
-
+async function handleExpModalSubmit(e) {
+  const jobTitle = document.getElementById("jobTitle").value;
+  const companyName = document.getElementById("companyName").value;
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+  const jobDescription = document.getElementById("jobDescription").value;
+  const newExperience = {
+    jobTitle,
+    companyName,
+    startDate,
+    endDate,
+    jobDescription,
+  };
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/experiencia/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newExperience),
+      }
+    );
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    expModal.style.display = "none";
+    renderProfile();
+  } catch (e) {
+    alert("Error al actualizar el perfil");
+    expModal.style.display = "none";
+  }
+}
 
 function handleShortDescription() {
   shortAboutSave.style.display = "block";
@@ -71,21 +109,77 @@ function handleShortDescription() {
   userDescription.focus();
 }
 
+function handleEduModal(e) {
+  e.preventDefault();
+  if (e.target.innerText === "Cancelar") {
+    eduModal.style.display = "none";
+    return;
+  }
+  datesValidation();
+  eduModal.style.display = "block";
+}
+
+async function handleEduModalSubmit(e) {
+
+  const eduTitle = document.getElementById("eduTitle").value;
+  const institution = document.getElementById("institution").value;
+  const eduStartDate = document.getElementById("eduStartDate").value;
+  const eduEndDate = document.getElementById("eduEndDate").value;
+  const eduDescription = document.getElementById("eduDescription").value;
+  const newEducation = {
+    title: eduTitle,
+    institution,
+    startDate: eduStartDate,
+    endDate: eduEndDate,
+    description: eduDescription,
+  };
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/educacion/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newExperience),
+      }
+    );
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    expModal.style.display = "none";
+    renderProfile();
+  } catch (e) {
+    alert("Error al actualizar el perfil");
+    expModal.style.display = "none";
+  }
+}
+
 async function handleShortDescriptionSave() {
   const newShortDescription = userDescription.innerText;
-  // const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
-  //   method: "PATCH",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ userDescription: newShortDescription }),
-  // });
-  // const updatedUser = await response.json();
-  // console.log(updatedUser);
-  userDescription.classList.remove("editable-content");
-  shortAboutSave.style.display = "none";
-  shortAboutEdit.style.display = "block";
-  userDescription.contentEditable = false;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userDescription: newShortDescription }),
+      }
+    );
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    userDescription.classList.remove("editable-content");
+    shortAboutSave.style.display = "none";
+    shortAboutEdit.style.display = "block";
+    userDescription.contentEditable = false;
+  } catch (e) {
+    alert("Error al actualizar el perfil");
+    userDescription.classList.remove("editable-content");
+    shortAboutSave.style.display = "none";
+    shortAboutEdit.style.display = "block";
+    userDescription.contentEditable = false;
+  }
 }
 
 async function getUserDetails(userId) {
@@ -120,6 +214,13 @@ async function renderProfile() {
       const experienceDiv = document.createElement("div");
       experienceDiv.classList.add("experience-box");
       experienceDiv.id = experience._id;
+      const startDate = new Date(experience.startDate)
+        .toISOString()
+        .split("T")[0];
+      const endDate = new Date(experience.endDate).toISOString().split("T")[0];
+      const months = Math.floor(
+        (new Date(endDate) - new Date(startDate)) / 2629800000
+      );
       experienceDiv.innerHTML = `
     <h3>${experience.jobTitle}</h3>
     <div class="flex">
@@ -157,7 +258,7 @@ async function renderProfile() {
         />
       </svg>
       <p style="margin-left: 10px">
-        Desde ${experience.startDate} Hasta ${experience.endDate}
+        Desde ${startDate} Hasta ${endDate} (${months} meses)
       </p>
     </div>
     <p>${experience.jobDescription}</p>

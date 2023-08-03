@@ -140,6 +140,12 @@ app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dep
 app.patch("/api/usuarios/update/:id", async (req, res) => { // actualiza un usuario
 });
 
+app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
+});
+
+app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario
+});
+
 app.get("/api/notificaciones", async (req, res) => { // retorna lista de notificaciones
 });
 
