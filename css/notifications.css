@@ -20,13 +20,8 @@ path {
 
 #main-content {
   min-height: 65vh;
-  height: 65vh;
+  height: 70vh;
   width: 100vh;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
 }
 
 .pulsate-bell {
