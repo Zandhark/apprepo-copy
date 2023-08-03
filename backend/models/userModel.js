@@ -31,12 +31,6 @@ const educationSchema = new Schema({
   endDate: Date,
 });
 
-const skillsSchema = new Schema({
-  name: {
-    type: String,
-    required: false,
-  },
-});
 
 const userSchema = new Schema(
   {
@@ -66,7 +60,7 @@ const userSchema = new Schema(
     role: String,
     experience: [experienceSchema],
     education: [educationSchema],
-    skills: [skillsSchema],
+    skills: [String],
   },
   { timestamps: true }
 );

@@ -19,6 +19,7 @@ const shortAboutEdit = document.getElementById("edit-shortAbout");
 const expModal = document.getElementById("exp-modal");
 const expForm = document.getElementById("exp-form");
 const eduModal = document.getElementById("edu-modal");
+const skillsModal = document.getElementById("skills-modal");
 
 function datesValidation() {
   const startDateValue = new Date(this.value);
@@ -189,6 +190,40 @@ async function handleEduModalSubmit(e) {
   }
 }
 
+function handleSkillsModal(e) {
+  e.preventDefault();
+  if (e.target.innerText === "Cancelar") {
+    skillsModal.style.display = "none";
+    return;
+  }
+  skillsModal.style.display = "block";
+}
+
+async function handleSkillsModalSubmit(e) {
+  const skillList = document.getElementById("skill-list").value;
+  const newSkills = skillList.split(",");
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/skills/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newSkills),
+      }
+    );
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    skillsModal.style.display = "none";
+    renderProfile();
+  } catch (e) {
+    alert("Error al actualizar el perfil");
+    skillsModal.style.display = "none";
+  }
+}
+
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
     method: "GET",
@@ -332,11 +367,12 @@ async function renderProfile() {
     `;
   }
   if (userDetails.skills.length > 0) {
-    userDetails.skills.forEach((skills) => {
+    console.log(userDetails.skills)
+    userDetails.skills.forEach((skill) => {
       const skillsDiv = document.createElement("div");
       skillsDiv.classList.add("skills-box");
       skillsDiv.innerHTML = `
-      <h4>${skills.name}</h3>
+      <h4>${skill}</h3>
       `;
       skillsSection.appendChild(skillsDiv);
     });
@@ -344,7 +380,6 @@ async function renderProfile() {
     const skillsDiv = document.createElement("div");
     skillsDiv.innerHTML = `
     <h3>No hay habilidades registradas</h3>
-    <button class="main-button">Agregar</button>
     `;
     skillsSection.appendChild(skillsDiv);
   }
