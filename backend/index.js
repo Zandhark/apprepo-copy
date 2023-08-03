@@ -126,7 +126,6 @@ app.get("/api/usuarios", async (req, res) => { // retorna lista de usuarios
 app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dependiendo del id
   try {
     const user = await User.findById(req.params.userId);
-    console.log(user)
     if (user instanceof Error) {
       throw new Error(user.message);
     }
@@ -141,6 +140,19 @@ app.patch("/api/usuarios/update/:id", async (req, res) => { // actualiza un usua
 });
 
 app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
+  console.log(req.body)
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { $push: { experience: req.body } });
+    console.log(response)
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+  
+
 });
 
 app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario

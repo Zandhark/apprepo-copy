@@ -17,6 +17,7 @@ const aboutInput = document.getElementById("about-modal-text");
 const shortAboutSave = document.getElementById("save-shortAbout");
 const shortAboutEdit = document.getElementById("edit-shortAbout");
 const expModal = document.getElementById("exp-modal");
+const expForm = document.getElementById("exp-form");
 const eduModal = document.getElementById("edu-modal");
 
 function datesValidation() {
@@ -68,6 +69,7 @@ function handleExpModal(e) {
 }
 
 async function handleExpModalSubmit(e) {
+  console.log("Submit")
   const jobTitle = document.getElementById("jobTitle").value;
   const companyName = document.getElementById("companyName").value;
   const startDate = document.getElementById("startDate").value;
@@ -141,7 +143,7 @@ async function handleEduModalSubmit(e) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newExperience),
+        body: JSON.stringify(newEducation),
       }
     );
     const updatedUser = await response.json();
@@ -168,7 +170,6 @@ async function handleShortDescriptionSave() {
       }
     );
     const updatedUser = await response.json();
-    console.log(updatedUser);
     userDescription.classList.remove("editable-content");
     shortAboutSave.style.display = "none";
     shortAboutEdit.style.display = "block";
@@ -195,7 +196,6 @@ async function getUserDetails(userId) {
 
 async function renderProfile() {
   const userDetails = await getUserDetails(userId);
-  console.log(userDetails);
   profileImg.src = userDetails.profileImg;
   if (userDetails.userDescription === "") {
     userDescription.innerText = "Agrega una descripción";
