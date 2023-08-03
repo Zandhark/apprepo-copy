@@ -113,24 +113,31 @@ function handleShortDescription() {
 
 async function handleShortDescriptionSave() {
   const newShortDescription = userDescription.innerText;
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/usuarios/${userId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userDescription: newShortDescription }),
-      }
-    );
-    const updatedUser = await response.json();
-    userDescription.classList.remove("editable-content");
-    shortAboutSave.style.display = "none";
-    shortAboutEdit.style.display = "block";
-    userDescription.contentEditable = false;
-  } catch (e) {
-    alert("Error al actualizar el perfil");
+  if (!userDescription.innerText === newShortDescription) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/usuarios/${userId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userDescription: newShortDescription }),
+        }
+      );
+      const updatedUser = await response.json();
+      userDescription.classList.remove("editable-content");
+      shortAboutSave.style.display = "none";
+      shortAboutEdit.style.display = "block";
+      userDescription.contentEditable = false;
+    } catch (e) {
+      alert("Error al actualizar el perfil");
+      userDescription.classList.remove("editable-content");
+      shortAboutSave.style.display = "none";
+      shortAboutEdit.style.display = "block";
+      userDescription.contentEditable = false;
+    }
+  } else {
     userDescription.classList.remove("editable-content");
     shortAboutSave.style.display = "none";
     shortAboutEdit.style.display = "block";
@@ -269,7 +276,9 @@ async function renderProfile() {
   if (userDetails.education.length > 0) {
     userDetails.education.forEach((education) => {
       const educationDiv = document.createElement("div");
-      const startDate = new Date(education.startDate).toISOString().split("T")[0];
+      const startDate = new Date(education.startDate)
+        .toISOString()
+        .split("T")[0];
       const endDate = new Date(education.endDate).toISOString().split("T")[0];
 
       educationDiv.classList.add("experience-box");
