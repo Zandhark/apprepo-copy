@@ -140,7 +140,6 @@ app.patch("/api/usuarios/update/:id", async (req, res) => { // actualiza un usua
 });
 
 app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
-  console.log(req.body)
   try {
     const response = await User.findByIdAndUpdate(req.params.id, { $push: { experience: req.body } });
     console.log(response)
@@ -156,6 +155,16 @@ app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la
 });
 
 app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { $push: { education: req.body } });
+    console.log(response)
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.get("/api/notificaciones", async (req, res) => { // retorna lista de notificaciones

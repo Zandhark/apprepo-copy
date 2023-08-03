@@ -183,21 +183,27 @@
                 placeholder="Nombre de la empresa"
                 required="true"
                 id="companyName"
-              /><label for="startDate">Fecha de inicio</label
-              ><input
-                type="date"
-                name="startDate"
-                placeholder="Fecha de inicio"
-                required="true"
-                id="startDate"
-              /><label for="endDate">Fecha de fin</label
-              ><input
-                type="date"
-                name="endDate"
-                placeholder="Fecha de fin"
-                required="true"
-                id="endDate"
-              /><label for="jobDescription">Descripción del puesto</label
+              />
+              <div class="flex flex-align-center flex-gap-10 flex-space-between">
+                <label for="startDate">Fecha de inicio</label
+                ><input
+                  type="date"
+                  name="startDate"
+                  placeholder="Fecha de inicio"
+                  required="true"
+                  style="width: 80%"
+                  style=""
+                /><label for="endDate">Fecha de fin</label
+                ><input
+                  type="date"
+                  name="endDate"
+                  placeholder="Fecha de fin"
+                  required="true"
+                  id="endDate"
+                  style="width: 80%"
+                />
+              </div>
+              <label for="jobDescription">Descripción del puesto</label
               ><textarea
                 name="jobDescription"
                 placeholder="Descripción del puesto"
@@ -225,7 +231,7 @@
         <div class="modal-content">
           <div class="flex flex-column flex-gap-5 div-exp">
             <h4>Agregar nueva formación académica</h4>
-            <form action="">
+            <form class="flex flex-column flex-gap-5" id="edu-form">
               <label for="eduTitle">Nombre</label
               ><input
                 type="text"
@@ -240,21 +246,27 @@
                 placeholder="Nombre de la institución"
                 required="true"
                 id="institution"
-              /><label for="eduStartDate">Fecha de inicio</label
-              ><input
-                type="date"
-                name="eduStartDate"
-                placeholder="Fecha de inicio"
-                required="true"
-                id="eduStartDate"
-              /><label for="eduEndDate">Fecha de fin</label
-              ><input
-                type="date"
-                name="eduEndDate"
-                placeholder="Fecha de fin"
-                required="true"
-                id="eduEndDate"
-              /><label for="eduDescription">Descripción</label
+              />
+              <div class="flex flex-space-between flex-align-center flex-gap-10">
+                <label for="eduStartDate">Fecha de inicio</label
+                ><input
+                  type="date"
+                  name="eduStartDate"
+                  placeholder="Fecha de inicio"
+                  required="true"
+                  id="eduStartDate"
+                  style="width: 80%"
+                /><label for="eduEndDate">Fecha de fin</label
+                ><input
+                  type="date"
+                  name="eduEndDate"
+                  placeholder="Fecha de fin"
+                  required="true"
+                  id="eduEndDate"
+                  style="width: 80%"
+                />
+              </div>
+              <label for="eduDescription">Descripción</label
               ><textarea
                 name="eduDescription"
                 placeholder="Descripción"

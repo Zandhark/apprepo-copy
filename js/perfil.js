@@ -111,6 +111,33 @@ function handleShortDescription() {
   userDescription.focus();
 }
 
+async function handleShortDescriptionSave() {
+  const newShortDescription = userDescription.innerText;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/${userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userDescription: newShortDescription }),
+      }
+    );
+    const updatedUser = await response.json();
+    userDescription.classList.remove("editable-content");
+    shortAboutSave.style.display = "none";
+    shortAboutEdit.style.display = "block";
+    userDescription.contentEditable = false;
+  } catch (e) {
+    alert("Error al actualizar el perfil");
+    userDescription.classList.remove("editable-content");
+    shortAboutSave.style.display = "none";
+    shortAboutEdit.style.display = "block";
+    userDescription.contentEditable = false;
+  }
+}
+
 function handleEduModal(e) {
   e.preventDefault();
   if (e.target.innerText === "Cancelar") {
@@ -148,40 +175,14 @@ async function handleEduModalSubmit(e) {
     );
     const updatedUser = await response.json();
     console.log(updatedUser);
-    expModal.style.display = "none";
+    eduModal.style.display = "none";
     renderProfile();
   } catch (e) {
     alert("Error al actualizar el perfil");
-    expModal.style.display = "none";
+    eduModal.style.display = "none";
   }
 }
 
-async function handleShortDescriptionSave() {
-  const newShortDescription = userDescription.innerText;
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/usuarios/${userId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userDescription: newShortDescription }),
-      }
-    );
-    const updatedUser = await response.json();
-    userDescription.classList.remove("editable-content");
-    shortAboutSave.style.display = "none";
-    shortAboutEdit.style.display = "block";
-    userDescription.contentEditable = false;
-  } catch (e) {
-    alert("Error al actualizar el perfil");
-    userDescription.classList.remove("editable-content");
-    shortAboutSave.style.display = "none";
-    shortAboutEdit.style.display = "block";
-    userDescription.contentEditable = false;
-  }
-}
 
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
@@ -207,7 +208,7 @@ async function renderProfile() {
   userAbout.innerText = userDetails.about;
   if (userDetails.experience.length === 0) {
     experienceSection.innerHTML = `
-    <button class="main-button" style="margin-top: 10px" onclick="">Agregar</button>
+    <h3>No hay experiencia registrada</h3>
     `;
   } else {
     userDetails.experience.forEach((experience) => {
@@ -312,7 +313,6 @@ async function renderProfile() {
         </p>
       </div>
       <p>${education.description}</p>
-      <button class="main-button" style="margin-top: 10px">Agregar</button>
       `;
       educationSection.appendChild(educationDiv);
     });
