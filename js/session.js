@@ -12,7 +12,6 @@ function verifyUserSession() {
       .split("=")[1];
   } catch (e) {}
 
-  console.log(userId, sessionId);
   if (!userId && !sessionId) {
     alert("No ha iniciado sesión");
     location.href = "/login/";

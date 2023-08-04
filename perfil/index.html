@@ -33,10 +33,46 @@
         <img src="" alt="foto de perfil" id="profile-img" />
         <h1 id="user-name"></h1>
         <h2 class="secondary-color" id="title"></h2>
-        <p class="profile-paragraph-center" id="user-description"></p>
-        <a href="/perfil/editar.html">
-          <button class="main-button" type="button">Editar perfil</button>
-        </a>
+        <div class="flex flex-align-center" style="padding-right: 5px">
+          <p class="profile-paragraph-center" id="user-description"></p>
+          <!-- SVG Editar -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 edit-icon"
+            id="edit-shortAbout"
+            onclick="handleShortDescription()"
+          >
+            <title>Editar</title>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+            />
+          </svg>
+          <!-- SVG Guardar -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            id="save-shortAbout"
+            class="w-6 h-6 edit-icon"
+            style="display: none"
+            onclick="handleShortDescriptionSave()"
+          >
+            <title>Guardar</title>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12.75l6 6 9-13.5"
+            />
+          </svg>
+        </div>
         <a href="/perfil/estadoaplicaciones.html">
           <button class="main-button">Ver mis aplicaciones</button>
         </a>
@@ -47,25 +83,60 @@
         style="color: white"
       >
         <div>
-          <h2>Acerca de</h2>
+          <div class="flex flex-align-center">
+            <h2>Acerca de</h2>
+            <!-- SVG Editar -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 edit-icon"
+              id="edit-about"
+              onclick="handleModalAbout()"
+              alt="Editar"
+            >
+              <title>Editar</title>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+              />
+            </svg>
+          </div>
           <p id="user-about"></p>
         </div>
         <hr />
-        <div class="flex flex-gap-20 experience-formation-container">
-          <div>
+        <div class="flex experience-formation-container">
+          <div id="experiencia-div" style="min-width: 50%">
             <h2>Experiencia Laboral</h2>
             <div
               class="flex flex-column info-perfil custom-scrollbar"
               id="experiencia"
             ></div>
+            <button
+              class="main-button"
+              style="margin-top: 10px"
+              onclick="handleExpModal(event)"
+            >
+              Agregar
+            </button>
           </div>
           <hr />
-          <div>
+          <div id="formacion-academica" style="min-width: 50%">
             <h2>Formación Académica</h2>
             <div
               class="flex flex-column info-perfil custom-scrollbar"
               id="educacion"
             ></div>
+            <button
+              class="main-button"
+              style="margin-top: 10px"
+              onclick="handleEduModal(event)"
+            >
+              Agregar
+            </button>
           </div>
         </div>
         <hr />
@@ -75,6 +146,183 @@
             class="flex flex-gap-10 flex-wrap skills-container"
             id="skills"
           ></div>
+          <button class="main-button" onclick="handleSkillsModal(event)">
+            Editar
+          </button>
+        </div>
+      </div>
+      <!-- Modal de about -->
+      <div id="about-modal" class="modal">
+        <div id="about-modal-content" class="flex flex-column modal-content">
+          <h2>Acerca de</h2>
+          <form>
+            <textarea
+              name="about-modal-text"
+              id="about-modal-text"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <input type="submit" value="Guardar" class="main-button" />
+          </form>
+        </div>
+      </div>
+      <!-- Modal de experiencia laboral -->
+      <div id="exp-modal" class="modal">
+        <div class="modal-content">
+          <div class="flex flex-column flex-gap-5 div-exp">
+            <h4>Agregar nueva experiencia laboral</h4>
+            <form class="flex flex-column" id="exp-form">
+              <label for="jobTitle">Nombre del puesto</label
+              ><input
+                type="text"
+                name="jobTitle"
+                placeholder="Nombre del puesto"
+                required="true"
+                id="jobTitle"
+              /><label for="companyName">Nombre de la empresa</label
+              ><input
+                type="text"
+                name="companyName"
+                placeholder="Nombre de la empresa"
+                required="true"
+                id="companyName"
+              />
+              <div
+                class="flex flex-align-center flex-gap-10 flex-space-between"
+              >
+                <label for="startDate">Fecha de inicio</label
+                ><input
+                  type="date"
+                  name="startDate"
+                  placeholder="Fecha de inicio"
+                  required="true"
+                  style="width: 80%"
+                  style=""
+                /><label for="endDate">Fecha de fin</label
+                ><input
+                  type="date"
+                  name="endDate"
+                  placeholder="Fecha de fin"
+                  required="true"
+                  id="endDate"
+                  style="width: 80%"
+                />
+              </div>
+              <label for="jobDescription">Descripción del puesto</label
+              ><textarea
+                name="jobDescription"
+                placeholder="Descripción del puesto"
+                required="true"
+                id="jobDescription"
+              ></textarea>
+            </form>
+            <div class="flex flex-gap-10">
+              <button class="main-button" onclick="handleExpModal(event)">
+                Cancelar
+              </button>
+              <button
+                class="main-button"
+                onclick="handleExpModalSubmit(event)"
+                id="save-exp"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal de formacion academica -->
+      <div id="edu-modal" class="modal">
+        <div class="modal-content">
+          <div class="flex flex-column flex-gap-5 div-exp">
+            <h4>Agregar nueva formación académica</h4>
+            <form class="flex flex-column flex-gap-5" id="edu-form">
+              <label for="eduTitle">Nombre</label
+              ><input
+                type="text"
+                name="eduTitle"
+                placeholder="Nombre"
+                required="true"
+                id="eduTitle"
+              /><label for="institution">Nombre de la institución</label
+              ><input
+                type="text"
+                name="institution"
+                placeholder="Nombre de la institución"
+                required="true"
+                id="institution"
+              />
+              <div
+                class="flex flex-space-between flex-align-center flex-gap-10"
+              >
+                <label for="eduStartDate">Fecha de inicio</label
+                ><input
+                  type="date"
+                  name="eduStartDate"
+                  placeholder="Fecha de inicio"
+                  required="true"
+                  id="eduStartDate"
+                  style="width: 80%"
+                /><label for="eduEndDate">Fecha de fin</label
+                ><input
+                  type="date"
+                  name="eduEndDate"
+                  placeholder="Fecha de fin"
+                  required="true"
+                  id="eduEndDate"
+                  style="width: 80%"
+                />
+              </div>
+              <label for="eduDescription">Descripción</label
+              ><textarea
+                name="eduDescription"
+                placeholder="Descripción"
+                required="true"
+                id="eduDescription"
+              ></textarea>
+            </form>
+            <div class="flex flex-gap-10">
+              <button class="main-button" onclick="handleEduModal(event)">
+                Cancelar
+              </button>
+              <button
+                class="main-button"
+                onclick="handleEduModalSubmit(event)"
+                id="save-edu"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal de skills -->
+      <div id="skills-modal" class="modal">
+        <div class="modal-content">
+          <div class="flex flex-column flex-gap-20 div-exp">
+            <h4>Agregar habilidades separadas por coma</h4>
+            <form class="flex flex-column flex-gap-5" id="skills-form">
+              <label for="skill-list">Nombre</label
+              ><input
+                type="text"
+                name="skill-list"
+                required="true"
+                id="skill-list"
+              />
+            </form>
+            <div class="flex flex-gap-10">
+              <button class="main-button" onclick="handleSkillsModal(event)">
+                Cancelar
+              </button>
+              <button
+                class="main-button"
+                onclick="handleSkillsModalSubmit(event)"
+                id="save-skill"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -89,7 +89,7 @@ function handlePasswordBlur() {
 }
 
 async function handleNewUser(usuario) {
-  if (usuario.tipoUsuario === "usuario-final") {
+  if (usuario.tipoUsuario === "endUser") {
     try {
       const response = await fetch("http://localhost:3000/api/registro", {
         method: "POST",
@@ -166,6 +166,8 @@ async function handleNewUser(usuario) {
         return false;
       }
     }
+  } else {
+    console.log("nothing 🤷")
   }
 }
 
@@ -296,7 +298,6 @@ function handleRemoveExperience(removeButton) {
 
 function handleSubmit(e) {
   e.preventDefault();
-
   if (tipoUsuario === "usuario-final") {
     if (!formUsuarios.checkValidity() || !formExp.checkValidity()) {
       formUsuarios.reportValidity();
@@ -322,6 +323,8 @@ async function handleUserForm() {
   const genero = document.getElementById("genero").value;
   const cv = document.getElementById("cv").value;
   const fotografia = document.getElementById("fotografia").value;
+  const title = document.getElementById("titulo").value;
+  const userDescription = document.getElementById("descripcion-usuario").value;
   for (let i = 0; i < experienciaCounter; i++) {
     const jobTitle = document.getElementById(`jobTitle-${i}`).value;
     const companyName = document.getElementById(`companyName-${i}`).value;
@@ -339,13 +342,15 @@ async function handleUserForm() {
   }
 
   const usuarioFinal = {
-    nombre,
+    nombre: nombre + " " + apellidos,
     apellidos,
     email,
     passwordValue,
     genero,
     cv,
     fotografia,
+    title,
+    userDescription,
     expedrienciaLaboral,
     tipoUsuario: "endUser",
   };
@@ -375,7 +380,6 @@ async function handleEmpresaForm() {
 
 async function handleFormSubmit() {
   let session;
-
   if (tipoUsuario === "usuario-final") {
     session = await handleUserForm();
   } else if (tipoUsuario === "administrador") {

@@ -1,4 +1,3 @@
-// const getJobs = require("./getJobs.js");
 const login = require("./login.js");
 const registro = require("./registro.js");
 const newSession = require("./session.js");
@@ -6,6 +5,7 @@ const newSession = require("./session.js");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const compression = require("compression");
 
 const app = express();
 
@@ -18,9 +18,11 @@ const Puesto = require("./models/puestoModel.js");
 const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
 const Notificacion = require("./models/notificacionModel.js");
+const User = require("./models/userModel.js");
 
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 
 app.get("/api/puestos", async (req, res) => {
   // retorna la lista de puestos
@@ -157,8 +159,108 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
+app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dependiendo del id
+  try {
+    const user = await User.findById(req.params.userId);
+    if (user instanceof Error) {
+      throw new Error(user.message);
+    }
+    
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 app.patch("/api/usuarios/update/:id", async (req, res) => {
   // actualiza un usuario
+});
+
+app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { $push: { experience: req.body } });
+    console.log(response)
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+  
+
+});
+
+app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dependiendo del id
+  try {
+    const user = await User.findById(req.params.userId);
+    if (user instanceof Error) {
+      throw new Error(user.message);
+    }
+    
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { $push: { education: req.body } });
+    console.log(response)
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { $push: { experience: req.body } });
+    console.log(response)
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+  
+
+});
+
+app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { $push: { education: req.body } });
+    console.log(response)
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/usuarios/skills/:id", async (req, res) => { // actualiza los skills de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { skills: req.body });
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/usuarios/skills/:id", async (req, res) => { // actualiza los skills de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { skills: req.body });
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.get("/api/notificaciones/:userId", async (req, res) => {
@@ -198,13 +300,30 @@ app.post("/api/registro", async (req, res) => {
   // registra un nuevo usuario final
   try {
     const usuario = req.body;
-    const response = await registro(usuario);
+    const user = new User({
+      name: usuario.nombre,
+      email: usuario.email,
+      password: usuario.passwordValue,
+      type: usuario.tipoUsuario,
+      genero: usuario.genero,
+      title: usuario.title,
+      userDescription: "",
+      profileImg: usuario.fotografia,
+      curriculum: usuario.cv,
+      about: usuario.userDescription,
+      experience: usuario.expedrienciaLaboral,
+      education: [],
+      skills: [],
+      languages: [],
+    });
+    const response = await user.save();
     console.log(response);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
     res.status(200).json(response);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
