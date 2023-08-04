@@ -167,6 +167,15 @@ app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la e
   }
 });
 
+app.patch("/api/usuarios/skills/:id", async (req, res) => { // actualiza los skills de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, { skills: req.body });
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 app.get("/api/notificaciones", async (req, res) => { // retorna lista de notificaciones
 });
 

@@ -20,6 +20,7 @@ const expModal = document.getElementById("exp-modal");
 const expForm = document.getElementById("exp-form");
 const eduModal = document.getElementById("edu-modal");
 const skillsModal = document.getElementById("skills-modal");
+let userDetails = {};
 
 function datesValidation() {
   const startDateValue = new Date(this.value);
@@ -196,6 +197,9 @@ function handleSkillsModal(e) {
     skillsModal.style.display = "none";
     return;
   }
+  const skillList = document.getElementById("skill-list");
+  const userSkills = [...userDetails.skills]
+  skillList.value = String(userSkills);
   skillsModal.style.display = "block";
 }
 
@@ -215,11 +219,12 @@ async function handleSkillsModalSubmit(e) {
       }
     );
     const updatedUser = await response.json();
-    console.log(updatedUser);
     skillsModal.style.display = "none";
+    skillList.value = "";
     renderProfile();
   } catch (e) {
     alert("Error al actualizar el perfil");
+    skillList.value = "";
     skillsModal.style.display = "none";
   }
 }
@@ -236,7 +241,7 @@ async function getUserDetails(userId) {
 }
 
 async function renderProfile() {
-  const userDetails = await getUserDetails(userId);
+  userDetails = await getUserDetails(userId);
   profileImg.src = userDetails.profileImg;
   if (userDetails.userDescription === "") {
     userDescription.innerText = "Agrega una descripción";
@@ -251,6 +256,7 @@ async function renderProfile() {
     <h3>No hay experiencia registrada</h3>
     `;
   } else {
+    experienceSection.innerHTML = "";
     userDetails.experience.forEach((experience) => {
       const experienceDiv = document.createElement("div");
       experienceDiv.classList.add("experience-box");
@@ -309,6 +315,7 @@ async function renderProfile() {
     });
   }
   if (userDetails.education.length > 0) {
+    educationSection.innerHTML = "";
     userDetails.education.forEach((education) => {
       const educationDiv = document.createElement("div");
       const startDate = new Date(education.startDate)
@@ -367,12 +374,12 @@ async function renderProfile() {
     `;
   }
   if (userDetails.skills.length > 0) {
-    console.log(userDetails.skills)
+    skillsSection.innerHTML = "";
     userDetails.skills.forEach((skill) => {
       const skillsDiv = document.createElement("div");
       skillsDiv.classList.add("skills-box");
       skillsDiv.innerHTML = `
-      <h4>${skill}</h3>
+      <h4>${skill}</h4>
       `;
       skillsSection.appendChild(skillsDiv);
     });
