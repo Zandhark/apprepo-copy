@@ -102,7 +102,8 @@ function filtrarAplicaciones() {
 
   aplicacionesFiltradas.forEach((aplicacion, index) => {
     const aplicacionDiv = document.createElement("div");
-    aplicacionDiv.classList = "padding-box flex flex-align-center flex-gap-10";
+    aplicacionDiv.classList =
+      "border padding-box flex flex-align-center flex-gap-10";
     aplicacionDiv.id = `aplicacion-${index}`;
 
     aplicacionDiv.innerHTML = `
@@ -146,7 +147,8 @@ function renderApplications() {
 
   aplicaciones.forEach((aplicacion, index) => {
     const aplicacionDiv = document.createElement("div");
-    aplicacionDiv.classList = "padding-box flex flex-align-center flex-gap-10";
+    aplicacionDiv.classList =
+      "border padding-box flex flex-align-center flex-gap-10";
     aplicacionDiv.id = `puesto-${index}`;
 
     aplicacionDiv.innerHTML = `

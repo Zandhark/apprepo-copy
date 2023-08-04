@@ -66,7 +66,7 @@ function renderInvitations() {
     return `
     <div
       id="invitacion-${index}"
-      class="padding-box flex flex-align-center flex-gap-10 notification"
+      class="border padding-box flex flex-align-center flex-gap-40 notification"
     >
       <div>
         <h2>${invitation.title}</h2>

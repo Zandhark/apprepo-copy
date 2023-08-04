@@ -27,13 +27,8 @@ h3 {
 }
 
 #left-column {
-  width: 250px !important;
-  position: fixed;
-  min-height: 70vh;
-}
-
-#main-content {
-  margin-left: 270px !important;
+  width: 350px;
+  padding: 20px;
 }
 
 #main-content>div {
@@ -50,17 +45,19 @@ h3 {
 }
 
 .skills-container {
+  justify-content: center;
+  align-items: center;
   padding: 10px;
 }
 
 .skills-box {
   text-align: center;
-  width: 70px;
+  width: 100px;
   background-color: var(--secondary-color);
   color: var(--background-color);
   border-radius: 5%;
   padding: 10px;
-  margin: auto;
+  margin: 10px;
   transition: all .2s ease-in-out;
 }
 

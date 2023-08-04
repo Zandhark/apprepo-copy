@@ -27,26 +27,31 @@
     <hr />
     <main class="flex flex-gap-20 flex-grow1">
       <div id="left-column" class="flex-column flex-grow1 flex-align-center">
-        <label style="justify-content: center" for="select-estado"
-          >Filtrar por estado:</label
-        >
-        <select
-          name="select-estado"
-          required
-          name="select-estado"
-          id="select-estado"
-        >
-          <option value="" disabled selected hidden>
-            Seleccione el estado
-          </option>
-          <option>Enviada</option>
-          <option>En Revisión</option>
-          <option>Aceptada</option>
-          <option>Denegada</option>
-          <option>Todas</option>
-        </select>
+        <div class="input-container">
+          <label style="justify-content: center" for="select-estado"
+            >Filtrar por estado:</label
+          >
+          <select
+            name="select-estado"
+            required
+            name="select-estado"
+            id="select-estado"
+          >
+            <option value="" disabled selected hidden>
+              Seleccione el estado
+            </option>
+            <option>Enviada</option>
+            <option>En revisión</option>
+            <option>Aceptada</option>
+            <option>Denegada</option>
+            <option>Todas</option>
+          </select>
+        </div>
       </div>
-      <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
+      <div
+        id="main-content"
+        class="flex flex-grow2 flex-column flex-gap-20 custom-scrollbar"
+      >
         <h1>Mis aplicaciones</h1>
       </div>
     </main>

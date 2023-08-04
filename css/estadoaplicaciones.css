@@ -12,6 +12,11 @@ svg, path { /* This is to prevent the svg from being selected */
   pointer-events: none;
 }
 
+#main-content{
+  padding: 20px;
+  height: 100px;
+}
+
 .width {
   width: 100%;
 }
