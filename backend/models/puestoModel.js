@@ -23,6 +23,12 @@ const puestoSchema = new Schema(
         required: true,
       },
     ],
+    atributos: [
+      {
+        type: String,
+        required: true,
+      }
+    ],
     visibilidad: {
       type: String,
       required: true,
