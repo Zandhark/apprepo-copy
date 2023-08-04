@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/css/paginapuestos.css" type="text/css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Document</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/styles.css" type="text/css" />
-  <link rel="stylesheet" href="/css/paginapuestos.css" type="text/css">
-
-  <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
-  <script src="/js/puestos.js" defer></script>
-  <script src="/js/main.js" defer></script>
-</head>
+    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
+    <script src="/js/puestos.js" defer></script>
+    <script src="/js/main.js" defer></script>
+  </head>
 
   <body>
     <header class="flex flex-space-between flex-align-center">
@@ -53,35 +55,45 @@
           />
         </div>
         <br />
-        <label for="minsalario">Salario mínimo:</label>
-        <input
-          type="range"
-          name="minsalario"
-          min="0"
-          max="8000000"
-          value="4000000"
-          step="50000"
-          id="minsalario"
-          class="slider-input"
-        />
-        <br />
-        <label for="minsalario">Salario máximo:</label>
-        <input
-          type="range"
-          name="minsalario"
-          min="0"
-          max="8000000"
-          value="4000000"
-          step="50000"
-          id="minsalario"
-          class="slider-input"
-        />
+        <div>
+          <div class="input-container">
+            <label for="minsalario"
+              >Salario mínimo: ₡<span id="minsalario-value">0</span></label
+            >
+            <input
+              type="range"
+              name="minsalario"
+              min="0"
+              max="8000000"
+              value="0"
+              step="50000"
+              id="minsalario"
+              class="slider-input"
+            />
+          </div>
+          <div class="input-container">
+            <label for="maxsalario"
+              >Salario máximo: ₡<span id="maxsalario-value"
+                >8,000,000</span
+              ></label
+            >
+            <input
+              type="range"
+              name="minsalario"
+              min="0"
+              max="8000000"
+              value="8000000"
+              step="50000"
+              id="maxsalario"
+              class="slider-input"
+            />
+          </div>
+        </div>
       </div>
       <div
         id="main-content"
         class="flex flex-column flex-gap-20 custom-scrollbar"
-      >
-      </div>
+      ></div>
     </main>
     <footer class="flex flex-space-between flex-align-center">
       <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark" />

@@ -20,7 +20,6 @@ async function getJob(id) {
     const puestoResult = await response.json();
     if (puestoResult.error) {
       throw new Error(puestoResult.error);
-      
     }
     return puestoResult;
   } catch (e) {
@@ -48,14 +47,14 @@ async function renderPuesto() {
   <img src="${puesto.empresa.logo}" alt="${puesto.empresa.nombre}" />
   <p>
     <a href="/empresas/perfil.html?id=${puesto.empresa._id}"
-      ><strong>${puesto.empresa.nombre}</strong></a>
+      ><strong style="font-size: 18px">${puesto.empresa.nombre}</strong></a>
     <br />
     ${puesto.empresa.shortDesc}
   </p>
   `;
   descripcionPuesto.innerHTML = `
     <p>${puesto.descripcion}</p>
-    <p>
+    <p style="padding-top: 20px">
       <strong>Salario:</strong> ${puesto.rangoSalario[0]} - ${puesto.rangoSalario[1]}
     </p>
   `;

@@ -39,19 +39,22 @@ const svgCheck = `
 
 `;
 
-function handleNotificationRead(e) { // Controla cambio de status de notificaciones entre leido y no leido
+function handleNotificationRead(e) {
+  // Controla cambio de status de notificaciones entre leido y no leido
   const notificationIndex = e.target.id.split("-")[2];
   const svgContainer = document.getElementById(e.target.id);
   const parentContainer = document.getElementById(e.target.parentElement.id);
 
-  if (notifications[notificationIndex].read) { // Si la notificacion esta leida entonces la marca como no leida y canbia el icono a uncheck
+  if (notifications[notificationIndex].read) {
+    // Si la notificacion esta leida entonces la marca como no leida y canbia el icono a uncheck
     notifications[notificationIndex].read = false;
     svgContainer.innerHTML = svgCheck;
-    parentContainer.classList.add("unread-notification")
-  } else if(!notifications[notificationIndex].read) { // Si la notificacion no esta leida entonces la marca como leida y canbia el icono a una campana
+    parentContainer.classList.add("unread-notification");
+  } else if (!notifications[notificationIndex].read) {
+    // Si la notificacion no esta leida entonces la marca como leida y canbia el icono a una campana
     notifications[notificationIndex].read = true;
     svgContainer.innerHTML = svgBell;
-    parentContainer.classList.remove("unread-notification")
+    parentContainer.classList.remove("unread-notification");
   }
 }
 
@@ -178,7 +181,7 @@ function renderNotifications() {
   notifications.forEach((notification, index) => {
     const notificationDiv = document.createElement("div");
     notificationDiv.classList =
-      "padding-box flex flex-align-center flex-gap-10 notification";
+      "padding-box flex flex-align-center flex-gap-20 notification";
     notificationDiv.id = `notification-${index}`;
 
     if (notification.read) {
