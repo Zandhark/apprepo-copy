@@ -169,7 +169,7 @@ app.post("/api/empresas/new", async (req, res) => {
 app.get("/api/usuarios", async (req, res) => {
   // retorna lista de usuarios
   try {
-    const usuarios = await Users.find({});
+    const usuarios = await User.find({});
     if (usuarios instanceof Error) {
       throw new Error(usuarios.message);
     }
@@ -194,6 +194,20 @@ app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dep
 
 app.patch("/api/usuarios/update/:id", async (req, res) => {
   // actualiza un usuario
+  try {
+    const data = req.body;
+    const usuario = await User.findByIdAndUpdate(req.params.id, {
+      type: data.type || User.type
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.status(200).json(usuario);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
