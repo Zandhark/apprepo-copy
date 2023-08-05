@@ -51,8 +51,28 @@ app.get("/api/puestos/:id", async (req, res) => {
   }
 });
 
-app.get("/api/puestos/new", async (req, res) => {
+app.post("/api/puestos/new", async (req, res) => {
   // agrega nuevo puesto
+
+  try {
+    const data = req.body;
+    const puesto = new Puesto ({
+      nombre: data.nombre,
+      descripcion: data.descripcion,
+      rangoSalario: data.rangoSalario,
+      requisitos: data.requisitos,
+      atributos: data.atributos,
+      visibilidad: data.visibilidad,
+    });
+    const response = await puesto.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    console.log(response);
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.delete("/api/puestos/delete/:id", async (req, res) => {
