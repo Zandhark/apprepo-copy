@@ -6,17 +6,31 @@ const puestosContainer = document.getElementById("puestos-disponibles");
 const urlParams = new URLSearchParams(window.location.search);
 
 async function fetchEmpresa(id) {
-  const response = await fetch(`http://localhost:3000/api/empresas/${id}`);
-  const empresa = await response.json();
-  return empresa;
+  try {
+    const response = await fetch(`http://localhost:3000/api/empresas/${id}`);
+    if (!response.ok) {
+      throw new Error("Error al obtener la empresa");
+    }
+    const empresa = await response.json();
+    return empresa;
+  } catch (error) {
+    throw new Error(`Error: ${error.message}`);
+  }
 }
 
 async function fetchPuestos(id) {
-  const response = await fetch(
-    `http://localhost:3000/api/puestos/empresa/${id}`
-  );
-  const puestos = await response.json();
-  return puestos;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/puestos/empresa/${id}`
+    );
+    if (!response.ok) {
+      throw new Error("Error al obtener los puestos");
+    }
+    const puestos = await response.json();
+    return puestos;
+  } catch (error) {
+    throw new Error(`Error: ${error.message}`);
+  }
 }
 
 async function renderEmpresa() {
