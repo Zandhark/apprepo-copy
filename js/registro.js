@@ -377,13 +377,13 @@ async function handleEmpresaForm() {
   const nombreEmpresa = document.getElementById("nombre-empresa").value;
   const email = document.getElementById("email-empresa").value;
   const passwordValue = passwordEmpresa.value;
-  const logo = document.getElementById("logo").value;
+  const logo = document.getElementById("logo").files[0];
   const descripcion = document.getElementById("descripcion").value;
   const empresa = {
     nombre: nombreEmpresa,
     email: email,
     password: passwordValue,
-    logo: logo,
+    logo: await getBase64(logo),
     descripcion: descripcion,
     tipoUsuario: "administrador",
   };

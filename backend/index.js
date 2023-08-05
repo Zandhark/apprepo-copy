@@ -128,15 +128,19 @@ app.post("/api/empresas/new", async (req, res) => {
   //crea una nueva empresa
   try {
     const data = req.body;
+    const logoBuffer = new Buffer.from(data.logo.replace(/^data:image\/\w+;base64,/, ""), "base64");
     const empresa = new Empresa({
       nombre: data.nombre,
       email: data.email,
       password: data.password,
-      logo: data.logo,
       descripcion: data.descripcion,
       type: data.tipoUsuario,
     });
-    const response = await empresa.save();
+    const empResponse = await empresa.save();
+    if (empResponse instanceof Error) {
+      throw new Error(empResponse.message);
+    }
+    blockBlobClient = containerClient.getBlockBlobClient(`${empResponse._id}-logo.jpg`);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
@@ -323,7 +327,12 @@ app.post("/api/registro", async (req, res) => {
       skills: [],
       languages: [],
     });
+    
     const userResponse = await user.save();
+    if (userResponse instanceof Error) {
+      throw new Error(userResponse.message);
+    }
+    
     const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}-cv.pdf`);
     const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}-profile.jpg`);
     await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
