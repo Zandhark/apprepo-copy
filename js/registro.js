@@ -14,6 +14,19 @@ let password, password2, passwordEmpresa, password2Empresa;
 
 let experienciaCounter = 0; // contador de lista de experiencia laboral
 
+function convertBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+}
+
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
@@ -104,20 +117,20 @@ async function handleNewUser(usuario) {
       if (data.error) {
         throw new Error(data.error);
       }
-      const session = await fetch("http://localhost:3000/api/session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: data._id }),
-      });
-      const sessionData = await session.json();
+      // const session = await fetch("http://localhost:3000/api/session", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ userId: data._id }),
+      // });
+      // const sessionData = await session.json();
 
-      document.cookie = `userId=${data._id}; path=/; max-age=3600`;
-      document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
-      document.cookie = `userType=${data.type}; path=/; max-age=3600`;
+      // document.cookie = `userId=${data._id}; path=/; max-age=3600`;
+      // document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
+      // document.cookie = `userType=${data.type}; path=/; max-age=3600`;
 
-      return data;
+      // return data;
     } catch (e) {
       if (e.message.includes("E11000")) {
         alert(`El correo ${usuario.email} ya se encuentra registrado.`);
@@ -321,8 +334,8 @@ async function handleUserForm() {
   const email = document.getElementById("email").value;
   const passwordValue = password.value;
   const genero = document.getElementById("genero").value;
-  const cv = document.getElementById("cv").value;
-  const fotografia = document.getElementById("fotografia").value;
+  const cv = document.getElementById("cv").files[0];
+  const fotografia = document.getElementById("fotografia").files[0];
   const title = document.getElementById("titulo").value;
   const userDescription = document.getElementById("descripcion-usuario").value;
   for (let i = 0; i < experienciaCounter; i++) {
@@ -347,8 +360,8 @@ async function handleUserForm() {
     email,
     passwordValue,
     genero,
-    cv,
-    fotografia,
+    cv: await convertBase64(cv),
+    fotografia: await convertBase64(fotografia),
     title,
     userDescription,
     expedrienciaLaboral,

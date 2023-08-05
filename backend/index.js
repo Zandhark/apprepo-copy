@@ -6,6 +6,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const compression = require("compression");
+const containerClient = require("./utils/azureBlob.js");
 
 const app = express();
 
@@ -21,7 +22,7 @@ const Notificacion = require("./models/notificacionModel.js");
 const User = require("./models/userModel.js");
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "50mb"}));
 app.use(compression());
 
 app.get("/api/puestos", async (req, res) => {
@@ -297,9 +298,17 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.post("/api/registro", async (req, res) => {
+  
   // registra un nuevo usuario final
+
+  // console.log(req.body.fotografia.replace(/^data:image\/\w+;base64,/, ""));
+  // console.log(req.body.cv.replace(/^data:application\/\w+;base64,/, ""));
+
+
   try {
     const usuario = req.body;
+    const cvBuffer = Buffer.from(usuario.cv.replace(/^data:application\/\w+;base64,/, ""), "base64");
+    const fotoBuffer = Buffer.from(usuario.fotografia.replace(/^data:image\/\w+;base64,/, ""), "base64");
     const user = new User({
       name: usuario.nombre,
       email: usuario.email,
@@ -308,16 +317,21 @@ app.post("/api/registro", async (req, res) => {
       genero: usuario.genero,
       title: usuario.title,
       userDescription: "",
-      profileImg: usuario.fotografia,
-      curriculum: usuario.cv,
       about: usuario.userDescription,
       experience: usuario.expedrienciaLaboral,
       education: [],
       skills: [],
       languages: [],
     });
-    const response = await user.save();
-    console.log(response);
+    const userResponse = await user.save();
+    const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}.pdf`);
+    const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}.jpg`);
+    await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
+    await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length);
+    const cvUrl = blockBlobClientCV.url;
+    const fotoUrl = blockBlobClientFoto.url;
+    const response = await User.findByIdAndUpdate(userResponse._id, { curriculum: cvUrl, profileImg: fotoUrl }, {new: true});
+
     if (response instanceof Error) {
       throw new Error(response.message);
     }
