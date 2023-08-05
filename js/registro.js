@@ -117,20 +117,20 @@ async function handleNewUser(usuario) {
       if (data.error) {
         throw new Error(data.error);
       }
-      // const session = await fetch("http://localhost:3000/api/session", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ userId: data._id }),
-      // });
-      // const sessionData = await session.json();
+      const session = await fetch("http://localhost:3000/api/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: data._id }),
+      });
+      const sessionData = await session.json();
 
-      // document.cookie = `userId=${data._id}; path=/; max-age=3600`;
-      // document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
-      // document.cookie = `userType=${data.type}; path=/; max-age=3600`;
+      document.cookie = `userId=${data._id}; path=/; max-age=3600`;
+      document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
+      document.cookie = `userType=${data.type}; path=/; max-age=3600`;
 
-      // return data;
+      return data;
     } catch (e) {
       if (e.message.includes("E11000")) {
         alert(`El correo ${usuario.email} ya se encuentra registrado.`);
