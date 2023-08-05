@@ -14,6 +14,19 @@ let password, password2, passwordEmpresa, password2Empresa;
 
 let experienciaCounter = 0; // contador de lista de experiencia laboral
 
+function convertBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+}
+
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
@@ -321,8 +334,8 @@ async function handleUserForm() {
   const email = document.getElementById("email").value;
   const passwordValue = password.value;
   const genero = document.getElementById("genero").value;
-  const cv = document.getElementById("cv").value;
-  const fotografia = document.getElementById("fotografia").value;
+  const cv = document.getElementById("cv").files[0];
+  const fotografia = document.getElementById("fotografia").files[0];
   const title = document.getElementById("titulo").value;
   const userDescription = document.getElementById("descripcion-usuario").value;
   for (let i = 0; i < experienciaCounter; i++) {
@@ -347,8 +360,8 @@ async function handleUserForm() {
     email,
     passwordValue,
     genero,
-    cv,
-    fotografia,
+    cv: await convertBase64(cv),
+    fotografia: await convertBase64(fotografia),
     title,
     userDescription,
     expedrienciaLaboral,
@@ -364,13 +377,13 @@ async function handleEmpresaForm() {
   const nombreEmpresa = document.getElementById("nombre-empresa").value;
   const email = document.getElementById("email-empresa").value;
   const passwordValue = passwordEmpresa.value;
-  const logo = document.getElementById("logo").value;
+  const logo = document.getElementById("logo").files[0];
   const descripcion = document.getElementById("descripcion").value;
   const empresa = {
     nombre: nombreEmpresa,
     email: email,
     password: passwordValue,
-    logo: logo,
+    logo: await getBase64(logo),
     descripcion: descripcion,
     tipoUsuario: "administrador",
   };

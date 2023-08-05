@@ -6,6 +6,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const compression = require("compression");
+const containerClient = require("./utils/azureBlob.js");
 
 const app = express();
 
@@ -21,7 +22,7 @@ const Notificacion = require("./models/notificacionModel.js");
 const User = require("./models/userModel.js");
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "50mb"}));
 app.use(compression());
 
 app.get("/api/puestos", async (req, res) => {
@@ -147,15 +148,19 @@ app.post("/api/empresas/new", async (req, res) => {
   //crea una nueva empresa
   try {
     const data = req.body;
+    const logoBuffer = new Buffer.from(data.logo.replace(/^data:image\/\w+;base64,/, ""), "base64");
     const empresa = new Empresa({
       nombre: data.nombre,
       email: data.email,
       password: data.password,
-      logo: data.logo,
       descripcion: data.descripcion,
       type: data.tipoUsuario,
     });
-    const response = await empresa.save();
+    const empResponse = await empresa.save();
+    if (empResponse instanceof Error) {
+      throw new Error(empResponse.message);
+    }
+    blockBlobClient = containerClient.getBlockBlobClient(`${empResponse._id}-logo.jpg`);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
@@ -317,9 +322,12 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.post("/api/registro", async (req, res) => {
+  
   // registra un nuevo usuario final
   try {
     const usuario = req.body;
+    const cvBuffer = Buffer.from(usuario.cv.replace(/^data:application\/\w+;base64,/, ""), "base64");
+    const fotoBuffer = Buffer.from(usuario.fotografia.replace(/^data:image\/\w+;base64,/, ""), "base64");
     const user = new User({
       name: usuario.nombre,
       email: usuario.email,
@@ -328,16 +336,26 @@ app.post("/api/registro", async (req, res) => {
       genero: usuario.genero,
       title: usuario.title,
       userDescription: "",
-      profileImg: usuario.fotografia,
-      curriculum: usuario.cv,
       about: usuario.userDescription,
       experience: usuario.expedrienciaLaboral,
       education: [],
       skills: [],
       languages: [],
     });
-    const response = await user.save();
-    console.log(response);
+    
+    const userResponse = await user.save();
+    if (userResponse instanceof Error) {
+      throw new Error(userResponse.message);
+    }
+
+    const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}-cv.pdf`);
+    const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}-profile.jpg`);
+    await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
+    await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length);
+    const cvUrl = blockBlobClientCV.url;
+    const fotoUrl = blockBlobClientFoto.url;
+    const response = await User.findByIdAndUpdate(userResponse._id, { curriculum: cvUrl, profileImg: fotoUrl }, {new: true});
+
     if (response instanceof Error) {
       throw new Error(response.message);
     }
