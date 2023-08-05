@@ -304,11 +304,6 @@ app.post("/api/login", async (req, res) => {
 app.post("/api/registro", async (req, res) => {
   
   // registra un nuevo usuario final
-
-  // console.log(req.body.fotografia.replace(/^data:image\/\w+;base64,/, ""));
-  // console.log(req.body.cv.replace(/^data:application\/\w+;base64,/, ""));
-
-
   try {
     const usuario = req.body;
     const cvBuffer = Buffer.from(usuario.cv.replace(/^data:application\/\w+;base64,/, ""), "base64");
@@ -332,7 +327,7 @@ app.post("/api/registro", async (req, res) => {
     if (userResponse instanceof Error) {
       throw new Error(userResponse.message);
     }
-    
+
     const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}-cv.pdf`);
     const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}-profile.jpg`);
     await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
