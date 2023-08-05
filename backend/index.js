@@ -324,8 +324,8 @@ app.post("/api/registro", async (req, res) => {
       languages: [],
     });
     const userResponse = await user.save();
-    const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}.pdf`);
-    const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}.jpg`);
+    const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}-cv.pdf`);
+    const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}-profile.jpg`);
     await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
     await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length);
     const cvUrl = blockBlobClientCV.url;
