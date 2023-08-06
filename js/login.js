@@ -1,6 +1,6 @@
 const usuario = document.getElementById("username");
 const password = document.getElementById("password");
-const userSelect = document.getElementById("tipousuario");// temp code, remove
+
 
 
 async function handleLogin(user) {
@@ -15,9 +15,11 @@ async function handleLogin(user) {
       body: JSON.stringify(user),
     });
     const login = await response.json();
-    if (user.error) {
-      throw new Error(user.error);
+    if (login.error) {
+      console.log(login.error)
+      throw new Error(login.error);
     }
+    
     document.cookie = `userId=${login.user._id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${login.session._id}; path=/; max-age=3600`;
     document.cookie = `userType=${login.user.type}; path=/; max-age=3600`;

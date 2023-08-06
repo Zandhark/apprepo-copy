@@ -1,5 +1,4 @@
 const login = require("./login.js");
-const registro = require("./registro.js");
 const newSession = require("./session.js");
 
 const express = require("express");
@@ -7,6 +6,7 @@ const cors = require("cors");
 require("dotenv").config();
 const compression = require("compression");
 const containerClient = require("./utils/azureBlob.js");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
@@ -327,10 +327,25 @@ app.post("/api/login", async (req, res) => {
   // login de usuario
   const { email, password } = req.body;
   try {
-    const response = await login(email, password);
-    console.log(response.session);
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      throw new Error("Usuario incorrecto");
+      
+    }
+    const passCompare = await bcrypt.compare(password, user.password);
+    if (!passCompare) {
+      throw new Error("Contraseña incorrecta");
+
+    }
+    console.log(user);
+    const session = await newSession(user._id);
+    const response = {
+      user: user,
+      session: session,
+    };
     res.status(200).json(response);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
@@ -342,10 +357,12 @@ app.post("/api/registro", async (req, res) => {
     const usuario = req.body;
     const cvBuffer = Buffer.from(usuario.cv.replace(/^data:application\/\w+;base64,/, ""), "base64");
     const fotoBuffer = Buffer.from(usuario.fotografia.replace(/^data:image\/\w+;base64,/, ""), "base64");
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(usuario.passwordValue, salt);
     const user = new User({
       name: usuario.nombre,
       email: usuario.email,
-      password: usuario.passwordValue,
+      password: hashedPass,
       type: usuario.tipoUsuario,
       genero: usuario.genero,
       title: usuario.title,
