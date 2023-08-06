@@ -318,7 +318,8 @@ app.post("/api/login", async (req, res) => {
       throw new Error("Usuario incorrecto");
       
     }
-    if (user.password !== password) {
+    const passCompare = await bcrypt.compare(password, user.password);
+    if (!passCompare) {
       throw new Error("Contraseña incorrecta");
 
     }
