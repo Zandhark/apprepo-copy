@@ -15,10 +15,7 @@ const empresaSchema = new Schema({
     type: String,
     required: true,
   },
-  logo: {
-    type: String,
-    required: true,
-  },
+  logo: String,
   shortDesc: String,
   descripcion: {
     type: String,

@@ -383,7 +383,7 @@ async function handleEmpresaForm() {
     nombre: nombreEmpresa,
     email: email,
     password: passwordValue,
-    logo: await getBase64(logo),
+    logo: await convertBase64(logo),
     descripcion: descripcion,
     tipoUsuario: "administrador",
   };

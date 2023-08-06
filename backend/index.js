@@ -149,18 +149,29 @@ app.post("/api/empresas/new", async (req, res) => {
   try {
     const data = req.body;
     const logoBuffer = new Buffer.from(data.logo.replace(/^data:image\/\w+;base64,/, ""), "base64");
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(data.password, salt);
     const empresa = new Empresa({
       nombre: data.nombre,
       email: data.email,
-      password: data.password,
+      password: hash,
       descripcion: data.descripcion,
       type: data.tipoUsuario,
     });
-    const empResponse = await empresa.save();
-    if (empResponse instanceof Error) {
-      throw new Error(empResponse.message);
+
+    
+  
+    const empresaResponse = await empresa.save();
+
+    if (empresaResponse instanceof Error) {
+      throw new Error(response.message);
     }
-    blockBlobClient = containerClient.getBlockBlobClient(`${empResponse._id}-logo.jpg`);
+
+    const blockBlobClientLogo = containerClient.getBlockBlobClient(`${empresaResponse._id}-logo.jpg`);
+    await blockBlobClientLogo.upload(logoBuffer, logoBuffer.length);
+    const logoUrl = blockBlobClientLogo.url;
+    const response = await Empresa.findByIdAndUpdate(empresaResponse._id, { logo: logoUrl });
+
     if (response instanceof Error) {
       throw new Error(response.message);
     }
