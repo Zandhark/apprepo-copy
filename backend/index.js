@@ -339,10 +339,25 @@ app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email: email });
-    if (!user) {
+    const empresa = await Empresa.findOne({ email: email });
+    if (!user && !empresa) {
       throw new Error("Usuario incorrecto");
       
     }
+    if (empresa) {
+      const passCompare = await bcrypt.compare(password, empresa.password);
+      if (!passCompare) {
+        throw new Error("Contraseña incorrecta");
+      }
+      const session = await newSession(empresa._id);
+      const response = {
+        login: empresa,
+        session: session,
+      };
+      res.status(200).json(response);
+      return;
+    }
+
     const passCompare = await bcrypt.compare(password, user.password);
     if (!passCompare) {
       throw new Error("Contraseña incorrecta");
@@ -351,7 +366,7 @@ app.post("/api/login", async (req, res) => {
     console.log(user);
     const session = await newSession(user._id);
     const response = {
-      user: user,
+      login: user,
       session: session,
     };
     res.status(200).json(response);

@@ -53,7 +53,7 @@ async function renderEmpresas(empresasToShow) {
           </div>
         </div>
       </div>
-      <a href="/empresas/perfil.html?id=${empresa._id}">
+      <a href="/empresas/empresa.html?id=${empresa._id}">
         <button class="main-button">Ver empresa</button>
       </a>
     `;

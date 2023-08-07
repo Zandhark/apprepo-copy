@@ -392,15 +392,17 @@ async function handleEmpresaForm() {
 }
 
 async function handleFormSubmit() {
-  let session;
+  let sessionUser;
+  let sessionEmpresa;
   if (tipoUsuario === "usuario-final") {
-    session = await handleUserForm();
+    sessionUser = await handleUserForm();
   } else if (tipoUsuario === "administrador") {
-    session = await handleEmpresaForm();
+    sessionEmpresa = await handleEmpresaForm();
   }
   if (session) {
-    console.log(session);
     location.href = "/perfil/";
+  } else if (sessionEmpresa) {
+    location.href = "/empresas/perfil.html";
   }
 }
 

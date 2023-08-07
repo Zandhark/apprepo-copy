@@ -37,6 +37,7 @@ async function renderEmpresa() {
   const empresaId = urlParams.get("id");
   const empresa = await fetchEmpresa(empresaId);
   const puestos = await fetchPuestos(empresaId);
+  document.title = `${empresa.nombre}`;
   console.log(empresa);
   nombreEmpresa.innerText = empresa.nombre;
   empresaShortDesc.innerText = empresa.shortDesc;
