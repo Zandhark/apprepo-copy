@@ -22,7 +22,7 @@ const Notificacion = require("./models/notificacionModel.js");
 const User = require("./models/userModel.js");
 
 app.use(cors());
-app.use(express.json({ limit: "50mb"}));
+app.use(express.json({ limit: "50mb" }));
 app.use(compression());
 
 app.get("/api/puestos", async (req, res) => {
@@ -57,7 +57,7 @@ app.post("/api/puestos/new", async (req, res) => {
 
   try {
     const data = req.body;
-    const puesto = new Puesto ({
+    const puesto = new Puesto({
       nombre: data.nombre,
       descripcion: data.descripcion,
       rangoSalario: data.rangoSalario,
@@ -123,8 +123,9 @@ app.get("/api/empresas/:id", async (req, res) => {
 
 app.patch("/api/empresas/update/:id", async (req, res) => {
   // actualiza una empresa
+  const data = req.body;
+  console.log(data.shortDescription);
   try {
-    const data = req.body;
     const empresa = await Empresa.findByIdAndUpdate(req.params.id, {
       nombre: data.nombre || Empresa.nombre,
       email: data.email || Empresa.email,
@@ -132,12 +133,12 @@ app.patch("/api/empresas/update/:id", async (req, res) => {
       logo: data.logo || Empresa.logo,
       descripcion: data.descripcion || Empresa.descripcion,
       type: data.tipoUsuario || Empresa.type,
-    });
-
+      shortDescription: data.shortDescription || Empresa.shortDescription,
+    }, { new: true });
     if (!empresa) {
       return res.status(404).json({ error: "Empresa no encontrada" });
     }
-
+    console.log(empresa)
     res.status(200).json(empresa);
   } catch (e) {
     res.status(400).json({ error: e.message });
@@ -148,7 +149,10 @@ app.post("/api/empresas/new", async (req, res) => {
   //crea una nueva empresa
   try {
     const data = req.body;
-    const logoBuffer = new Buffer.from(data.logo.replace(/^data:image\/\w+;base64,/, ""), "base64");
+    const logoBuffer = new Buffer.from(
+      data.logo.replace(/^data:image\/\w+;base64,/, ""),
+      "base64"
+    );
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(data.password, salt);
     const empresa = new Empresa({
@@ -159,18 +163,20 @@ app.post("/api/empresas/new", async (req, res) => {
       type: data.tipoUsuario,
     });
 
-    
-  
     const empresaResponse = await empresa.save();
 
     if (empresaResponse instanceof Error) {
       throw new Error(response.message);
     }
 
-    const blockBlobClientLogo = containerClient.getBlockBlobClient(`${empresaResponse._id}-logo.jpg`);
+    const blockBlobClientLogo = containerClient.getBlockBlobClient(
+      `${empresaResponse._id}-logo.jpg`
+    );
     await blockBlobClientLogo.upload(logoBuffer, logoBuffer.length);
     const logoUrl = blockBlobClientLogo.url;
-    const response = await Empresa.findByIdAndUpdate(empresaResponse._id, { logo: logoUrl });
+    const response = await Empresa.findByIdAndUpdate(empresaResponse._id, {
+      logo: logoUrl,
+    });
 
     if (response instanceof Error) {
       throw new Error(response.message);
@@ -195,13 +201,14 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
-app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dependiendo del id
+app.get("/api/usuarios/:userId", async (req, res) => {
+  // retorna un usuario dependiendo del id
   try {
     const user = await User.findById(req.params.userId);
     if (user instanceof Error) {
       throw new Error(user.message);
     }
-    
+
     res.status(200).json(user);
   } catch (e) {
     res.status(400).json({ error: e.message });
@@ -213,7 +220,7 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
   try {
     const data = req.body;
     const usuario = await User.findByIdAndUpdate(req.params.id, {
-      type: data.type || User.type
+      type: data.type || User.type,
     });
 
     if (!usuario) {
@@ -226,10 +233,13 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
   }
 });
 
-app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
+app.patch("/api/usuarios/experiencia/:id", async (req, res) => {
+  // actualiza la experiencia de un usuario
   try {
-    const response = await User.findByIdAndUpdate(req.params.id, { $push: { experience: req.body } });
-    console.log(response)
+    const response = await User.findByIdAndUpdate(req.params.id, {
+      $push: { experience: req.body },
+    });
+    console.log(response);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
@@ -237,27 +247,29 @@ app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
-  
-
 });
 
-app.get("/api/usuarios/:userId", async (req, res) => { // retorna un usuario dependiendo del id
+app.get("/api/usuarios/:userId", async (req, res) => {
+  // retorna un usuario dependiendo del id
   try {
     const user = await User.findById(req.params.userId);
     if (user instanceof Error) {
       throw new Error(user.message);
     }
-    
+
     res.status(200).json(user);
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
 });
 
-app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario
+app.patch("/api/usuarios/educacion/:id", async (req, res) => {
+  // actualiza la educacion de un usuario
   try {
-    const response = await User.findByIdAndUpdate(req.params.id, { $push: { education: req.body } });
-    console.log(response)
+    const response = await User.findByIdAndUpdate(req.params.id, {
+      $push: { education: req.body },
+    });
+    console.log(response);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
@@ -267,25 +279,13 @@ app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la e
   }
 });
 
-app.patch("/api/usuarios/experiencia/:id", async (req, res) => { // actualiza la experiencia de un usuario
+app.patch("/api/usuarios/experiencia/:id", async (req, res) => {
+  // actualiza la experiencia de un usuario
   try {
-    const response = await User.findByIdAndUpdate(req.params.id, { $push: { experience: req.body } });
-    console.log(response)
-    if (response instanceof Error) {
-      throw new Error(response.message);
-    }
-    res.status(200).json(response);
-  } catch (e) {
-    res.status(400).json({ error: e.message });
-  }
-  
-
-});
-
-app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la educacion de un usuario
-  try {
-    const response = await User.findByIdAndUpdate(req.params.id, { $push: { education: req.body } });
-    console.log(response)
+    const response = await User.findByIdAndUpdate(req.params.id, {
+      $push: { experience: req.body },
+    });
+    console.log(response);
     if (response instanceof Error) {
       throw new Error(response.message);
     }
@@ -295,18 +295,40 @@ app.patch("/api/usuarios/educacion/:id", async (req, res) => { // actualiza la e
   }
 });
 
-app.patch("/api/usuarios/skills/:id", async (req, res) => { // actualiza los skills de un usuario
+app.patch("/api/usuarios/educacion/:id", async (req, res) => {
+  // actualiza la educacion de un usuario
   try {
-    const response = await User.findByIdAndUpdate(req.params.id, { skills: req.body });
+    const response = await User.findByIdAndUpdate(req.params.id, {
+      $push: { education: req.body },
+    });
+    console.log(response);
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
     res.status(200).json(response);
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
 });
 
-app.patch("/api/usuarios/skills/:id", async (req, res) => { // actualiza los skills de un usuario
+app.patch("/api/usuarios/skills/:id", async (req, res) => {
+  // actualiza los skills de un usuario
   try {
-    const response = await User.findByIdAndUpdate(req.params.id, { skills: req.body });
+    const response = await User.findByIdAndUpdate(req.params.id, {
+      skills: req.body,
+    });
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/usuarios/skills/:id", async (req, res) => {
+  // actualiza los skills de un usuario
+  try {
+    const response = await User.findByIdAndUpdate(req.params.id, {
+      skills: req.body,
+    });
     res.status(200).json(response);
   } catch (e) {
     res.status(400).json({ error: e.message });
@@ -321,8 +343,8 @@ app.get("/api/notificaciones/:userId", async (req, res) => {
       throw new Error(notificacion.message);
     }
     res.status(200).json(notificacion);
-  }catch (e){
-  res.status(400).json({ error: e.message });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
   }
 });
 
@@ -342,7 +364,6 @@ app.post("/api/login", async (req, res) => {
     const empresa = await Empresa.findOne({ email: email });
     if (!user && !empresa) {
       throw new Error("Usuario incorrecto");
-      
     }
     if (empresa) {
       const passCompare = await bcrypt.compare(password, empresa.password);
@@ -361,7 +382,6 @@ app.post("/api/login", async (req, res) => {
     const passCompare = await bcrypt.compare(password, user.password);
     if (!passCompare) {
       throw new Error("Contraseña incorrecta");
-
     }
     console.log(user);
     const session = await newSession(user._id);
@@ -371,18 +391,23 @@ app.post("/api/login", async (req, res) => {
     };
     res.status(200).json(response);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(400).json({ error: e.message });
   }
 });
 
 app.post("/api/registro", async (req, res) => {
-  
   // registra un nuevo usuario final
   try {
     const usuario = req.body;
-    const cvBuffer = Buffer.from(usuario.cv.replace(/^data:application\/\w+;base64,/, ""), "base64");
-    const fotoBuffer = Buffer.from(usuario.fotografia.replace(/^data:image\/\w+;base64,/, ""), "base64");
+    const cvBuffer = Buffer.from(
+      usuario.cv.replace(/^data:application\/\w+;base64,/, ""),
+      "base64"
+    );
+    const fotoBuffer = Buffer.from(
+      usuario.fotografia.replace(/^data:image\/\w+;base64,/, ""),
+      "base64"
+    );
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(usuario.passwordValue, salt);
     const user = new User({
@@ -399,26 +424,34 @@ app.post("/api/registro", async (req, res) => {
       skills: [],
       languages: [],
     });
-    
+
     const userResponse = await user.save();
     if (userResponse instanceof Error) {
       throw new Error(userResponse.message);
     }
 
-    const blockBlobClientCV = containerClient.getBlockBlobClient(`${userResponse._id}-cv.pdf`);
-    const blockBlobClientFoto = containerClient.getBlockBlobClient(`${userResponse._id}-profile.jpg`);
+    const blockBlobClientCV = containerClient.getBlockBlobClient(
+      `${userResponse._id}-cv.pdf`
+    );
+    const blockBlobClientFoto = containerClient.getBlockBlobClient(
+      `${userResponse._id}-profile.jpg`
+    );
     await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
     await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length);
     const cvUrl = blockBlobClientCV.url;
     const fotoUrl = blockBlobClientFoto.url;
-    const response = await User.findByIdAndUpdate(userResponse._id, { curriculum: cvUrl, profileImg: fotoUrl }, {new: true});
+    const response = await User.findByIdAndUpdate(
+      userResponse._id,
+      { curriculum: cvUrl, profileImg: fotoUrl },
+      { new: true }
+    );
 
     if (response instanceof Error) {
       throw new Error(response.message);
     }
     res.status(200).json(response);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(400).json({ error: e.message });
   }
 });

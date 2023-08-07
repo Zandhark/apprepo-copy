@@ -4,6 +4,7 @@ const empresaId = document.cookie
   .split("=")[1];
 const logo = document.getElementById("logo");
 const shortDescription = document.getElementById("short-description");
+let currentShortDescription;
 const empresaName = document.getElementById("empresa-name");
 const shortAboutSave = document.getElementById("save-shortAbout");
 const shortAboutEdit = document.getElementById("edit-shortAbout");
@@ -23,6 +24,7 @@ async function getEmpresa() {
 }
 
 function handleShortDescription() {
+  console.log(`shortDescription.innerText: ${shortDescription.innerText}`)
   shortAboutSave.style.display = "block";
   shortAboutEdit.style.display = "none";
   shortDescription.contentEditable = true;
@@ -32,30 +34,30 @@ function handleShortDescription() {
 
 async function handleShortDescriptionSave() {
   const newShortDescription = shortDescription.innerText;
-  if (!shortDescription.innerText === newShortDescription) {
-    // try {
-    //   const response = await fetch(
-    //     `http://localhost:3000/api/usuarios/${userId}`,
-    //     {
-    //       method: "PATCH",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ userDescription: newShortDescription }),
-    //     }
-    //   );
-    //   const updatedUser = await response.json();
-    //   userDescription.classList.remove("editable-content");
-    //   shortAboutSave.style.display = "none";
-    //   shortAboutEdit.style.display = "block";
-    //   userDescription.contentEditable = false;
-    // } catch (e) {
-    //   alert("Error al actualizar el perfil");
-    //   userDescription.classList.remove("editable-content");
-    //   shortAboutSave.style.display = "none";
-    //   shortAboutEdit.style.display = "block";
-    //   userDescription.contentEditable = false;
-    // }
+  if (currentShortDescription !== newShortDescription) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/empresas/update/${empresaId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ shortDescription: newShortDescription }),
+        }
+      );
+      const updatedEmpresa = await response.json();
+      shortDescription.classList.remove("editable-content");
+      shortAboutSave.style.display = "none";
+      shortAboutEdit.style.display = "block";
+      shortDescription.contentEditable = false;
+    } catch (e) {
+      alert("Error al actualizar el perfil");
+      shortDescription.classList.remove("editable-content");
+      shortAboutSave.style.display = "none";
+      shortAboutEdit.style.display = "block";
+      shortDescription.contentEditable = false;
+    }
   } else {
     shortDescription.classList.remove("editable-content");
     shortAboutSave.style.display = "none";
@@ -71,9 +73,11 @@ async function renderEmpresa() {
   logo.src = empresa.logo;
   empresaName.innerHTML = empresa.nombre;
   if (empresa.shortDesc) {
-    shortDescription.innerHTML = empresa.shortDesc;
+    shortDescription.innerText = empresa.shortDesc;
+    currentShortDescription = empresa.shortDesc;
   } else {
-    shortDescription.innerHTML = "Agregar descripción corta";
+    shortDescription.innerText = "Agregar descripción corta";
+    currentShortDescription = "Agregar descripción corta";
   }
 }
 
