@@ -124,7 +124,6 @@ app.get("/api/empresas/:id", async (req, res) => {
 app.patch("/api/empresas/update/:id", async (req, res) => {
   // actualiza una empresa
   const data = req.body;
-  console.log(data.shortDescription);
   try {
     const empresa = await Empresa.findByIdAndUpdate(req.params.id, {
       nombre: data.nombre || Empresa.nombre,

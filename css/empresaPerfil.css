@@ -3,3 +3,9 @@
   border-radius: 50%;
   width: 100px;
 }
+
+#empresa-descripcion-modal textarea {
+  width: 100%;
+  height: 95%;
+  margin: 10px 0;
+}

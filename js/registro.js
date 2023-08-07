@@ -399,7 +399,7 @@ async function handleFormSubmit() {
   } else if (tipoUsuario === "administrador") {
     sessionEmpresa = await handleEmpresaForm();
   }
-  if (session) {
+  if (sessionUser) {
     location.href = "/perfil/";
   } else if (sessionEmpresa) {
     location.href = "/empresas/perfil.html";
