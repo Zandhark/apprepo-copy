@@ -11,8 +11,9 @@
     />
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
     <link rel="stylesheet" href="/css/perfil.css" type="text/css" />
+    <link rel="stylesheet" href="/css/empresaPerfil.css" type="text/css" />
     <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
-    <script src="/js/perfil.js" defer></script>
+    <script src="/js/empresaPerfil.js" defer></script>
     <script src="/js/session.js" defer></script>
     <script src="/js/main.js" defer></script>
   </head>
@@ -30,11 +31,12 @@
         id="left-column"
         class="flex flex-column flex-align-center flex-gap-20 border"
       >
-        <img src="" alt="foto de perfil" id="profile-img" />
-        <h1 id="user-name"></h1>
+        <img src="" alt="" id="logo" />
+        <h1 id="empresa-name"></h1>
         <h2 class="secondary-color" id="title"></h2>
-        <div class="flex flex-align-center" style="padding-right: 5px">
-          <p class="profile-paragraph-center" id="user-description"></p>
+        <div class="flex flex-align-center flex-column" style="padding-right: 5px">
+          <h3>Descripción Corta</h3>
+          <p class="profile-paragraph-center" id="short-description"></p>
           <!-- SVG Editar -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -73,9 +75,6 @@
             />
           </svg>
         </div>
-        <a href="/perfil/estadoaplicaciones.html">
-          <button class="main-button">Ver mis aplicaciones</button>
-        </a>
       </div>
       <div
         id="main-content"
@@ -84,7 +83,7 @@
       >
         <div>
           <div class="flex flex-align-center">
-            <h2>Acerca de</h2>
+            <h2>Descripción</h2>
             <!-- SVG Editar -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
