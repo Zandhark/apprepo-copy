@@ -44,19 +44,34 @@ const svgCheck = `
 
 `;
 
-function handleNotificationRead(e) {
+async function updateNotification(notificationId, read) {
+  const response = await fetch(`http://localhost:3000/api/notifications/update/${notificationId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ read }),
+  });
+}
+
+
+async function handleNotificationRead(e) {
   // Controla cambio de status de notificaciones entre leido y no leido
-  const notificationIndex = e.target.id.split("-")[2];
   const svgContainer = document.getElementById(e.target.id);
   const parentContainer = document.getElementById(e.target.parentElement.id);
-
+  const notificationId = e.target.id;
+  const notificationIndex = notifications.map((notification) => notification._id).indexOf(notificationId);
+  console.log(notifications)
+  console.log(notifications[notificationIndex]);
   if (notifications[notificationIndex].read) {
     // Si la notificacion esta leida entonces la marca como no leida y canbia el icono a uncheck
+    await updateNotification(notificationId, false);
     notifications[notificationIndex].read = false;
     svgContainer.innerHTML = svgCheck;
     parentContainer.classList.add("unread-notification");
   } else if (!notifications[notificationIndex].read) {
     // Si la notificacion no esta leida entonces la marca como leida y canbia el icono a una campana
+    await updateNotification(notificationId, true);
     notifications[notificationIndex].read = true;
     svgContainer.innerHTML = svgBell;
     parentContainer.classList.remove("unread-notification");
@@ -88,7 +103,7 @@ async function renderNotifications() {
 
     if (notification.read) {
       notificationDiv.innerHTML = `
-      <div id="notification-svg-${notification._id}" onclick="handleNotificationRead(event)">
+      <div id="${notification._id}" onclick="handleNotificationRead(event)">
       ${svgBell}
       </div>
     <div>
@@ -119,7 +134,7 @@ async function renderNotifications() {
     } else if (!notification.read) {
       notificationDiv.classList.add("unread-notification");
       notificationDiv.innerHTML = `
-    <div id="notification-svg-${index}" onclick="handleNotificationRead(event)">
+    <div id="${notification._id}" onclick="handleNotificationRead(event)">
       ${svgCheck}
     </div>
     <div>

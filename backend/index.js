@@ -19,7 +19,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const Puesto = require("./models/puestoModel.js");
 const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
-const Notificacion = require("./models/notificationModel.js");
+const Notification = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
 
 app.use(cors());
@@ -283,7 +283,7 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
 app.get("/api/notifications/:userId", async (req, res) => {
   // retorna lista de notificaciones de un usuario
   try {
-    const notification = await Notificacion.find({userId: req.params.userId});
+    const notification = await Notification.find({userId: req.params.userId});
     if (notification instanceof Error) {
       throw new Error(notification.message);
     }
@@ -293,12 +293,26 @@ app.get("/api/notifications/:userId", async (req, res) => {
   }
 });
 
-app.post("/api/notificaciones/new", async (req, res) => {
+app.post("/api/notifications/new", async (req, res) => {
   // crea una nueva notificacion
 });
 
-app.patch("/api/notificaciones/update:id", async (req, res) => {
+app.patch("/api/notifications/update/:notificationId", async (req, res) => {
   // actualiza una notificacion 
+  try {
+    const data = req.body;
+    const notification = await Notification.findByIdAndUpdate(req.params.notificationId, {
+      read: data.read || User.read,
+    });
+
+    if (!notification) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    console.log(notification)
+    res.status(200).json(notification);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.post("/api/login", async (req, res) => {
