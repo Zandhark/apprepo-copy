@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const User = require("./userModel.js");
 
-const notificacionSchema = new Schema(
+const notificationSchema = new Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -25,6 +25,6 @@ const notificacionSchema = new Schema(
   { timestamps: true }
 );
 
-const Notificacion = mongoose.model("Notificacion", notificacionSchema);
+const Notification = mongoose.model("Notification", notificationSchema);
 
-module.exports = Notificacion;
+module.exports = Notification;

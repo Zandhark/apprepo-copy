@@ -21,6 +21,7 @@ const expForm = document.getElementById("exp-form");
 const eduModal = document.getElementById("edu-modal");
 const skillsModal = document.getElementById("skills-modal");
 let userDetails = {};
+let currentUserDescription;
 
 function datesValidation() {
   const startDateValue = new Date(this.value);
@@ -115,10 +116,10 @@ function handleShortDescription() {
 
 async function handleShortDescriptionSave() {
   const newShortDescription = userDescription.innerText;
-  if (!userDescription.innerText === newShortDescription) {
+  if (currentUserDescription !== newShortDescription) {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/usuarios/${userId}`,
+        `http://localhost:3000/api/usuarios/update/${userId}`,
         {
           method: "PATCH",
           headers: {
@@ -140,6 +141,7 @@ async function handleShortDescriptionSave() {
       userDescription.contentEditable = false;
     }
   } else {
+    console.log("Nada🤷")
     userDescription.classList.remove("editable-content");
     shortAboutSave.style.display = "none";
     shortAboutEdit.style.display = "block";
@@ -245,8 +247,10 @@ async function renderProfile() {
   profileImg.src = userDetails.profileImg;
   if (userDetails.userDescription === "") {
     userDescription.innerText = "Agrega una descripción";
+    currentUserDescription = "Agrega una descripción";
   } else {
     userDescription.innerText = userDetails.userDescription;
+    currentUserDescription = userDetails.userDescription;
   }
 
   userName.innerText = userDetails.name;
