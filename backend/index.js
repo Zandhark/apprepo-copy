@@ -57,6 +57,7 @@ app.post("/api/puestos/new", async (req, res) => {
 
   try {
     const data = req.body;
+    console.log(data)
     const puesto = new Puesto({
       nombre: data.nombre,
       descripcion: data.descripcion,
@@ -64,6 +65,7 @@ app.post("/api/puestos/new", async (req, res) => {
       requisitos: data.requisitos,
       atributos: data.atributos,
       visibilidad: data.visibilidad,
+      empresa: data.empresa,
     });
     const response = await puesto.save();
     if (response instanceof Error) {

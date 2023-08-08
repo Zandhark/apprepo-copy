@@ -34,7 +34,10 @@
         <img src="" alt="" id="logo" />
         <h1 id="empresa-name"></h1>
         <h2 class="secondary-color" id="title"></h2>
-        <div class="flex flex-align-center flex-column" style="padding-right: 5px">
+        <div
+          class="flex flex-align-center flex-column"
+          style="padding-right: 5px"
+        >
           <h3>Descripción Corta</h3>
           <p class="profile-paragraph-center" id="short-description"></p>
           <!-- SVG Editar -->
@@ -108,51 +111,37 @@
         </div>
         <hr />
         <div class="flex experience-formation-container">
-          <div id="experiencia-div" style="min-width: 50%">
-            <h2>Experiencia Laboral</h2>
+          <div id="puestos-div" style="min-width: 50%; width: 80%">
+            <h2>Puestos de trabajo</h2>
             <div
               class="flex flex-column info-perfil custom-scrollbar"
-              id="experiencia"
+              id="puestos"
             ></div>
-            <button
-              class="main-button"
-              style="margin-top: 10px"
-              onclick="handleExpModal(event)"
-            >
-              Agregar
-            </button>
-          </div>
-          <hr />
-          <div id="formacion-academica" style="min-width: 50%">
-            <h2>Formación Académica</h2>
-            <div
-              class="flex flex-column info-perfil custom-scrollbar"
-              id="educacion"
-            ></div>
-            <button
-              class="main-button"
-              style="margin-top: 10px"
-              onclick="handleEduModal(event)"
-            >
-              Agregar
-            </button>
+            <a href="/puestos/nuevo/index.html">
+              <button class="main-button" style="margin-top: 10px">
+                Agregar
+              </button>
+            </a>
           </div>
         </div>
         <hr />
         <div>
-          <h2>Habilidades/skills</h2>
+          <h2>Empleados</h2>
           <div
             class="flex flex-gap-10 flex-wrap skills-container"
             id="skills"
           ></div>
           <button class="main-button" onclick="handleSkillsModal(event)">
-            Editar
+            Invitar
           </button>
         </div>
       </div>
       <!-- Modal de about -->
       <div id="empresa-descripcion-modal" class="modal">
-        <div id="empresa-descripcion-content" class="flex flex-column modal-content">
+        <div
+          id="empresa-descripcion-content"
+          class="flex flex-column modal-content"
+        >
           <h2>Acerca de</h2>
           <form onsubmit="handleAboutSubmit(event)">
             <textarea
@@ -163,70 +152,6 @@
             ></textarea>
             <input type="submit" value="Guardar" class="main-button" />
           </form>
-        </div>
-      </div>
-      <!-- Modal de experiencia laboral -->
-      <div id="exp-modal" class="modal">
-        <div class="modal-content">
-          <div class="flex flex-column flex-gap-5 div-exp">
-            <h4>Agregar nueva experiencia laboral</h4>
-            <form class="flex flex-column" id="exp-form">
-              <label for="jobTitle">Nombre del puesto</label
-              ><input
-                type="text"
-                name="jobTitle"
-                placeholder="Nombre del puesto"
-                required="true"
-                id="jobTitle"
-              /><label for="companyName">Nombre de la empresa</label
-              ><input
-                type="text"
-                name="companyName"
-                placeholder="Nombre de la empresa"
-                required="true"
-                id="companyName"
-              />
-              <div
-                class="flex flex-align-center flex-gap-10 flex-space-between"
-              >
-                <label for="startDate">Fecha de inicio</label
-                ><input
-                  type="date"
-                  name="startDate"
-                  placeholder="Fecha de inicio"
-                  required="true"
-                  style="width: 80%"
-                /><label for="endDate">Fecha de fin</label
-                ><input
-                  type="date"
-                  name="endDate"
-                  placeholder="Fecha de fin"
-                  required="true"
-                  id="endDate"
-                  style="width: 80%"
-                />
-              </div>
-              <label for="jobDescription">Descripción del puesto</label
-              ><textarea
-                name="jobDescription"
-                placeholder="Descripción del puesto"
-                required="true"
-                id="jobDescription"
-              ></textarea>
-            </form>
-            <div class="flex flex-gap-10">
-              <button class="main-button" onclick="handleExpModal(event)">
-                Cancelar
-              </button>
-              <button
-                class="main-button"
-                onclick="handleExpModalSubmit(event)"
-                id="save-exp"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
         </div>
       </div>
       <!-- Modal de formacion academica -->
