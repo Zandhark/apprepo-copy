@@ -1,3 +1,15 @@
+function verifyUserSession() {
+  let userType;
+  try {
+    userType = document.cookie
+      .split(";")
+      .find((item) => item.includes("userType"))
+      .split("=")[1];
+  } catch (e) {}
+
+  console.log(userType);
+}
+
 function agregarFormato(moneda) {
   return moneda.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -22,3 +34,6 @@ slider2.addEventListener("input", function () {
     value1.textContent = agregarFormato(slider2.value);
   }
 });
+
+
+verifyUserSession();
