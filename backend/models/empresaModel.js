@@ -25,6 +25,12 @@ const empresaSchema = new Schema({
     type: String,
     required: true,
   },
+  empleados: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ]
 }, { timestamps: true });
 
 const Empresa = mongoose.model("Empresa", empresaSchema);

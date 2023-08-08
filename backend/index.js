@@ -116,7 +116,7 @@ app.get("/api/empresas/:id", async (req, res) => {
   // retorna una empresa dependiendo del id
 
   try {
-    const empresa = await Empresa.findById(req.params.id);
+    const empresa = await Empresa.findById(req.params.id).populate("empleados");
     if (empresa instanceof Error) {
       throw new Error(empresa.message);
     }
