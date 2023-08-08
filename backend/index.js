@@ -1,5 +1,6 @@
 const login = require("./login.js");
 const newSession = require("./session.js");
+const sendMail = require("./utils/sendMail.js");
 
 const express = require("express");
 const cors = require("cors");
@@ -432,6 +433,20 @@ app.delete("/api/session/delete", async (req, res) => {
   const response = await Session.deleteMany({});
   console.log(response);
   res.status(200).json({ message: "Sessions deleted" });
+});
+
+app.post("/api/sendmail", async (req, res) => {
+  // envia un mail
+  try {
+    const { email, subject, message } = req.body;
+    const response = await sendMail(email, subject, message);
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json({ message: "Mail sent" });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.listen(3000, () => {
