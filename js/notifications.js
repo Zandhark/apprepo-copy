@@ -1,3 +1,8 @@
+const userId = document.cookie
+  .split(";")
+  .find((item) => item.includes("userId"))
+  .split("=")[1];
+
 const mainContent = document.getElementById("main-content");
 let notifications;
 
@@ -58,126 +63,19 @@ function handleNotificationRead(e) {
   }
 }
 
-function getNotifications(userId) {
-  notifications = [
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: false,
+async function getNotifications(userId) {
+  const response = await fetch(`http://localhost:3000/api/notifications/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: false,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Ha sido invitado al puesto de: Desarrollador Web",
-      description: "Estado de la aplicacion: En Revision.",
-      date: "2021-05-01",
-      read: false,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: false,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      read: true,
-    },
-  ];
+  });
+  const data = await response.json();
+  notifications = data;
 }
 
-function renderNotifications() {
-  getNotifications(0);
-
+async function renderNotifications() {
+  await getNotifications(userId);
   notifications.forEach((notification, index) => {
     const notificationDiv = document.createElement("div");
     notificationDiv.classList =

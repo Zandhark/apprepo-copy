@@ -19,7 +19,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const Puesto = require("./models/puestoModel.js");
 const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
-const Notificacion = require("./models/notificacionModel.js");
+const Notificacion = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
 
 app.use(cors());
@@ -279,14 +279,14 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
   }
 });
 
-app.get("/api/notificaciones/:userId", async (req, res) => {
+app.get("/api/notifications/:userId", async (req, res) => {
   // retorna lista de notificaciones de un usuario
   try {
-    const notificacion = await Notificacion.findById(req.params.userId);
-    if (notificacion instanceof Error) {
-      throw new Error(notificacion.message);
+    const notification = await Notificacion.find({userId: req.params.userId});
+    if (notification instanceof Error) {
+      throw new Error(notification.message);
     }
-    res.status(200).json(notificacion);
+    res.status(200).json(notification);
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
