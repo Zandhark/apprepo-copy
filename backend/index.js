@@ -297,7 +297,7 @@ app.post("/api/notificaciones/new", async (req, res) => {
 });
 
 app.patch("/api/notificaciones/update:id", async (req, res) => {
-  // crea una nueva notificacion
+  // actualiza una notificacion 
 });
 
 app.post("/api/login", async (req, res) => {
