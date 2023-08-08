@@ -42,7 +42,7 @@ async function getPuestos() {
 }
 
 function handleShortDescription() {
-  console.log(`shortDescription.innerText: ${shortDescription.innerText}`)
+
   shortAboutSave.style.display = "block";
   shortAboutEdit.style.display = "none";
   shortDescription.contentEditable = true;
