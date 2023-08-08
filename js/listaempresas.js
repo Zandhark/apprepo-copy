@@ -43,7 +43,7 @@ async function renderEmpresas(empresasToShow) {
       <div class="flex flex-gap-20">
         <div class="flex flex-gap-20" style="width: 400px">
           <div>
-            <img src="/assets/empresas-${index}.png" alt="logo de empresa" class="logo-empresa" />
+            <img src="${empresa.logo}" alt="${empresa.nombre}" class="logo-empresa" />
           </div>
           <div>
             <h2>${empresa.nombre}</h2>
@@ -53,7 +53,7 @@ async function renderEmpresas(empresasToShow) {
           </div>
         </div>
       </div>
-      <a href="/empresas/perfil.html?id=${empresa._id}">
+      <a href="/empresas/empresa.html?id=${empresa._id}">
         <button class="main-button">Ver empresa</button>
       </a>
     `;

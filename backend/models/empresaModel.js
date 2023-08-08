@@ -9,17 +9,14 @@ const empresaSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique:true
+    unique: true
   },
   password: {
     type: String,
     required: true,
   },
-  logo: {
-    type: String,
-    required: true,
-  },
-  shortDesc: String,
+  logo: String,
+  shortDescription: String,
   descripcion: {
     type: String,
     required: true,

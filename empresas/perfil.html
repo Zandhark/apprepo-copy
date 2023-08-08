@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Document</title>
+    <title>Perfil</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -10,53 +10,241 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
-    <link rel="stylesheet" href="/css/companyprofile.css" type="text/css" />
-    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png">
-    <script src="/js/empresa.js" defer></script>
+    <link rel="stylesheet" href="/css/perfil.css" type="text/css" />
+    <link rel="stylesheet" href="/css/empresaPerfil.css" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
+    <script src="/js/empresaPerfil.js" defer></script>
+    <script src="/js/session.js" defer></script>
     <script src="/js/main.js" defer></script>
   </head>
-
   <body>
     <header class="flex flex-space-between flex-align-center">
       <div>
-        <img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px" />
+        <a href="/"
+          ><img src="/assets/logo-primary.png" alt="Logo-JobSync" height="80px"
+        /></a>
       </div>
       <nav class="flex flex-gap-20" id="menu-nav"></nav>
     </header>
-    <main class="flex flex-gap-20 flex-grow1">
-      <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
-        <div class="border">
-          <div class="main-content-box">
-            <div class="flex flex-gap-40 flex-align-center">
-              <div>
-                <img
-                  src="/assets/companylogo.png"
-                  alt="Logo-JobSync"
-                  height="150px"
+    <main class="flex flex-gap-40">
+      <div
+        id="left-column"
+        class="flex flex-column flex-align-center flex-gap-20 border"
+      >
+        <img src="" alt="" id="logo" />
+        <h1 id="empresa-name"></h1>
+        <h2 class="secondary-color" id="title"></h2>
+        <div
+          class="flex flex-align-center flex-column"
+          style="padding-right: 5px"
+        >
+          <h3>Descripción Corta</h3>
+          <p class="profile-paragraph-center" id="short-description"></p>
+          <!-- SVG Editar -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 edit-icon"
+            id="edit-shortAbout"
+            onclick="handleShortDescription()"
+          >
+            <title>Editar</title>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+            />
+          </svg>
+          <!-- SVG Guardar -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            id="save-shortAbout"
+            class="w-6 h-6 edit-icon"
+            style="display: none"
+            onclick="handleShortDescriptionSave()"
+          >
+            <title>Guardar</title>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12.75l6 6 9-13.5"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        id="main-content"
+        class="flex flex-grow2 flex-column flex-gap-20"
+        style="color: white"
+      >
+        <div>
+          <div class="flex flex-align-center">
+            <h2>Descripción</h2>
+            <!-- SVG Editar -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 edit-icon"
+              id="edit-about"
+              onclick="handleModalAbout()"
+              alt="Editar"
+            >
+              <title>Editar</title>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+              />
+            </svg>
+          </div>
+          <p id="empresa-descripcion"></p>
+        </div>
+        <hr />
+        <div class="flex experience-formation-container">
+          <div id="puestos-div" style="min-width: 50%; width: 80%">
+            <h2>Puestos de trabajo</h2>
+            <div
+              class="flex flex-column info-perfil custom-scrollbar"
+              id="puestos"
+            ></div>
+            <a href="/puestos/nuevo/index.html">
+              <button class="main-button" style="margin-top: 10px">
+                Agregar
+              </button>
+            </a>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <h2>Empleados</h2>
+          <div
+            class="flex flex-gap-10 flex-wrap skills-container"
+            id="skills"
+          ></div>
+          <button class="main-button" onclick="handleSkillsModal(event)">
+            Invitar
+          </button>
+        </div>
+      </div>
+      <!-- Modal de about -->
+      <div id="empresa-descripcion-modal" class="modal">
+        <div
+          id="empresa-descripcion-content"
+          class="flex flex-column modal-content"
+        >
+          <h2>Acerca de</h2>
+          <form onsubmit="handleAboutSubmit(event)">
+            <textarea
+              name="empresa-descripcion-modal-text"
+              id="empresa-descripcion-text"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <input type="submit" value="Guardar" class="main-button" />
+          </form>
+        </div>
+      </div>
+      <!-- Modal de formacion academica -->
+      <div id="edu-modal" class="modal">
+        <div class="modal-content">
+          <div class="flex flex-column flex-gap-5 div-exp">
+            <h4>Agregar nueva formación académica</h4>
+            <form class="flex flex-column flex-gap-5" id="edu-form">
+              <label for="eduTitle">Nombre</label
+              ><input
+                type="text"
+                name="eduTitle"
+                placeholder="Nombre"
+                required="true"
+                id="eduTitle"
+              /><label for="institution">Nombre de la institución</label
+              ><input
+                type="text"
+                name="institution"
+                placeholder="Nombre de la institución"
+                required="true"
+                id="institution"
+              />
+              <div
+                class="flex flex-space-between flex-align-center flex-gap-10"
+              >
+                <label for="eduStartDate">Fecha de inicio</label
+                ><input
+                  type="date"
+                  name="eduStartDate"
+                  placeholder="Fecha de inicio"
+                  required="true"
+                  id="eduStartDate"
+                  style="width: 80%"
+                /><label for="eduEndDate">Fecha de fin</label
+                ><input
+                  type="date"
+                  name="eduEndDate"
+                  placeholder="Fecha de fin"
+                  required="true"
+                  id="eduEndDate"
+                  style="width: 80%"
                 />
               </div>
-              <div class="flex flex-column flex-gap-10">
-                <h1 id="nombreEmpresa"></h1>
-                </h1>
-                <div class="company-summarytagline">
-                  <p id="empresaShortDesc">
-                  </p>
-                </div>
-              </div>
+              <label for="eduDescription">Descripción</label
+              ><textarea
+                name="eduDescription"
+                placeholder="Descripción"
+                required="true"
+                id="eduDescription"
+              ></textarea>
+            </form>
+            <div class="flex flex-gap-10">
+              <button class="main-button" onclick="handleEduModal(event)">
+                Cancelar
+              </button>
+              <button
+                class="main-button"
+                onclick="handleEduModalSubmit(event)"
+                id="save-edu"
+              >
+                Guardar
+              </button>
             </div>
           </div>
         </div>
-        <div class="border">
-          <div class="main-content-box">
-            <h2>Acerca de</h2>
-            <p id="empresaDescripcion">
-            </p>
-          </div>
-        </div>
-        <div class="border">
-          <div class="main-content-box">
-            <h2>Puestos disponibles</h2>
-            <div id="puestos-disponibles" class="custom-scrollbar"></div>
+      </div>
+      <!-- Modal de skills -->
+      <div id="skills-modal" class="modal">
+        <div class="modal-content">
+          <div class="flex flex-column flex-gap-20 div-exp">
+            <h4>Agregar habilidades separadas por coma</h4>
+            <form class="flex flex-column flex-gap-5" id="skills-form">
+              <label for="skill-list">Nombre</label
+              ><input
+                type="text"
+                name="skill-list"
+                required="true"
+                id="skill-list"
+              />
+            </form>
+            <div class="flex flex-gap-10">
+              <button class="main-button" onclick="handleSkillsModal(event)">
+                Cancelar
+              </button>
+              <button
+                class="main-button"
+                onclick="handleSkillsModalSubmit(event)"
+                id="save-skill"
+              >
+                Guardar
+              </button>
+            </div>
           </div>
         </div>
       </div>

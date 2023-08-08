@@ -15,14 +15,15 @@ async function handleLogin(user) {
       body: JSON.stringify(user),
     });
     const login = await response.json();
+    console.log(login)
     if (login.error) {
       console.log(login.error)
       throw new Error(login.error);
     }
     
-    document.cookie = `userId=${login.user._id}; path=/; max-age=3600`;
+    document.cookie = `userId=${login.login._id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${login.session._id}; path=/; max-age=3600`;
-    document.cookie = `userType=${login.user.type}; path=/; max-age=3600`;
+    document.cookie = `userType=${login.login.type}; path=/; max-age=3600`;
     
     return login;
   } catch (e) {
