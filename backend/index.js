@@ -302,13 +302,12 @@ app.patch("/api/notifications/update/:notificationId", async (req, res) => {
   try {
     const data = req.body;
     const notification = await Notification.findByIdAndUpdate(req.params.notificationId, {
-      read: data.read || User.read,
-    });
+      read: data.read,
+    }, {new: true});
 
     if (!notification) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    console.log(notification)
     res.status(200).json(notification);
   } catch (e) {
     res.status(400).json({ error: e.message });

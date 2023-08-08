@@ -61,16 +61,14 @@ async function handleNotificationRead(e) {
   const parentContainer = document.getElementById(e.target.parentElement.id);
   const notificationId = e.target.id;
   const notificationIndex = notifications.map((notification) => notification._id).indexOf(notificationId);
-  console.log(notifications)
-  console.log(notifications[notificationIndex]);
   if (notifications[notificationIndex].read) {
-    // Si la notificacion esta leida entonces la marca como no leida y canbia el icono a uncheck
+    // Si la notificacion esta leida entonces la marca como no leida y cambia el icono a un check
     await updateNotification(notificationId, false);
     notifications[notificationIndex].read = false;
     svgContainer.innerHTML = svgCheck;
     parentContainer.classList.add("unread-notification");
   } else if (!notifications[notificationIndex].read) {
-    // Si la notificacion no esta leida entonces la marca como leida y canbia el icono a una campana
+    // Si la notificacion no esta leida entonces la marca como leida y cambia el icono a una campana
     await updateNotification(notificationId, true);
     notifications[notificationIndex].read = true;
     svgContainer.innerHTML = svgBell;
@@ -168,13 +166,15 @@ async function renderNotifications() {
 }
 
 function markAllAsRead() {
-  notifications.forEach((notification, index) => {
-    const notificationDiv = document.getElementById(`notification-${index}`);
-    const svgContainer = document.getElementById(`notification-svg-${index}`);
-    notification.read = true;
-    svgContainer.innerHTML = svgBell;
-    notificationDiv.classList.remove("unread-notification");
+  const start = performance.now();
+  notifications.forEach(async (notification, index) => {
+    if (notification.read) return;
+    await updateNotification(notification._id, true);
+    
   });
+  location.reload();
+  const end = performance.now();
+  console.log(end - start)
 }
 
 renderNotifications();
