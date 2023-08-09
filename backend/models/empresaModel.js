@@ -5,6 +5,7 @@ const empresaSchema = new Schema({
   nombre: {
     type: String,
     required: true,
+    unique: true
   },
   email: {
     type: String,
@@ -25,6 +26,12 @@ const empresaSchema = new Schema({
     type: String,
     required: true,
   },
+  empleados: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ]
 }, { timestamps: true });
 
 const Empresa = mongoose.model("Empresa", empresaSchema);

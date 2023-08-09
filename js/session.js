@@ -1,6 +1,6 @@
 function verifyUserSession() {
   // Verificar si el usuario inició sesión
-  let userId, sessionId;
+  let userId, sessionId, userType;
   try {
     userId = document.cookie
       .split(";")
@@ -10,12 +10,23 @@ function verifyUserSession() {
       .split(";")
       .find((item) => item.includes("sessionId"))
       .split("=")[1];
+    userType = document.cookie
+      .split(";")
+      .find((item) => item.includes("userType"))
+      .split("=")[1];
   } catch (e) {}
 
   if (!userId && !sessionId) {
     alert("No ha iniciado sesión");
     location.href = "/login/";
   }
+
+  if (location.href.includes("puestos/nuevo/") && userType !== "manager") {
+    location.href = "/puestos/";
+  } else if (location.href.includes("puestos/nuevo/")) {
+
+  }
+  
 }
 
 verifyUserSession();

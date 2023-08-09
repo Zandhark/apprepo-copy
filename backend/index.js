@@ -26,6 +26,7 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(compression());
 
+// Endpoints de puestos
 app.get("/api/puestos", async (req, res) => {
   // retorna la lista de puestos
   try {
@@ -96,6 +97,7 @@ app.get("/api/puestos/empresa/:id", async (req, res) => {
   }
 });
 
+// Endpoints de empresa
 app.get("/api/empresas", async (req, res) => {
   // retorna lista de empresas
 
@@ -114,7 +116,7 @@ app.get("/api/empresas/:id", async (req, res) => {
   // retorna una empresa dependiendo del id
 
   try {
-    const empresa = await Empresa.findById(req.params.id);
+    const empresa = await Empresa.findById(req.params.id).populate("empleados");
     if (empresa instanceof Error) {
       throw new Error(empresa.message);
     }
@@ -190,6 +192,8 @@ app.post("/api/empresas/new", async (req, res) => {
   }
 });
 
+
+//Endpoints de usuarios
 app.get("/api/usuarios", async (req, res) => {
   // retorna lista de usuarios
   try {
@@ -280,6 +284,7 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
   }
 });
 
+//Endpoints de notificaciones
 app.get("/api/notifications/:userId", async (req, res) => {
   // retorna lista de notificaciones de un usuario
   try {
@@ -314,6 +319,8 @@ app.patch("/api/notifications/update/:notificationId", async (req, res) => {
   }
 });
 
+
+//Endpoints de registro, login y sesiones
 app.post("/api/login", async (req, res) => {
   // login de usuario
   const { email, password } = req.body;
@@ -449,6 +456,7 @@ app.delete("/api/session/delete", async (req, res) => {
   res.status(200).json({ message: "Sessions deleted" });
 });
 
+// Endpoint para enviar correos
 app.post("/api/sendmail", async (req, res) => {
   // envia un mail
   try {

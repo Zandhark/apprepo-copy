@@ -12,7 +12,7 @@ form > div > div {
 }
 
 svg {
-  width: 800px;
+  width: 90%;
   height: auto;
   padding: 0 80px 0 0;
   border-right: 1px solid var(--secondary-color);
