@@ -6,12 +6,16 @@ const requisitos = document.getElementById("requisitos-list");
 const atributos = document.getElementById("atributos-list");
 const urlParams = new URLSearchParams(window.location.search);
 let jobId = urlParams.get("id");
-let sessionId;
+let sessionId, userType;
 
 try {
   sessionId = document.cookie
     .split(";")
     .find((item) => item.includes("sessionId"))
+    .split("=")[1];
+  userType = document.cookie
+    .split(";")
+    .find((item) => item.includes("userType"))
     .split("=")[1];
 } catch (error) {}
 
@@ -35,6 +39,10 @@ function handleApply() {
     location.href = "/login/";
     return;
   } else if (sessionId) {
+    if (userType !== "endUser") {
+      alert("Debe iniciar sesión como usuario para aplicar a un puesto");
+      return;
+    }
     alert(`Ha aplicado al puesto de ${nombrePuesto.innerText}`);
     location.href = "/perfil/";
   }
