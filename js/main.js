@@ -57,7 +57,7 @@ function renderMenu() {
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/empresas/">Empresas</a>
       <a href="/notificaciones/">Notificaciones</a>
-      <a href="/empresas/perfil.html">Perfil</a>
+      <a href="/empresas/perfil.html">Perfil Empresa</a>
       <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === undefined) {
