@@ -61,6 +61,11 @@ const userSchema = new Schema(
     experience: [experienceSchema],
     education: [educationSchema],
     skills: [String],
+    empresa: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Empresa",
+    },
   },
   { timestamps: true }
 );

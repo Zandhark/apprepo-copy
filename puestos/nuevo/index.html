@@ -26,7 +26,7 @@
     </header>
     <main class="flex flex-gap-20 flex-grow1">
       <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
-        <form class="flex flex-column flex-gap-20">
+        <form class="flex flex-column flex-gap-20" onsubmit="handleFormSubmit(event)">
           <h1 class="text-align-center">Creación de nuevo puesto de trabajo</h1>
           <div class="border flex flex-align-center">
             <div>
@@ -374,9 +374,20 @@
                 </div>
               </div>
               <div class="input-container">
+                <label for="name">Descripcion del puesto: </label>
+                <textarea
+                  placeholder="e.j. Desarrollador"
+                  name="descripcion"
+                  id="descripcion"
+                  cols="30"
+                  rows="10"
+                  required
+                ></textarea>
+              </div>
+              <div class="input-container">
                 <label for="name">Requisitos mínimos: </label>
                 <textarea
-                  placeholder="Años de experiencia, grado académico"
+                  placeholder="Años de experiencia, grado académico.&#10Agregar cada requisito en una linea nueva.&#10e.j.&#10C&#10Rust&#10Python"
                   name="requisitos"
                   id="requisitos"
                   cols="30"
@@ -391,8 +402,17 @@
                   id="atributos"
                   cols="30"
                   rows="10"
+                  placeholder="Agregar cada atributo en una linea nueva.&#10e.j:&#10Trabajo en equipo&#10Liderazgo&#10Comunicación&#10Creatividad"
                   required
                 ></textarea>
+              </div>
+              <div class="input-container">
+                <label for="name">Visibilidad: </label>
+                <select name="visibilidad" id="visibilidad" required>
+                  <option value="" disabled selected hidden>Selecciona una opción</option>
+                  <option value="publico">Público</option>
+                  <option value="privado">Privado</option>
+                </select>
               </div>
               <input class="main-button" type="submit" value="Guardar" />
             </div>
