@@ -15,7 +15,11 @@ async function getCandidatos() {
 }
 
 async function renderCandidatos() {
-  const candidatos = await getCandidatos();
+  const candidatosFilter = await getCandidatos();
+  const candidatos = candidatosFilter.filter((candidato) => {
+    return candidato.type === "endUser";
+  });
+  
   const candidatosHTML = candidatos.map((candidato, index) => {
     let userSkillsHTML = "";
     let userExperienceHTML = "";
