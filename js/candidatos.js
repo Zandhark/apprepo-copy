@@ -16,7 +16,6 @@ async function getCandidatos() {
 
 async function renderCandidatos() {
   const candidatos = await getCandidatos();
-  console.log(candidatos);
   const candidatosHTML = candidatos.map((candidato, index) => {
     let userSkillsHTML = "";
     let userExperienceHTML = "";
@@ -25,9 +24,9 @@ async function renderCandidatos() {
       userSkillsHTML = `<li>No ha ingresado habilidades</li>`;
     } else {
       userSkillsHTML = candidato.skills
-        .slice(0, 4)
+        .slice(0, 3)
         .map((skill) => {
-          return `<li>${skill.name}</li>`;
+          return `<li>${skill}</li>`;
         })
         .join("");
     }
@@ -49,7 +48,7 @@ async function renderCandidatos() {
       class="padding-box flex flex-align-center flex-gap-10 notification border flex-space-between"
     >
       <div class="flex flex-gap-20">
-        <div class="flex flex-column flex-gap-5 flex-wrap" style="width: 400px;">
+        <div class="flex flex-column flex-gap-5 flex-wrap" style="width: 300px;">
           <h2>${candidato.name}</h2>
           <h3>${candidato.title}</h3>
           <div>
@@ -58,7 +57,7 @@ async function renderCandidatos() {
         </div>
         <div style="margin: 0 20px ">
           <h2>Habilidades</h2>
-          <ul id="user-skills-${index}">
+          <ul id="user-skills-${candidato._id}">
             ${userSkillsHTML}
           </ul>
         </div>
