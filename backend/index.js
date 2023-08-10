@@ -316,6 +316,47 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
 });
 
 //Endpoints de aplicaciones
+app.post("/api/aplicaciones/new", async (req, res) => {
+  // crea una nueva aplicacion
+  const data = req.body;
+  try {
+    const aplicacion = new Aplication({
+      puesto: data.puesto,
+      candidato: data.candidato,
+      empresa: data.empresa,
+      createdBy: data.createdBy,
+      status: "Enviada",
+    });
+    const response = await aplicacion.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    const puesto = await Puesto.findById(data.puesto);
+    const candidato = await User.findById(data.candidato);
+    console.log(puesto)
+    console.log(candidato)
+    sendNotification(data.empresa, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
+    sendNotification(data.createdBy, "Aplicacion", `${candidato.name} ha aplicado al puesto ${puesto.nombre}`);
+    sendMail(candidato.email, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
+    res.status(200).json(response);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.get("/api/aplicaciones/:userId", async (req, res) => {
+  // retorna lista de aplicaciones de un usuario
+  try {
+    const aplicaciones = await Aplication.find({ candidato: req.params.userId });
+    if (aplicaciones instanceof Error) {
+      throw new Error(aplicaciones.message);
+    }
+    res.status(200).json(aplicaciones);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
 
 //Endpoints de notificaciones
 app.get("/api/notifications/:userId", async (req, res) => {

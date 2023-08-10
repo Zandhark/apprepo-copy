@@ -12,6 +12,7 @@ const aplicationSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
+      unique: true,
     },
     empresa: {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +27,7 @@ const aplicationSchema = new Schema(
     status: {
       type: String,
       required: true,
+      enum: ["Enviada", "En revisión", "Aceptada", "Denegada"],
     },
   }, { timestamps: true }
 );
