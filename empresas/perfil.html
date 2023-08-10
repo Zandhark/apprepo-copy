@@ -128,125 +128,31 @@
         <div>
           <h2>Empleados</h2>
           <div
-            class="flex experience-formation-container"
+            class="flex experience-formation-container flex-column custom-scrollbar"
             id="empeleados-container"
             style="min-width: 50%; width: 80%;"
           ></div>
-          <button class="main-button" onclick="handleSkillsModal(event)">
+          <button class="main-button" onclick="handleInvitarEmpleadoModal(event)">
             Invitar
           </button>
         </div>
       </div>
       <!-- Modal de about -->
-      <div id="empresa-descripcion-modal" class="modal">
+      <div id="invitar-modal" class="modal">
         <div
           id="empresa-descripcion-content"
           class="flex flex-column modal-content"
         >
           <h2>Acerca de</h2>
-          <form onsubmit="handleAboutSubmit(event)">
-            <textarea
-              name="empresa-descripcion-modal-text"
-              id="empresa-descripcion-text"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <input type="submit" value="Guardar" class="main-button" />
+          <form onsubmit="handleInvitarEmpleado(event)" class="flex flex-column flex-gap-20">
+            <select name="usuarios" id="usuarios-select">
+              <option value="" disabled selected hidden>
+                Seleccione un usuario
+              </option>
+            </select>
+            <input type="submit" value="Invitar" class="main-button" />
+            <button class="main-button" onclick="handleInvitarEmpleadoModal(event)" id="cancelar">Cancelar</button>
           </form>
-        </div>
-      </div>
-      <!-- Modal de formacion academica -->
-      <div id="edu-modal" class="modal">
-        <div class="modal-content">
-          <div class="flex flex-column flex-gap-5 div-exp">
-            <h4>Agregar nueva formación académica</h4>
-            <form class="flex flex-column flex-gap-5" id="edu-form">
-              <label for="eduTitle">Nombre</label
-              ><input
-                type="text"
-                name="eduTitle"
-                placeholder="Nombre"
-                required="true"
-                id="eduTitle"
-              /><label for="institution">Nombre de la institución</label
-              ><input
-                type="text"
-                name="institution"
-                placeholder="Nombre de la institución"
-                required="true"
-                id="institution"
-              />
-              <div
-                class="flex flex-space-between flex-align-center flex-gap-10"
-              >
-                <label for="eduStartDate">Fecha de inicio</label
-                ><input
-                  type="date"
-                  name="eduStartDate"
-                  placeholder="Fecha de inicio"
-                  required="true"
-                  id="eduStartDate"
-                  style="width: 80%"
-                /><label for="eduEndDate">Fecha de fin</label
-                ><input
-                  type="date"
-                  name="eduEndDate"
-                  placeholder="Fecha de fin"
-                  required="true"
-                  id="eduEndDate"
-                  style="width: 80%"
-                />
-              </div>
-              <label for="eduDescription">Descripción</label
-              ><textarea
-                name="eduDescription"
-                placeholder="Descripción"
-                required="true"
-                id="eduDescription"
-              ></textarea>
-            </form>
-            <div class="flex flex-gap-10">
-              <button class="main-button" onclick="handleEduModal(event)">
-                Cancelar
-              </button>
-              <button
-                class="main-button"
-                onclick="handleEduModalSubmit(event)"
-                id="save-edu"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal de skills -->
-      <div id="skills-modal" class="modal">
-        <div class="modal-content">
-          <div class="flex flex-column flex-gap-20 div-exp">
-            <h4>Agregar habilidades separadas por coma</h4>
-            <form class="flex flex-column flex-gap-5" id="skills-form">
-              <label for="skill-list">Nombre</label
-              ><input
-                type="text"
-                name="skill-list"
-                required="true"
-                id="skill-list"
-              />
-            </form>
-            <div class="flex flex-gap-10">
-              <button class="main-button" onclick="handleSkillsModal(event)">
-                Cancelar
-              </button>
-              <button
-                class="main-button"
-                onclick="handleSkillsModalSubmit(event)"
-                id="save-skill"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </main>

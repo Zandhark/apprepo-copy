@@ -1,6 +1,7 @@
 const login = require("./login.js");
 const newSession = require("./session.js");
 const sendMail = require("./utils/sendMail.js");
+const sendNotification = require("./utils/sendNotification.js");
 
 const express = require("express");
 const cors = require("cors");
@@ -193,14 +194,23 @@ app.post("/api/empresas/new", async (req, res) => {
 
 app.patch("/api/empresas/usuarios/:id", async (req, res) => {
   // agrega usuarios a la empresa
-  const userId = req.body;
+  const userId = req.body.userId;
+  const empresaId = req.params.id;
   try {
-    const response = await Empresa.findByIdAndUpdate(req.params.id, {
-      $push: { empleados: req.body },
-    });
-    if (response instanceof Error) {
-      throw new Error(response.message);
+    const responseEmpresa = await Empresa.findByIdAndUpdate(empresaId, {
+      $push: { empleados: userId },
+    }, {new: true});
+    const responseUsuario = await User.findByIdAndUpdate(userId, { empresa: req.params.id });
+    if (responseEmpresa instanceof Error) {
+      
+      throw new Error(responseEmpresa.message);
     }
+    if (responseUsuario instanceof Error) {
+      
+      throw new Error(responseUsuario.message);
+    }
+    sendNotification(responseUsuario._id, "Empresa", `Ha sido agregado a ${responseEmpresa.nombre}`);
+
     res.status(200).json(response);
   } catch (e) {
     res.status(400).json({ error: e.message });
@@ -316,6 +326,16 @@ app.get("/api/notifications/:userId", async (req, res) => {
 
 app.post("/api/notifications/new", async (req, res) => {
   // crea una nueva notificacion
+  try {
+    const notification = new Notification(req.body);
+    const response = await notification.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.patch("/api/notifications/update/:notificationId", async (req, res) => {

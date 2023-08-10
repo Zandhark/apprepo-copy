@@ -13,6 +13,8 @@ const aboutInput = document.getElementById("empresa-descripcion-text");
 const modalDesc = document.getElementById("empresa-descripcion-modal");
 const puestosContainer = document.getElementById("puestos");
 const empleadosContainer = document.getElementById("empeleados-container");
+const invitarModal = document.getElementById("invitar-modal");
+const usuariosSelect = document.getElementById("usuarios-select");
 
 async function getEmpresa() {
   const response = await fetch(
@@ -112,6 +114,59 @@ async function handleAboutSubmit(e) {
     console.log(e);
     alert("Error al actualizar el perfil");
     modalDesc.style.display = "none";
+  }
+}
+
+async function handleInvitarEmpleadoModal(e) {
+  e.preventDefault();
+  if(e.target.id === "cancelar") {
+    invitarModal.style.display = "none";
+    usuariosSelect.innerHTML = "";
+    return;
+  }
+  invitarModal.style.display = "block";
+  const response = await fetch(
+    `http://localhost:3000/api/usuarios/`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const usuarios = await response.json();
+  const usuariosFilter = usuarios.filter((usuario) => {
+    return !usuario.empresa;
+  });
+  usuariosFilter.forEach((usuario) => {
+    usuariosSelect.innerHTML += `
+    <option value="${usuario._id}">${usuario.name} (${usuario.email})</option>
+    `;
+  });
+}
+
+async function handleInvitarEmpleado(e) {
+  e.preventDefault();
+  const userId = usuariosSelect.value;
+  console.log(userId);
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/empresas/usuarios/${empresaId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      }
+    );
+    const empresa = await response.json();
+    window.location.reload();
+    invitarModal.style.display = "none";
+  } catch (e) {
+    console.log(e);
+    alert("Error al invitar usuario.");
+    invitarModal.style.display = "none";
   }
 }
 
