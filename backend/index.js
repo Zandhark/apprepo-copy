@@ -256,6 +256,7 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
     const usuario = await User.findByIdAndUpdate(req.params.id, {
       type: data.type || User.type,
       userDescription: data.userDescription || User.userDescription,
+      title: data.title || User.title,
     });
 
     if (!usuario) {
