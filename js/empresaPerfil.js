@@ -12,6 +12,7 @@ const empresaDescripcion = document.getElementById("empresa-descripcion");
 const aboutInput = document.getElementById("empresa-descripcion-text");
 const modalDesc = document.getElementById("empresa-descripcion-modal");
 const puestosContainer = document.getElementById("puestos");
+const empleadosContainer = document.getElementById("empeleados-container");
 
 async function getEmpresa() {
   const response = await fetch(
@@ -117,6 +118,7 @@ async function handleAboutSubmit(e) {
 async function renderEmpresa() {
   const empresa = await getEmpresa();
   const puestos = await getPuestos();
+  console.log(empresa)
   logo.src = empresa.logo;
   empresaName.innerHTML = empresa.nombre;
   if (empresa.shortDescription) {
@@ -157,6 +159,47 @@ async function renderEmpresa() {
         </a>
       </div>
     </div>
+  `;
+  });
+
+  empresa.empleados.forEach((empleado) => {
+    let tipoEmpleado = "";
+
+    if (empleado.type === "manager") {
+      tipoEmpleado = "Manager";
+    } else if (empleado.type === "endUser") {
+      tipoEmpleado = "Usuario Final";
+    } else if (empleado.type === "reclutador") {
+      tipoEmpleado = "Reclutador";
+    }
+    empleadosContainer.innerHTML += `
+    <div
+      class="border flex flex-gap-10 puestos flex-align-center"
+      id="${empleado._id}"
+      style="margin-top: 5px; margin-bottom: 10px; width: 100%;"
+    >
+      <div>
+        <img
+          src="${empleado.profileImg}"
+          alt="Imagen de perfil de ${empleado.name}"
+          style="width: 100px; height: 100px; border-radius: 50%; margin-left: 10px;"
+        />
+      </div>
+      <div
+        class="flex flex-column flex-gap-10 info-puestos"
+        style="width: 65%; padding: 10px"
+      >
+        <h2 id="${empleado._id}">${empleado.name}</h2>
+        <p id="desc-${empleado._id}">${empleado.about}</p>
+        <p id="tipo-usuario">Tipo de usuario: ${tipoEmpleado}</p>
+      </div>
+      <div class="flex flex-grow1 flex-align-center flex-space-center">
+        <a href="/candidatos/perfil.html?id=${empleado._id}">
+          <button class="main-button">Ver usuario</button>
+        </a>
+      </div>
+    </div>
+
   `;
   });
 
