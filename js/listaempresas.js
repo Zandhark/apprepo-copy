@@ -48,7 +48,7 @@ async function renderEmpresas(empresasToShow) {
           <div>
             <h2>${empresa.nombre}</h2>
             <div>
-              <p>${empresa.shortDesc}</p>
+              <p>${empresa.shortDescription ? empresa.shortDescription : ""}</p>
             </div>
           </div>
         </div>
