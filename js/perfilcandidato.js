@@ -25,16 +25,20 @@ async function getUserDetails(userId) {
   return candidatos;
 }
 
-function renderProfile() {
-  const userDetails = getUserDetails(candidateId);
+async function renderProfile() {
+  const userDetails = await getUserDetails(candidateId);
   profileImg.src = userDetails.profileImg;
   userDescription.innerText = userDetails.userDescription;
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
-  userDetails.experience.forEach((experience) => {
-    const experienceDiv = document.createElement("div");
-    experienceDiv.classList.add("experience-box");
-    experienceDiv.innerHTML = `
+
+  if (userDetails.experience.length === 0) {
+    experienceSection.innerHTML = `<p>No hay experiencia registrada</p>`;
+  } else {
+    userDetails.experience.forEach((experience) => {
+      const experienceDiv = document.createElement("div");
+      experienceDiv.classList.add("experience-box");
+      experienceDiv.innerHTML = `
     <h3>${experience.title}</h3>
     <div class="flex">
       <svg
@@ -76,13 +80,16 @@ function renderProfile() {
     </div>
     <p>${experience.description}</p>
     `;
-    experienceSection.appendChild(experienceDiv);
-  });
-
-  userDetails.education.forEach((education) => {
-    const educationDiv = document.createElement("div");
-    educationDiv.classList.add("experience-box");
-    educationDiv.innerHTML = `
+      experienceSection.appendChild(experienceDiv);
+    });
+  }
+  if (userDetails.education.length === 0) {
+    educationSection.innerHTML = `<p>No hay educacion registrada</p>`;
+  } else {
+    userDetails.education.forEach((education) => {
+      const educationDiv = document.createElement("div");
+      educationDiv.classList.add("experience-box");
+      educationDiv.innerHTML = `
     <h3>${education.title}</h3>
     <div class="flex">
       <svg
@@ -124,14 +131,14 @@ function renderProfile() {
     </div>
     <p>${education.description}</p> 
     `;
-    educationSection.appendChild(educationDiv);
-  });
-
-  userDetails.skills.forEach((skills) => {
+      educationSection.appendChild(educationDiv);
+    });
+  }
+  userDetails.skills.forEach((skill) => {
     const skillsDiv = document.createElement("div");
     skillsDiv.classList.add("skills-box");
     skillsDiv.innerHTML = `
-    <h4>${skills.name}</h3>
+    <h4>${skill}</h3>
     `;
     skillsSection.appendChild(skillsDiv);
   });

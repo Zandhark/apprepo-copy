@@ -71,11 +71,12 @@ width: 100px;
 
 .skills-box {
   text-align: center;
-  width: 70px;
+  width: 100px;
   background-color: var(--secondary-color);
+  color: var(--background-color);
   border-radius: 5%;
   padding: 10px;
-  margin: auto;
+  margin: 10px;
   transition: all .2s ease-in-out;
 }
 
