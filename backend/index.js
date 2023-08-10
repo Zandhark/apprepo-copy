@@ -69,6 +69,7 @@ app.post("/api/puestos/new", async (req, res) => {
       atributos: data.atributos,
       visibilidad: data.visibilidad,
       empresa: data.empresa,
+      createdBy: data.createdBy
     });
     const response = await puesto.save();
     if (response instanceof Error) {

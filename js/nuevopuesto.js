@@ -65,17 +65,23 @@ async function handleFormSubmit(e) {
     atributos: atributosArray,
     visibilidad: visibilidad,
     empresa: empresaId,
+    createdBy: userId,
     
   };
-  const response = await fetch(
-    `http://localhost:3000/api/puestos/new`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  const json = await response.json();
-  console.log(json);
-  // window.location.href = "/puestos";
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/puestos/new`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const json = await response.json();
+    console.log(json);
+    alert("Puesto creado con éxito");
+    window.location.refresh();
+  } catch (e) {
+    alert("Error al crear el puesto")
+  }
 }
