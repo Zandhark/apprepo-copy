@@ -56,6 +56,7 @@ function renderMenu() {
   } else if (userType === "administrador") {
     userNav = `
       <a href="/puestos/">Puestos de Trabajo</a>
+      <a href="/candidatos/">Usuarios</a>
       <a href="/empresas/">Empresas</a>
       <a href="/notificaciones/">Notificaciones</a>
       <a href="/empresas/perfil.html">Perfil Empresa</a>

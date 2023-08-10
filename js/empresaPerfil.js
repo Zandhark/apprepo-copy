@@ -12,6 +12,9 @@ const empresaDescripcion = document.getElementById("empresa-descripcion");
 const aboutInput = document.getElementById("empresa-descripcion-text");
 const modalDesc = document.getElementById("empresa-descripcion-modal");
 const puestosContainer = document.getElementById("puestos");
+const empleadosContainer = document.getElementById("empeleados-container");
+const invitarModal = document.getElementById("invitar-modal");
+const usuariosSelect = document.getElementById("usuarios-select");
 
 async function getEmpresa() {
   const response = await fetch(
@@ -114,9 +117,63 @@ async function handleAboutSubmit(e) {
   }
 }
 
+async function handleInvitarEmpleadoModal(e) {
+  e.preventDefault();
+  if(e.target.id === "cancelar") {
+    invitarModal.style.display = "none";
+    usuariosSelect.innerHTML = "";
+    return;
+  }
+  invitarModal.style.display = "block";
+  const response = await fetch(
+    `http://localhost:3000/api/usuarios/`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const usuarios = await response.json();
+  const usuariosFilter = usuarios.filter((usuario) => {
+    return !usuario.empresa;
+  });
+  usuariosFilter.forEach((usuario) => {
+    usuariosSelect.innerHTML += `
+    <option value="${usuario._id}">${usuario.name} (${usuario.email})</option>
+    `;
+  });
+}
+
+async function handleInvitarEmpleado(e) {
+  e.preventDefault();
+  const userId = usuariosSelect.value;
+  console.log(userId);
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/empresas/usuarios/${empresaId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      }
+    );
+    const empresa = await response.json();
+    window.location.reload();
+    invitarModal.style.display = "none";
+  } catch (e) {
+    console.log(e);
+    alert("Error al invitar usuario.");
+    invitarModal.style.display = "none";
+  }
+}
+
 async function renderEmpresa() {
   const empresa = await getEmpresa();
   const puestos = await getPuestos();
+  console.log(empresa)
   logo.src = empresa.logo;
   empresaName.innerHTML = empresa.nombre;
   if (empresa.shortDescription) {
@@ -136,6 +193,7 @@ async function renderEmpresa() {
     <div
       class="border flex flex-gap-10 puestos flex-align-center"
       id="puesto-${puesto._id}"
+      style="margin-top: 5px; margin-bottom: 5px;"
     >
       <div class="flex flex-column flex-gap-10 info-puestos" style="width: 65%; padding: 10px;">
         <h2 id="titulo-puesto-${puesto._id}">${puesto.nombre}</h2>
@@ -156,6 +214,47 @@ async function renderEmpresa() {
         </a>
       </div>
     </div>
+  `;
+  });
+
+  empresa.empleados.forEach((empleado) => {
+    let tipoEmpleado = "";
+
+    if (empleado.type === "manager") {
+      tipoEmpleado = "Manager";
+    } else if (empleado.type === "endUser") {
+      tipoEmpleado = "Usuario Final";
+    } else if (empleado.type === "reclutador") {
+      tipoEmpleado = "Reclutador";
+    }
+    empleadosContainer.innerHTML += `
+    <div
+      class="border flex flex-gap-10 puestos flex-align-center"
+      id="${empleado._id}"
+      style="margin-top: 5px; margin-bottom: 10px; width: 100%;"
+    >
+      <div>
+        <img
+          src="${empleado.profileImg}"
+          alt="Imagen de perfil de ${empleado.name}"
+          style="width: 100px; height: 100px; border-radius: 50%; margin-left: 10px;"
+        />
+      </div>
+      <div
+        class="flex flex-column flex-gap-10 info-puestos"
+        style="width: 65%; padding: 10px"
+      >
+        <h2 id="${empleado._id}">${empleado.name}</h2>
+        <p id="desc-${empleado._id}">${empleado.about}</p>
+        <p id="tipo-usuario">Tipo de usuario: ${tipoEmpleado}</p>
+      </div>
+      <div class="flex flex-grow1 flex-align-center flex-space-center">
+        <a href="/candidatos/perfil.html?id=${empleado._id}">
+          <button class="main-button">Ver usuario</button>
+        </a>
+      </div>
+    </div>
+
   `;
   });
 
