@@ -6,6 +6,7 @@ const userAbout = document.getElementById("user-about");
 const experienceSection = document.getElementById("experiencia");
 const educationSection = document.getElementById("educacion");
 const skillsSection = document.getElementById("skills");
+const candidatoCv = document.getElementById("candidato-cv");
 
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
@@ -31,6 +32,7 @@ async function renderProfile() {
   userDescription.innerText = userDetails.userDescription;
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
+  candidatoCv.href = userDetails.curriculum;
 
   if (userDetails.experience.length === 0) {
     experienceSection.innerHTML = `<p>No hay experiencia registrada</p>`;

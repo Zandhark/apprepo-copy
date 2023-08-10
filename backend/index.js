@@ -439,8 +439,21 @@ app.post("/api/registro", async (req, res) => {
     const blockBlobClientFoto = containerClient.getBlockBlobClient(
       `${userResponse._id}-profile.jpg`
     );
-    await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
-    await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length);
+    const cvBlobOptions = {
+      blobHTTPHeaders: {
+        blobContentType: "application/pdf",
+        blobContentDisposition: "inline"
+
+      }
+    } 
+
+    const fotoBlobOptions = {
+      blobHTTPHeaders: {
+        blobContentType: "image/jpeg",
+      }
+    } 
+    await blockBlobClientCV.upload(cvBuffer, cvBuffer.length, cvBlobOptions);
+    await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length, fotoBlobOptions);
     const cvUrl = blockBlobClientCV.url;
     const fotoUrl = blockBlobClientFoto.url;
     const response = await User.findByIdAndUpdate(
