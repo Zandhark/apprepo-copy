@@ -136,6 +136,7 @@ async function renderEmpresa() {
     <div
       class="border flex flex-gap-10 puestos flex-align-center"
       id="puesto-${puesto._id}"
+      style="margin-top: 5px; margin-bottom: 5px;"
     >
       <div class="flex flex-column flex-gap-10 info-puestos" style="width: 65%; padding: 10px;">
         <h2 id="titulo-puesto-${puesto._id}">${puesto.nombre}</h2>
