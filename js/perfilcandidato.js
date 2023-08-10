@@ -1,3 +1,8 @@
+const typeUser = document.cookie
+  .split(";")
+  .find((item) => item.includes("userType"))
+  .split("=")[1];
+
 const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
 const userName = document.getElementById("user-name");
@@ -7,6 +12,8 @@ const experienceSection = document.getElementById("experiencia");
 const educationSection = document.getElementById("educacion");
 const skillsSection = document.getElementById("skills");
 const candidatoCv = document.getElementById("candidato-cv");
+const editarRol = document.getElementById("candidato-role");
+const invitarCandidato = document.getElementById("candidato-invitar");
 
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
@@ -144,6 +151,11 @@ async function renderProfile() {
     `;
     skillsSection.appendChild(skillsDiv);
   });
+
+  if (typeUser !== "administrador") {
+    editarRol.style.display = "none";
+    invitarCandidato.style.display = "none";
+  }
 }
 
 renderProfile();
