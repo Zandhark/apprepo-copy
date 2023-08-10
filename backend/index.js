@@ -55,6 +55,14 @@ app.get("/api/puestos/new", async (req, res) => {
 
 app.delete("/api/puestos/delete/:id", async (req, res) => {
   // borra un puesto
+  try {
+    const response = await puesto.findByIdAndDelete({_id: req.params.id});
+
+    console.log(response);
+    res.status(200).json({ message: "Puesto deleted successfully"});
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.get("/api/puestos/empresa/:id", async (req, res) => {
