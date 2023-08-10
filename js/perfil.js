@@ -43,7 +43,7 @@ async function handleAboutSubmit(e) {
   const newAbout = aboutInput.value;
   try {
     const response = await fetch(
-      `http://localhost:3000/api/usuarios/${userId}`,
+      `http://localhost:3000/api/usuarios/update/${userId}`,
       {
         method: "PATCH",
         headers: {
