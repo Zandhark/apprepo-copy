@@ -37,7 +37,8 @@ async function renderPuestos() {
   const puestos = await getJobs();
   const puestosContainer = document.getElementById("main-content");
 
-  puestos.forEach((puesto) => {
+  puestos.reverse().forEach((puesto) => {
+    // if (puesto.visibilidad === "Privado") return; // solo lista puestos publicos
     const parsedDate = new Date(puesto.createdAt);
     const timeDifference = Date.now() - parsedDate;
     const daysDifference = timeDifference / (1000 * 60 * 60 * 24);

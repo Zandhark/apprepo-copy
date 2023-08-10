@@ -30,7 +30,7 @@ app.use(compression());
 app.get("/api/puestos", async (req, res) => {
   // retorna la lista de puestos
   try {
-    const puestos = await Puesto.find().populate("empresa");
+    const puestos = await Puesto.find({visibilidad: "publico"}).populate("empresa");
     if (puestos instanceof Error) {
       throw new Error(puestos.message);
     }

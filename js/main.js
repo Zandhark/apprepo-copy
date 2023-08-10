@@ -46,6 +46,7 @@ function renderMenu() {
     userNav = `
       <a href="/puestos/">Puestos de Trabajo</a>
       <a href="/puestos/nuevo/">Nuevo puesto</a>
+      <a href="/puestos/nuevo/">Mis puestos</a>
       <a href="/empresas/">Empresas</a>
       <a href="/candidatos/">Candidatos</a>
       <a href="/notificaciones/">Notificaciones</a>
