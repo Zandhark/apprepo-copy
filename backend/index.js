@@ -233,6 +233,7 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
+
 app.get("/api/usuarios/:userId", async (req, res) => {
   // retorna un usuario dependiendo del id
   try {

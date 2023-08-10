@@ -63,7 +63,6 @@ const userSchema = new Schema(
     skills: [String],
     empresa: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Empresa",
     },
   },
