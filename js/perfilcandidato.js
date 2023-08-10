@@ -3,6 +3,12 @@ const typeUser = document.cookie
   .find((item) => item.includes("userType"))
   .split("=")[1];
 
+const clientId = document.cookie  
+  .split(";")
+  .find((item) => item.includes("userId"))
+  .split("=")[1];
+
+
 const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
 const userName = document.getElementById("user-name");
@@ -14,13 +20,57 @@ const skillsSection = document.getElementById("skills");
 const candidatoCv = document.getElementById("candidato-cv");
 const editarRol = document.getElementById("candidato-role");
 const invitarCandidato = document.getElementById("candidato-invitar");
+const invitarModal = document.getElementById("invitar-modal");
+const puestosSelect = document.getElementById("puestos-select");
 
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
 
-function handleInvitacion() {
-  alert("Invitación enviada");
+async function handleInvitarPuestoModal(e) {
+
+  if (e.target.id === "cancelar") {
+    invitarModal.style.display = "none";
+    puestosSelect.innerHTML = "";
+    return;
+  }
+  const jobs = await fetchJobs()
+
+  jobs.forEach((job) => {
+    const option = document.createElement("option");
+    option.value = job._id;
+    option.innerText = job.nombre;
+    puestosSelect.appendChild(option);
+  });
+  invitarModal.style.display = "block";
 }
+
+function handleInvitacionPuesto(e) {
+  e.preventDefault();  
+  // alert("Invitación enviada");
+  // invitarModal.style.display = "none";
+}
+
+async function fetchJobs() {
+  const responseClient = await fetch(`http://localhost:3000/api/usuarios/${clientId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const client = await responseClient.json();
+  const empresaId = client.empresa;
+
+  const response = await fetch(`http://localhost:3000/api/puestos/empresa/${empresaId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const jobs = await response.json();
+  console.log(jobs)
+  return jobs;
+}
+
 
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {

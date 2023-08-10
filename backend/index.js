@@ -95,6 +95,7 @@ app.get("/api/puestos/empresa/:id", async (req, res) => {
     }
     res.status(200).json(puestos);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
@@ -245,6 +246,7 @@ app.get("/api/usuarios/:userId", async (req, res) => {
 
     res.status(200).json(user);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
