@@ -38,6 +38,11 @@ const puestoSchema = new Schema(
       required: true,
       ref: "Empresa",
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

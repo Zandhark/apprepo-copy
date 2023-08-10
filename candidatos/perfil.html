@@ -35,7 +35,7 @@
           class="flex-align-center main-button"
           type="button"
           href="http://"
-          onclick="alert('Su invitación fue enviada')"
+          onclick="handleInvitarPuestoModal(event)"
         >
           Enviar invitación a puesto
         </button>
@@ -194,15 +194,40 @@
           <ul class="flex flex-column flex-gap-20">
             <p>Más opciones:</p>
             <li>
-              <a href="/assets/cv-example.jpg" class="list-hover" download>Descargar CV</a>
+              <a href="" class="list-hover" target="_blank" id="candidato-cv"
+                >Descargar CV</a
+              >
             </li>
             <li>
-              <a href="javascript:handleInvitacion()" class="list-hover">Enviar invitación a red</a>
+              <a
+                href="javascript:handleInvitacion()"
+                class="list-hover"
+                id="candidato-invitar"
+                >Enviar invitación a red</a
+              >
             </li>
             <li>
-              <a href="/perfil/editarrol.html" class="list-hover">Editar rol</a>
+              <a
+                href="/perfil/editarrol.html"
+                class="list-hover"
+                id="candidato-role"
+                >Editar rol</a
+              >
             </li>
           </ul>
+        </div>
+      </div>
+      <!-- Modal de invitacion -->
+      <div id="invitar-modal" class="modal">
+        <div id="invitar-modal-content" class="flex flex-column modal-content">
+          <h2>Acerca de</h2>
+          <form onsubmit="handleInvitacionPuesto(event)" class="flex flex-column flex-gap-20">
+            <select name="puestos-select" id="puestos-select">
+              <option value="" disabled selected hidden>Seleccione un puesto</option>
+            </select>
+            <input type="submit" value="Enviar" class="main-button" />
+            <button class="main-button" id="cancelar" onclick="handleInvitarPuestoModal(event)">Cancelar</button>
+          </form>
         </div>
       </div>
     </main>

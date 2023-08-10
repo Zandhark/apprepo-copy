@@ -22,6 +22,7 @@ const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
 const Notification = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
+const Aplication = require("./models/aplicationModel.js")
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
@@ -69,6 +70,7 @@ app.post("/api/puestos/new", async (req, res) => {
       atributos: data.atributos,
       visibilidad: data.visibilidad,
       empresa: data.empresa,
+      createdBy: data.createdBy
     });
     const response = await puesto.save();
     if (response instanceof Error) {
@@ -102,6 +104,7 @@ app.get("/api/puestos/empresa/:id", async (req, res) => {
     }
     res.status(200).json(puestos);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
@@ -241,7 +244,6 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
-
 app.get("/api/usuarios/:userId", async (req, res) => {
   // retorna un usuario dependiendo del id
   try {
@@ -252,6 +254,7 @@ app.get("/api/usuarios/:userId", async (req, res) => {
 
     res.status(200).json(user);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
@@ -263,6 +266,7 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
     const usuario = await User.findByIdAndUpdate(req.params.id, {
       type: data.type || User.type,
       userDescription: data.userDescription || User.userDescription,
+      title: data.title || User.title,
     });
 
     if (!usuario) {
@@ -314,6 +318,49 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
       skills: req.body,
     });
     res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+//Endpoints de aplicaciones
+app.post("/api/aplicaciones/new", async (req, res) => {
+  // crea una nueva aplicacion
+  const data = req.body;
+  try {
+    const aplicacion = new Aplication({
+      puesto: data.puesto,
+      candidato: data.candidato,
+      empresa: data.empresa,
+      createdBy: data.createdBy,
+      status: "Enviada",
+    });
+    const response = await aplicacion.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    const puesto = await Puesto.findById(data.puesto);
+    const candidato = await User.findById(data.candidato);
+    console.log(puesto)
+    console.log(candidato)
+    sendNotification(data.empresa, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
+    sendNotification(data.createdBy, "Aplicacion", `${candidato.name} ha aplicado al puesto ${puesto.nombre}`);
+    sendMail(candidato.email, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
+    res.status(200).json(response);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.get("/api/aplicaciones/:userId", async (req, res) => {
+  // retorna lista de aplicaciones de un usuario
+  try {
+    const aplicaciones = await Aplication.find({ candidato: req.params.userId });
+    if (aplicaciones instanceof Error) {
+      throw new Error(aplicaciones.message);
+    }
+    res.status(200).json(aplicaciones);
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
@@ -446,8 +493,21 @@ app.post("/api/registro", async (req, res) => {
     const blockBlobClientFoto = containerClient.getBlockBlobClient(
       `${userResponse._id}-profile.jpg`
     );
-    await blockBlobClientCV.upload(cvBuffer, cvBuffer.length);
-    await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length);
+    const cvBlobOptions = {
+      blobHTTPHeaders: {
+        blobContentType: "application/pdf",
+        blobContentDisposition: "inline"
+
+      }
+    } 
+
+    const fotoBlobOptions = {
+      blobHTTPHeaders: {
+        blobContentType: "image/jpeg",
+      }
+    } 
+    await blockBlobClientCV.upload(cvBuffer, cvBuffer.length, cvBlobOptions);
+    await blockBlobClientFoto.upload(fotoBuffer, fotoBuffer.length, fotoBlobOptions);
     const cvUrl = blockBlobClientCV.url;
     const fotoUrl = blockBlobClientFoto.url;
     const response = await User.findByIdAndUpdate(

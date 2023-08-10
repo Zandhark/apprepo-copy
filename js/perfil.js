@@ -20,8 +20,12 @@ const expModal = document.getElementById("exp-modal");
 const expForm = document.getElementById("exp-form");
 const eduModal = document.getElementById("edu-modal");
 const skillsModal = document.getElementById("skills-modal");
+const titleEdit = document.getElementById("title-edit");
+const titleSave = document.getElementById("title-save");
+const userTitle = document.getElementById("user-title");
 let userDetails = {};
 let currentUserDescription;
+let currentUserTitle;
 
 function datesValidation() {
   const startDateValue = new Date(this.value);
@@ -149,6 +153,49 @@ async function handleShortDescriptionSave() {
   }
 }
 
+function handleTitle() {
+  titleSave.style.display = "block";
+  titleEdit.style.display = "none";
+  userTitle.contentEditable = true;
+  userTitle.classList.add("editable-content");
+  userTitle.focus();
+}
+
+async function handleTitleSave() {
+  const newUserTitle = userTitle.innerText;
+  if (currentUserTitle !== newUserTitle) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/usuarios/update/${userId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title: newUserTitle }),
+        }
+      );
+      const updatedTitle = await response.json();
+      userTitle.classList.remove("editable-content");
+      titleSave.style.display = "none";
+      titleEdit.style.display = "block";
+      userTitle.contentEditable = false;
+    } catch (e) {
+      alert("Error al actualizar el perfil");
+      userTitle.classList.remove("editable-content");
+      titleSave.style.display = "none";
+      titleEdit.style.display = "block";
+      userTitle.contentEditable = false;
+    }
+  } else {
+    console.log("Nada🤷")
+    userTitle.classList.remove("editable-content");
+    titleSave.style.display = "none";
+    titleEdit.style.display = "block";
+    userTitle.contentEditable = false;
+  }
+}
+
 function handleEduModal(e) {
   e.preventDefault();
   if (e.target.innerText === "Cancelar") {
@@ -245,6 +292,8 @@ async function getUserDetails(userId) {
 async function renderProfile() {
   userDetails = await getUserDetails(userId);
   profileImg.src = userDetails.profileImg;
+  userTitle.innerText = userDetails.title;
+  currentUserTitle = userDetails.title;
   if (userDetails.userDescription === "") {
     userDescription.innerText = "Agrega una descripción";
     currentUserDescription = "Agrega una descripción";

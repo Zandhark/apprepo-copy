@@ -1,3 +1,12 @@
+const typeUser = document.cookie
+  .split(";")
+  .find((item) => item.includes("userType"))
+  .split("=")[1];
+
+const clientId = document.cookie
+  .split(";")
+  .find((item) => item.includes("userId"))
+  .split("=")[1];
 
 const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
@@ -7,274 +16,118 @@ const userAbout = document.getElementById("user-about");
 const experienceSection = document.getElementById("experiencia");
 const educationSection = document.getElementById("educacion");
 const skillsSection = document.getElementById("skills");
+const candidatoCv = document.getElementById("candidato-cv");
+const editarRol = document.getElementById("candidato-role");
+const invitarCandidato = document.getElementById("candidato-invitar");
+const invitarModal = document.getElementById("invitar-modal");
+const puestosSelect = document.getElementById("puestos-select");
 
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
 
-function handleInvitacion() {
-    alert("Invitación enviada");
+async function fetchJobs() {
+  const responseClient = await fetch(
+    `http://localhost:3000/api/usuarios/${clientId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const client = await responseClient.json();
+  const empresaId = client.empresa;
+
+  const response = await fetch(
+    `http://localhost:3000/api/puestos/empresa/${empresaId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const jobs = await response.json();
+  return jobs;
 }
 
-function getUserDetails(userId) {
-  const candidatos = [
-    {
-      id: 1,
-      name: "Alice Smith",
-      email: "alice.smith@example.com",
-      title: "Frontend Developer",
-      userDescription: "Passionate about creating intuitive user interfaces.",
-      profileImg: "http://example.com/assets/profile-img1.jpeg",
-      curriculum: "http://example.com/assets/curriculum1.pdf",
-      about: "Experienced in building responsive web applications.",
-      experience: [
-        {
-          title: "Frontend Developer",
-          company: "Microsoft",
-          description: "Developed user interfaces for web applications.",
-          startDate: "2020-02-01",
-          endDate: "2021-05-01",
-        },
-        {
-          title: "UI Designer",
-          company: "Adobe",
-          description: "Designed engaging user interfaces and prototypes.",
-          startDate: "2019-01-01",
-          endDate: "2020-01-01",
-        },
-      ],
-      education: [
-        {
-          title: "Bachelor of Computer Science",
-          institution: "University of Example",
-          description: "Studied computer science with a focus on user interface design.",
-          startDate: "2015-09-01",
-          endDate: "2019-06-01",
-        },
-      ],
-      skills: [
-        { name: "HTML" },
-        { name: "CSS" },
-        { name: "JavaScript" },
-        { name: "React" },
-        { name: "UI/UX Design" },
-      ],
-      languages: [
-        { name: "English", level: "Fluent" },
-        { name: "Spanish", level: "Intermediate" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Bob Johnson",
-      email: "bob.johnson@example.com",
-      title: "Backend Developer",
-      userDescription: "Passionate about building scalable and efficient backend systems.",
-      profileImg: "http://example.com/assets/profile-img2.jpeg",
-      curriculum: "http://example.com/assets/curriculum2.pdf",
-      about: "Experienced in designing and implementing RESTful APIs.",
-      experience: [
-        {
-          title: "Backend Developer",
-          company: "Amazon",
-          description: "Developed and maintained backend systems for e-commerce applications.",
-          startDate: "2018-06-01",
-          endDate: "2022-01-01",
-        },
-        {
-          title: "Software Engineer",
-          company: "IBM",
-          description: "Worked on enterprise-level software projects.",
-          startDate: "2016-01-01",
-          endDate: "2018-05-01",
-        },
-      ],
-      education: [
-        {
-          title: "Master of Science in Computer Science",
-          institution: "University of Example",
-          description: "Specialized in distributed systems and cloud computing.",
-          startDate: "2014-09-01",
-          endDate: "2016-06-01",
-        },
-        {
-          title: "Bachelor of Engineering in Computer Science",
-          institution: "University of Example",
-          description: "Studied computer science with a focus on software development.",
-          startDate: "2010-09-01",
-          endDate: "2014-06-01",
-        },
-      ],
-      skills: [
-        { name: "Java" },
-        { name: "Python" },
-        { name: "Node.js" },
-        { name: "Databases" },
-        { name: "RESTful APIs" },
-      ],
-      languages: [
-        { name: "English", level: "Fluent" },
-        { name: "French", level: "Intermediate" },
-      ],
-    },
-    {
-      id: 3,
-      name: "Charlie Williams",
-      email: "charlie.williams@example.com",
-      title: "Full Stack Developer",
-      userDescription: "Passionate about creating innovative web solutions.",
-      profileImg: "http://example.com/assets/profile-img3.jpeg",
-      curriculum: "http://example.com/assets/curriculum3.pdf",
-      about: "Experienced in building end-to-end web applications.",
-      experience: [
-        {
-          title: "Full Stack Developer",
-          company: "Facebook",
-          description: "Developed and maintained web applications for social networking.",
-          startDate: "2017-03-01",
-          endDate: "2022-08-01",
-        },
-        {
-          title: "Software Developer",
-          company: "StartUp Inc.",
-          description: "Contributed to the development of a scalable SaaS platform.",
-          startDate: "2015-01-01",
-          endDate: "2017-02-01",
-        },
-      ],
-      education: [
-        {
-          title: "Bachelor of Science in Computer Engineering",
-          institution: "University of Example",
-          description: "Studied computer engineering with a focus on software development.",
-          startDate: "2013-09-01",
-          endDate: "2017-06-01",
-        },
-      ],
-      skills: [
-        { name: "JavaScript" },
-        { name: "React" },
-        { name: "Node.js" },
-        { name: "MongoDB" },
-        { name: "RESTful APIs" },
-      ],
-      languages: [
-        { name: "English", level: "Fluent" },
-        { name: "German", level: "Intermediate" },
-      ],
-    },
-    {
-      id: 4,
-      name: "Daniel Brown",
-      email: "daniel.brown@example.com",
-      title: "Data Scientist",
-      userDescription: "Passionate about extracting insights from data.",
-      profileImg: "http://example.com/assets/profile-img4.jpeg",
-      curriculum: "http://example.com/assets/curriculum4.pdf",
-      about: "Experienced in analyzing large datasets and building predictive models.",
-      experience: [
-        {
-          title: "Data Scientist",
-          company: "Google",
-          description: "Developed machine learning models to improve search algorithms.",
-          startDate: "2018-06-01",
-          endDate: "2022-01-01",
-        },
-        {
-          title: "Data Analyst",
-          company: "Big Data Co.",
-          description: "Performed data analysis and visualization for client projects.",
-          startDate: "2016-01-01",
-          endDate: "2018-05-01",
-        },
-      ],
-      education: [
-        {
-          title: "Master of Science in Data Science",
-          institution: "University of Example",
-          description: "Specialized in machine learning and data mining.",
-          startDate: "2014-09-01",
-          endDate: "2016-06-01",
-        },
-        {
-          title: "Bachelor of Science in Statistics",
-          institution: "University of Example",
-          description: "Studied statistics with a focus on data analysis.",
-          startDate: "2010-09-01",
-          endDate: "2014-06-01",
-        },
-      ],
-      skills: [
-        { name: "Python" },
-        { name: "R" },
-        { name: "Machine Learning" },
-        { name: "Statistical Analysis" },
-        { name: "Data Visualization" },
-      ],
-      languages: [
-        { name: "English", level: "Fluent" },
-        { name: "Spanish", level: "Intermediate" },
-      ],
-    },
-    {
-      id: 5,
-      name: "Eva Davis",
-      email: "eva.davis@example.com",
-      title: "DevOps Engineer",
-      userDescription: "Passionate about automating and optimizing development processes.",
-      profileImg: "http://example.com/assets/profile-img5.jpeg",
-      curriculum: "http://example.com/assets/curriculum5.pdf",
-      about: "Experienced in implementing continuous integration and deployment pipelines.",
-      experience: [
-        {
-          title: "DevOps Engineer",
-          company: "Netflix",
-          description: "Implemented scalable infrastructure and deployment strategies.",
-          startDate: "2017-03-01",
-          endDate: "2022-08-01",
-        },
-        {
-          title: "Systems Administrator",
-          company: "Tech Solutions Inc.",
-          description: "Managed and maintained server infrastructure.",
-          startDate: "2015-01-01",
-          endDate: "2017-02-01",
-        },
-      ],
-      education: [
-        {
-          title: "Bachelor of Engineering in Computer Science",
-          institution: "University of Example",
-          description: "Studied computer science with a focus on system administration.",
-          startDate: "2013-09-01",
-          endDate: "2017-06-01",
-        },
-      ],
-      skills: [
-        { name: "Linux" },
-        { name: "Docker" },
-        { name: "AWS" },
-        { name: "Kubernetes" },
-        { name: "CI/CD" },
-      ],
-      languages: [
-        { name: "English", level: "Fluent" },
-        { name: "French", level: "Intermediate" },
-      ],
-    },
-  ]
-  return candidatos[userId - 1];
+async function handleInvitarPuestoModal(e) {
+  if (e.target.id === "cancelar") {
+    invitarModal.style.display = "none";
+    puestosSelect.innerHTML = "";
+    return;
+  }
+  const jobs = await fetchJobs();
+
+  jobs.forEach((job) => {
+    const option = document.createElement("option");
+    option.value = job._id;
+    option.innerText = job.nombre;
+    puestosSelect.appendChild(option);
+  });
+  invitarModal.style.display = "block";
 }
 
-function renderProfile() {
-  const userDetails = getUserDetails(candidateId);
+async function handleInvitacionPuesto(e) {
+  e.preventDefault();
+  const jobId = puestosSelect.value;
+  try {
+    const response = await fetch(`http://localhost:3000/api/aplicaciones/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        candidato: candidateId,
+        puesto: jobId,
+        empresa: clientId,
+        createdBy: clientId,
+      }),
+    });
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    alert(`Invitación enviada al puesto seleccionado.`);
+    invitarModal.style.display = "none";
+  } catch (e) {
+    console.log(e.message);
+    if (e.message.includes("E11000")) {
+      alert("Ya se ha enviado una invitación para este puesto.");
+      invitarModal.style.display = "none";
+    } else {
+      alert("Error al enviar la invitación.");
+      invitarModal.style.display = "none";
+    }
+  }
+}
+
+async function getUserDetails(userId) {
+  const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const candidatos = await response.json();
+  return candidatos;
+}
+
+async function renderProfile() {
+  const userDetails = await getUserDetails(candidateId);
   profileImg.src = userDetails.profileImg;
   userDescription.innerText = userDetails.userDescription;
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
-  userDetails.experience.forEach((experience) => {
-    const experienceDiv = document.createElement("div");
-    experienceDiv.classList.add("experience-box");
-    experienceDiv.innerHTML = `
+  candidatoCv.href = userDetails.curriculum;
+
+  if (userDetails.experience.length === 0) {
+    experienceSection.innerHTML = `<p>No hay experiencia registrada</p>`;
+  } else {
+    userDetails.experience.forEach((experience) => {
+      const experienceDiv = document.createElement("div");
+      experienceDiv.classList.add("experience-box");
+      experienceDiv.innerHTML = `
     <h3>${experience.title}</h3>
     <div class="flex">
       <svg
@@ -316,13 +169,16 @@ function renderProfile() {
     </div>
     <p>${experience.description}</p>
     `;
-    experienceSection.appendChild(experienceDiv);
-  });
-
-  userDetails.education.forEach((education) => {
-    const educationDiv = document.createElement("div");
-    educationDiv.classList.add("experience-box");
-    educationDiv.innerHTML = `
+      experienceSection.appendChild(experienceDiv);
+    });
+  }
+  if (userDetails.education.length === 0) {
+    educationSection.innerHTML = `<p>No hay educacion registrada</p>`;
+  } else {
+    userDetails.education.forEach((education) => {
+      const educationDiv = document.createElement("div");
+      educationDiv.classList.add("experience-box");
+      educationDiv.innerHTML = `
     <h3>${education.title}</h3>
     <div class="flex">
       <svg
@@ -364,17 +220,22 @@ function renderProfile() {
     </div>
     <p>${education.description}</p> 
     `;
-    educationSection.appendChild(educationDiv);
-  });
-
-  userDetails.skills.forEach((skills) => {
+      educationSection.appendChild(educationDiv);
+    });
+  }
+  userDetails.skills.forEach((skill) => {
     const skillsDiv = document.createElement("div");
     skillsDiv.classList.add("skills-box");
     skillsDiv.innerHTML = `
-    <h4>${skills.name}</h3>
+    <h4>${skill}</h3>
     `;
     skillsSection.appendChild(skillsDiv);
   });
+
+  if (typeUser !== "administrador") {
+    editarRol.style.display = "none";
+    invitarCandidato.style.display = "none";
+  }
 }
 
 renderProfile();

@@ -89,11 +89,12 @@ async function getNotifications(userId) {
 
 async function renderNotifications() {
   await getNotifications(userId);
-  notifications.forEach((notification, index) => {
+  notifications.reverse().forEach((notification, index) => {
     const parsedDate = new Date(notification.createdAt);
     const timeDifference = Date.now() - parsedDate;
     const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
     const days = Math.abs(Math.floor(daysDifference));
+    const tiempo = days <= 0 ? `Hace menos de un dia` : `Hace ${days} dias`;
     const notificationDiv = document.createElement("div");
     notificationDiv.classList =
       "padding-box flex flex-align-center flex-gap-20 notification";
@@ -123,7 +124,7 @@ async function renderNotifications() {
           />
         </svg>
     
-        <p>${ days >= 0 ? `Hace menos de un dia` : `Hace ${days} dias`}</p>
+        <p>${tiempo}</p>
       </div>
       <p class="notification-description">${notification.description}</p>
     </div>
@@ -153,7 +154,7 @@ async function renderNotifications() {
             d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
           />
         </svg>
-        <p>${ days >= 0 ? `Hace menos de un dia` : `Hace ${days} dias`}</p>
+        <p>${tiempo}</p>
       </div>
       <p class="notification-description">${notification.description}</p>
     </div>
