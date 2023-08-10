@@ -114,15 +114,12 @@ app.get("/api/empresas", async (req, res) => {
 
 app.get("/api/empresas/:id", async (req, res) => {
   // retorna una empresa dependiendo del id
-  const userId = req.body;
   try {
-    const response = await Empresa.findByIdAndUpdate(req.params.id, {
-      $push: { empleados: userId },
-    });
-    if (response instanceof Error) {
-      throw new Error(response.message);
+    const empresa = await Empresa.findById(req.params.id).populate("empleados");
+    if (empresa instanceof Error) {
+      throw new Error(empresa.message);
     }
-    res.status(200).json(response);
+    res.status(200).json(empresa);
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
@@ -196,16 +193,20 @@ app.post("/api/empresas/new", async (req, res) => {
 
 app.patch("/api/empresas/usuarios/:id", async (req, res) => {
   // agrega usuarios a la empresa
-
+  const userId = req.body;
   try {
-    const empresa = await Empresa.findById(req.params.id).populate("empleados");
-    if (empresa instanceof Error) {
-      throw new Error(empresa.message);
+    const response = await Empresa.findByIdAndUpdate(req.params.id, {
+      $push: { empleados: req.body },
+    });
+    if (response instanceof Error) {
+      throw new Error(response.message);
     }
-    res.status(200).json(empresa);
+    res.status(200).json(response);
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
+
+  
 });
 
 //Endpoints de usuarios
