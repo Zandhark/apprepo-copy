@@ -26,6 +26,27 @@ const puestosSelect = document.getElementById("puestos-select");
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
 
+async function fetchJobs() {
+  const responseClient = await fetch(`http://localhost:3000/api/usuarios/${clientId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const client = await responseClient.json();
+  const empresaId = client.empresa;
+
+  const response = await fetch(`http://localhost:3000/api/puestos/empresa/${empresaId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const jobs = await response.json();
+  return jobs;
+}
+
+
 async function handleInvitarPuestoModal(e) {
 
   if (e.target.id === "cancelar") {
@@ -45,32 +66,11 @@ async function handleInvitarPuestoModal(e) {
 }
 
 function handleInvitacionPuesto(e) {
-  e.preventDefault();  
-  // alert("Invitación enviada");
-  // invitarModal.style.display = "none";
+  e.preventDefault();
+  const jobId = puestosSelect.value;  
+  alert(`Invitación enviada al puesto seleccionado (${jobId}).`);
+  invitarModal.style.display = "none";
 }
-
-async function fetchJobs() {
-  const responseClient = await fetch(`http://localhost:3000/api/usuarios/${clientId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const client = await responseClient.json();
-  const empresaId = client.empresa;
-
-  const response = await fetch(`http://localhost:3000/api/puestos/empresa/${empresaId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const jobs = await response.json();
-  console.log(jobs)
-  return jobs;
-}
-
 
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {

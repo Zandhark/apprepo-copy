@@ -22,6 +22,7 @@ const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
 const Notification = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
+const Aplication = require("./models/aplicationModel.js")
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
@@ -235,7 +236,6 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
-
 app.get("/api/usuarios/:userId", async (req, res) => {
   // retorna un usuario dependiendo del id
   try {
@@ -314,6 +314,8 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
     res.status(400).json({ error: e.message });
   }
 });
+
+//Endpoints de aplicaciones
 
 //Endpoints de notificaciones
 app.get("/api/notifications/:userId", async (req, res) => {
