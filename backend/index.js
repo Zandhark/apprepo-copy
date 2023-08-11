@@ -109,6 +109,20 @@ app.get("/api/puestos/empresa/:id", async (req, res) => {
   }
 });
 
+app.get("/api/puestos/manager/:id", async (req, res) => {
+  // retorna los puestos de una empresa
+  try {
+    const puestos = await Puesto.find({ createdBy: req.params.id }).populate("empresa");
+    if (puestos instanceof Error) {
+      throw new Error(puestos.message);
+    }
+    res.status(200).json(puestos);
+  } catch (e) {
+    console.log(e)
+    res.status(400).json({ error: e.message });
+  }
+});
+
 // Endpoints de empresa
 app.get("/api/empresas", async (req, res) => {
   // retorna lista de empresas
