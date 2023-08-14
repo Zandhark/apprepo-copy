@@ -22,7 +22,8 @@ const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
 const Notification = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
-const Aplication = require("./models/aplicationModel.js")
+const Aplication = require("./models/aplicationModel.js");
+const Invitation = require("./models/invitationModel.js");
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
@@ -411,6 +412,53 @@ app.patch("/api/notifications/update/:notificationId", async (req, res) => {
   }
 });
 
+//Endpoints de invitaciones
+app.get("/api/invitations/:userId", async (req, res) => {
+  // retorna lista de invitaciones de un usuario
+  try {
+    const invitation = await Invitation.find({userId: req.params.
+userId});
+    if (invitation instanceof Error) {
+      throw new Error(invitation.message);
+    }
+    res.status(200).json(invitation);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.post("/api/invitation/new", async (req, res) => {
+  // crea una nueva invitacion
+  try {
+    const invitation = new Invitation(req.body);
+    const response = await invitation.save();
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/invitation/update/:invitationId", async (req, 
+res) => {
+  // actualiza una invitacion 
+  try {
+    const data = req.body;
+    const invitation = await Invitation.findByIdAndUpdate(req.
+params.invitationId, {
+      read: data.read,
+    }, {new: true});
+
+    if (!invitation) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.status(200).json(invitation);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
 
 //Endpoints de registro, login y sesiones
 app.post("/api/login", async (req, res) => {
