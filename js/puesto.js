@@ -70,7 +70,21 @@ function handleEditModal(e) {
   const descripcion = document.getElementById("modal-descripcion");
   const descPuesto = document.getElementById("desc-puesto");
   const requisitos = document.getElementById("modal-requisitos");
-  const currentReq = document.getElementById("requisitos-list");
+  const currentReq = document.getElementById("requisitos-list").getElementsByTagName("li");
+  let requerimientos = [];
+  for (let i = 0; i < currentReq.length; i++) {
+    requerimientos.push(currentReq[i].innerText);
+  }
+  const currentAtributos = document.getElementById("atributos-list").getElementsByTagName("li");
+  const atributos = document.getElementById("modal-atributos");
+  let atributosText = [];
+  for (let i = 0; i < currentAtributos.length; i++) {
+    atributosText.push(currentAtributos[i].innerText);
+  }
+
+  const currentVisibilidad = document.getElementById("visibilidad").innerText;
+  const visibilidad = document.getElementById("modal-visibilidad");
+
   editarModal.style.display = "block";
 
   slider1.addEventListener("input", function () {
@@ -95,7 +109,10 @@ function handleEditModal(e) {
   value1.textContent = agregarFormato(slider1.value);
   value2.textContent = agregarFormato(slider2.value);
   descripcion.value = descPuesto.innerText;
-  requisitos.value = requisitos.innerText;
+  requisitos.value = requerimientos.join(",");
+  atributos.value = atributosText.join(",");
+  visibilidad.value = currentVisibilidad;
+
 }
 
 function handleDelete(e) {
