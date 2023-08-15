@@ -49,10 +49,7 @@ async function renderPuestos() {
       </div>
       <div class="flex flex-grow1 flex-align-center flex-space-center flex-gap-10">
         <a href="/puestos/puesto.html?id=${puesto._id}">
-          <button class="main-button">Ver</button>
-        </a>
-        <a href="/puestos/puesto.html?id=${puesto._id}">
-          <button class="main-button">Editar</button>
+          <button class="main-button" style="width: 60px;">Ver</button>
         </a>
       </div>
     </div>
