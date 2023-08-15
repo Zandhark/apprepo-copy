@@ -84,29 +84,7 @@ h3 {
   color: var(--secondary-color) !important;
 }
 
-.modal {
-  display: none;
-  z-index: 1;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: #152641b2;
-}
 
-.modal-content {
-  background-color: var(--background-color);
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid var(--secondary-color);
-  border-radius: 5px;
-  width: 80%;
-  min-height: 400px;
-  max-height: 80%;
-  max-width: 800px;
-}
 
 #about-modal-content textarea {
   width: 100%;
