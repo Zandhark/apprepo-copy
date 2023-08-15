@@ -56,6 +56,29 @@ app.get("/api/puestos/:id", async (req, res) => {
   }
 });
 
+app.patch("/api/puestos/update/:id", async (req, res) => {
+  // actualiza un puesto
+  const data = req.body;
+  try {
+    const puesto = await Puesto.findByIdAndUpdate(req.params.id, {
+      nombre: data.nombre || Puesto.nombre,
+      descripcion: data.descripcion || Puesto.descripcion,
+      rangoSalario: data.rangoSalario || Puesto.rangoSalario,
+      requisitos: data.requisitos || Puesto.requisitos,
+      atributos: data.atributos || Puesto.atributos,
+      visibilidad: data.visibilidad || Puesto.visibilidad,
+      empresa: data.empresa || Puesto.empresa,
+    }, { new: true });
+    if (!puesto) {
+      throw new Error("Puesto no encontrado");
+    }
+    console.log(puesto);
+    res.status(200).json(puesto);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 app.post("/api/puestos/new", async (req, res) => {
   // agrega nuevo puesto
 

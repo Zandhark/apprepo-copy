@@ -115,6 +115,48 @@ function handleEditModal(e) {
 
 }
 
+async function handleEditSubmit(e) {
+
+  const modalNombre = document.getElementById("modal-nombre");
+  const descripcion = document.getElementById("modal-descripcion");
+  const requisitos = document.getElementById("modal-requisitos");
+  const atributos = document.getElementById("modal-atributos");
+  const visibilidad = document.getElementById("modal-visibilidad");
+  const slider1 = document.getElementById("slider1");
+  const slider2 = document.getElementById("slider2");
+
+  const data = {
+    nombre: modalNombre.value,
+    descripcion: descripcion.value,
+    rangoSalario: [slider1.value, slider2.value],
+    requisitos: requisitos.value.split(","),
+    atributos: atributos.value.split(","),
+    visibilidad: visibilidad.value,
+  };
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/puestos/update/${jobId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const result = await response.json();
+    if (result.error) {
+      throw new Error(result.error);
+    }
+    alert("Puesto actualizado");
+    location.href = `/puestos/puesto.html?id=${jobId}`;
+  } catch (e) {
+    alert("Error al actualizar el puesto, " + e);
+  }
+  
+}
+
 function handleDelete(e) {
   if (confirm("¿Está seguro que desea eliminar este puesto?")) {
     alert("Puesto eliminado");
