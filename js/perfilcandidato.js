@@ -51,6 +51,42 @@ async function fetchJobs() {
   return jobs;
 }
 
+async function handleInvitacionEmpresa(e) {
+  try {
+    const user = await getUserDetails(candidateId);
+    console.log(user, clientId)
+    if (user.empresa === clientId) {
+      throw new Error("Ya pertenece a esta empresa.");
+    } else if (user.empresa !== null || user.empresa !== undefined) {
+      throw new Error("Ya pertenece a otra empresa.");
+    }
+    const response = await fetch(`http://localhost:3000/api/usuarios/update/${candidateId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ empresa: clientId }),
+    });
+    const userData = await response.json();
+    if (userData.error) {
+      throw new Error(userData.error);
+    }
+    const responseNotification = await fetch(`http://localhost:3000/api/notifications/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: candidateId,
+        title: `Invitación a ${userData.empresa.nombre}`,
+      }),
+    });
+    alert("Usuario agregado a la empresa.")
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
 async function handleInvitarPuestoModal(e) {
   if (e.target.id === "cancelar") {
     invitarModal.style.display = "none";

@@ -305,7 +305,8 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
       type: data.type || User.type,
       userDescription: data.userDescription || User.userDescription,
       title: data.title || User.title,
-    });
+      empresa: data.empresa || User.empresa,
+    }, { new: true }).populate("empresa");
 
     if (!usuario) {
       return res.status(404).json({ error: "Usuario no encontrado" });
