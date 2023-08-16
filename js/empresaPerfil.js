@@ -45,7 +45,6 @@ async function getPuestos() {
 }
 
 function handleShortDescription() {
-
   shortAboutSave.style.display = "block";
   shortAboutEdit.style.display = "none";
   shortDescription.contentEditable = true;
@@ -119,21 +118,18 @@ async function handleAboutSubmit(e) {
 
 async function handleInvitarEmpleadoModal(e) {
   e.preventDefault();
-  if(e.target.id === "cancelar") {
+  if (e.target.id === "cancelar") {
     invitarModal.style.display = "none";
     usuariosSelect.innerHTML = "";
     return;
   }
   invitarModal.style.display = "block";
-  const response = await fetch(
-    `http://localhost:3000/api/usuarios/`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`http://localhost:3000/api/usuarios/`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const usuarios = await response.json();
   const usuariosFilter = usuarios.filter((usuario) => {
     return !usuario.empresa;
@@ -182,10 +178,29 @@ async function handleInvitarEmpleado(e) {
   }
 }
 
+async function handleRemoveUser(e) {
+  if (confirm("¿Está seguro de que desea eliminar este usuario de la empresa?")){
+    try {
+      const response = await fetch(`http://localhost:3000/api/empresas/usuarios/delete/${empresaId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: e.target.id }),
+        }
+      );
+    } catch (e) {
+      console.log(e);
+    }
+    window.location.reload();
+  }
+  
+}
+
 async function renderEmpresa() {
   const empresa = await getEmpresa();
   const puestos = await getPuestos();
-  console.log(empresa)
   logo.src = empresa.logo;
   empresaName.innerHTML = empresa.nombre;
   if (empresa.shortDescription) {
@@ -210,14 +225,18 @@ async function renderEmpresa() {
       <div class="flex flex-column flex-gap-10 info-puestos" style="width: 65%; padding: 10px;">
         <h2 id="titulo-puesto-${puesto._id}">${puesto.nombre}</h2>
         <p id="desc-puesto">${puesto.descripcion}</p>
-        ${ days < 1 ? `
+        ${
+          days < 1
+            ? `
         <p id="fecha-publicacion">Publicado hace menos de un dia.</p>
-        ` : `
+        `
+            : `
         <p id="fecha-publicacion">Publicado hace ${days} dias.</p>
-        ` }
+        `
+        }
 
         <p id="rango-salario">
-          Rango Salarial: ₡${puesto.rangoSalario[0]}~ ₡${ puesto.rangoSalario[1] }
+          Rango Salarial: ₡${puesto.rangoSalario[0]}~ ₡${puesto.rangoSalario[1]}
         </p>
       </div>
       <div class="flex flex-grow1 flex-align-center flex-space-center">
@@ -243,13 +262,13 @@ async function renderEmpresa() {
     <div
       class="border flex flex-gap-10 puestos flex-align-center"
       id="${empleado._id}"
-      style="margin-top: 5px; margin-bottom: 10px; width: 100%;"
+      style="margin-top: 5px; margin-bottom: 10px; width: 100%"
     >
       <div>
         <img
           src="${empleado.profileImg}"
           alt="Imagen de perfil de ${empleado.name}"
-          style="width: 100px; height: 100px; border-radius: 50%; margin-left: 10px;"
+          style="width: 100px; height: 100px; border-radius: 50%; margin-left: 10px"
         />
       </div>
       <div
@@ -260,16 +279,16 @@ async function renderEmpresa() {
         <p id="desc-${empleado._id}">${empleado.about}</p>
         <p id="tipo-usuario">Tipo de usuario: ${tipoEmpleado}</p>
       </div>
-      <div class="flex flex-grow1 flex-align-center flex-space-center">
+      <div class="flex flex-grow1 flex-align-center flex-space-center flex-gap-10">
         <a href="/candidatos/perfil.html?id=${empleado._id}">
           <button class="main-button">Ver usuario</button>
         </a>
+        <button class="main-button" style="margin-right: 10px;" id="${empleado._id}" onclick="handleRemoveUser(event)">Remover usuario</button>
       </div>
     </div>
 
   `;
   });
-
 }
 
 renderEmpresa();

@@ -269,6 +269,33 @@ app.patch("/api/empresas/usuarios/:id", async (req, res) => {
   
 });
 
+app.delete("/api/empresas/usuarios/delete/:id", async (req, res) => {
+  // elimina un usuario de la empresa
+  const userId = req.body.userId;
+  const empresaId = req.params.id;
+  try {
+    const empresa = await Empresa.findByIdAndUpdate(empresaId, {
+      $pull: { empleados: userId },
+    });
+
+    if (empresa instanceof Error) {
+      throw new Error(empresa.message);
+    }
+    
+    const usuario = await User.findByIdAndUpdate(userId, { empresa: null });
+
+    if (usuario instanceof Error) {
+      throw new Error(usuario.message);
+    }
+    sendNotification(empresaId, "Empresa", `Se ha removido a ${usuario.name} de la empresa`)
+    sendNotification(usuario._id, "Empresa", `Ha sido eliminado de ${empresa.nombre}`);
+    res.status(200).json("Usuario eliminado de la empresa");
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: e.message });
+  }
+});
+
 //Endpoints de usuarios
 app.get("/api/usuarios", async (req, res) => {
   // retorna lista de usuarios
