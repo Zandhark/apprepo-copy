@@ -10,13 +10,13 @@ const transporter = nodemailer.createTransport({
 });
 
 
-async function sendMail(sentTo, subject, text){
+async function sendMail(sentTo, subject, html){
   try {
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: 'mail@jobsync.com',
       to: sentTo,
       subject,
-      text,
+      html,
     };
     await transporter.sendMail(mailOptions);
     return true;

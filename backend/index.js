@@ -9,6 +9,7 @@ require("dotenv").config();
 const compression = require("compression");
 const containerClient = require("./utils/azureBlob.js");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -597,6 +598,72 @@ app.delete("/api/session/delete", async (req, res) => {
   console.log(response);
   res.status(200).json({ message: "Sessions deleted" });
 });
+
+//Endpoints de recuperacion de password
+
+app.post("/api/recover", async (req, res) => {
+  //envia link de recuperacion de password
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    console.log(user);
+    if (!user._id) {
+      throw new Error("Usuario no encontrado");
+    }
+    const secret = process.env.JWT_SECRET + user.password;
+    const payload = {
+      id: user._id,
+    };
+
+    const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+    const link = `http://localhost:5500/login/recover.html?id=${user._id}&token=${token}`;
+    const emailBody = `
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body>
+        <h1>Recuperacion de contraseña</h1>
+        <p>Para recuperar su contraseña da click en el siguiente link</p>
+        <a href="${link}">Recuperar contraseña</a>
+      </body>
+    </html>
+    `
+    sendMail(email, "Recuperacion de contraseña", emailBody);
+    res.status(200).json({ message: "Correo enviado" });
+  } catch (e) {
+    console.log(e);
+    res.status(404).json({ error: e.message });
+  }
+});
+
+app.post("/api/recover/:id/:token", async (req, res) => {
+  //restablece la contraseña
+  const { id, token } = req.params;
+  const { password } = req.body;
+  try {
+    const user = await User.findById(id);
+
+    const secret = process.env.JWT_SECRET + user.password;
+    const payload = jwt.verify(token, secret);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(password, salt);
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { password: hashedPass },
+      { new: true }
+    );
+    res.status(200).json({ message: "Contraseña actualizada" });
+  } catch (e) {
+    if (e.message === "jwt expired") {
+      res.status(401).json({ error: "El token ha expirado" });
+    }
+    
+  }
+});
+
 
 // Endpoint para enviar correos
 app.post("/api/sendmail", async (req, res) => {

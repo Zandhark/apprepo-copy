@@ -26,7 +26,7 @@
             class="login-img"
           />
         </div>
-        <div>
+        <div id="recover-form">
           <form
             class="flex flex-column flex-align-center flex-space-center flex-gap-20"
             onsubmit="handleFormSubmit(event)"
@@ -61,6 +61,41 @@
             <input
               type="submit"
               value="Recuperar contraseña"
+              class="main-button login-btn"
+              style="margin-top: 0px"
+            />
+            <p>Regresar a la página de <a href="/">inicio</a></p>
+          </form>
+        </div>
+        <!-- password reset form -->
+        <div id="reset-form" style="display: none;">
+          <form
+            class="flex flex-column flex-align-center flex-space-center flex-gap-20"
+            onsubmit="handleResetPassword(event)"
+          >
+            <div class="input-container">
+              <div class="flex">
+                <label for="password">Password: </label>
+              </div>
+              <input
+                type="password"
+                name="password"
+                required
+                id="password"
+              />
+              <div class="flex">
+                <label for="password2">Confirmar Password: </label>
+              </div>
+              <input
+                type="password2"
+                name="password2"
+                required
+                id="password2"
+              />
+            </div>
+            <input
+              type="submit"
+              value="Establecer contraseña"
               class="main-button login-btn"
               style="margin-top: 0px"
             />
