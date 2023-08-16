@@ -54,36 +54,42 @@ async function fetchJobs() {
 async function handleInvitacionEmpresa(e) {
   try {
     const user = await getUserDetails(candidateId);
-    console.log(user, clientId)
+    console.log(user, clientId);
     if (user.empresa === clientId) {
       throw new Error("Ya pertenece a esta empresa.");
     } else if (user.empresa !== null || user.empresa !== undefined) {
       throw new Error("Ya pertenece a otra empresa.");
     }
-    const response = await fetch(`http://localhost:3000/api/usuarios/update/${candidateId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ empresa: clientId }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/update/${candidateId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ empresa: clientId }),
+      }
+    );
     const userData = await response.json();
     if (userData.error) {
       throw new Error(userData.error);
     }
-    const responseNotification = await fetch(`http://localhost:3000/api/notifications/new`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: candidateId,
-        title: `Invitación a ${userData.empresa.nombre}`,
-      }),
-    });
-    alert("Usuario agregado a la empresa.")
+    const responseNotification = await fetch(
+      `http://localhost:3000/api/notifications/new`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: candidateId,
+          title: `Invitación a ${userData.empresa.nombre}`,
+        }),
+      }
+    );
+    alert("Usuario agregado a la empresa.");
   } catch (e) {
-    alert(e.message)
+    alert(e.message);
   }
 }
 
@@ -259,15 +265,18 @@ async function renderProfile() {
       educationSection.appendChild(educationDiv);
     });
   }
-  userDetails.skills.forEach((skill) => {
-    const skillsDiv = document.createElement("div");
-    skillsDiv.classList.add("skills-box");
-    skillsDiv.innerHTML = `
+  if (userDetails.skills.length === 0) {
+    skillsSection.innerHTML = `<p>No hay habilidades registradas</p>`;
+  } else {
+    userDetails.skills.forEach((skill) => {
+      const skillsDiv = document.createElement("div");
+      skillsDiv.classList.add("skills-box");
+      skillsDiv.innerHTML = `
     <h4>${skill}</h3>
     `;
-    skillsSection.appendChild(skillsDiv);
-  });
-
+      skillsSection.appendChild(skillsDiv);
+    });
+  }
   if (typeUser !== "administrador") {
     editarRol.style.display = "none";
     invitarCandidato.style.display = "none";
