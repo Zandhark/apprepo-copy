@@ -161,6 +161,18 @@ async function handleInvitarEmpleado(e) {
       }
     );
     const empresa = await response.json();
+
+    const responseUser = await fetch(
+      `http://localhost:3000/api/usuarios/update/${candidateId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ empresa: clientId }),
+      }
+    );
+    const user = await responseUser.json();
     window.location.reload();
     invitarModal.style.display = "none";
   } catch (e) {

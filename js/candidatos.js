@@ -17,7 +17,7 @@ async function getCandidatos() {
 async function renderCandidatos() {
   const candidatosFilter = await getCandidatos();
   const candidatos = candidatosFilter.filter((candidato) => {
-    return candidato.type === "endUser";
+    return candidato.type !== "administrador";
   });
   
   const candidatosHTML = candidatos.map((candidato, index) => {

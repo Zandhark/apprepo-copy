@@ -249,19 +249,20 @@ app.patch("/api/empresas/usuarios/:id", async (req, res) => {
     const responseEmpresa = await Empresa.findByIdAndUpdate(empresaId, {
       $push: { empleados: userId },
     }, {new: true});
-    const responseUsuario = await User.findByIdAndUpdate(userId, { empresa: req.params.id });
+
     if (responseEmpresa instanceof Error) {
-      
       throw new Error(responseEmpresa.message);
     }
+    const responseUsuario = await User.findByIdAndUpdate(userId, { empresa: req.params.id });
+
     if (responseUsuario instanceof Error) {
-      
       throw new Error(responseUsuario.message);
     }
     sendNotification(responseUsuario._id, "Empresa", `Ha sido agregado a ${responseEmpresa.nombre}`);
 
-    res.status(200).json(response);
+    res.status(200).json("Usuario agregado a la empresa");
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 

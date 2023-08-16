@@ -54,11 +54,25 @@ async function fetchJobs() {
 async function handleInvitacionEmpresa(e) {
   try {
     const user = await getUserDetails(candidateId);
-    console.log(user, clientId);
     if (user.empresa === clientId) {
       throw new Error("Ya pertenece a esta empresa.");
-    } else if (user.empresa !== null || user.empresa !== undefined) {
+    } else if (user.empresa !== null && user.empresa !== undefined) {
       throw new Error("Ya pertenece a otra empresa.");
+    }
+
+    const responseEmpresa = await fetch(
+      `http://localhost:3000/api/empresas/usuarios/${clientId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: candidateId }),
+      }
+    );
+    const empresa = await responseEmpresa.json();
+    if (empresa.error) {
+      throw new Error(empresa.error);
     }
     const response = await fetch(
       `http://localhost:3000/api/usuarios/update/${candidateId}`,
@@ -87,6 +101,20 @@ async function handleInvitacionEmpresa(e) {
         }),
       }
     );
+    const responseSelfNotif = await fetch(
+      `http://localhost:3000/api/notifications/new`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: clientId,
+          title: `${userData.empresa.nombre} ha sido invitado a la empresa.`,
+        }),
+      }
+    );
+
     alert("Usuario agregado a la empresa.");
   } catch (e) {
     alert(e.message);
@@ -162,6 +190,14 @@ async function renderProfile() {
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
   candidatoCv.href = userDetails.curriculum;
+  if (typeUser === "administrador") {
+    if (userDetails.empresa === clientId) {
+      invitarCandidato.style.display = "none";
+    } else if (userDetails.empresa !== clientId) {
+      editarRol.style.display = "none";
+      invitarCandidato.style.display = "none";
+    }
+  }
 
   if (userDetails.experience.length === 0) {
     experienceSection.innerHTML = `<p>No hay experiencia registrada</p>`;
