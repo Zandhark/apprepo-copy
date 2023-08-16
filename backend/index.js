@@ -616,7 +616,7 @@ app.post("/api/recover", async (req, res) => {
     };
 
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
-    const link = `http://localhost:3000/api/recover/${user._id}/${token}`;
+    const link = `http://localhost:5500/login/recover.html?id=${user._id}&token=${token}`;
     const emailBody = `
     <!DOCTYPE html>
     <html lang="en">
@@ -638,6 +638,33 @@ app.post("/api/recover", async (req, res) => {
     res.status(404).json({ error: e.message });
   }
 });
+
+app.post("/api/recover/:id/:token", async (req, res) => {
+  //restablece la contraseña
+  const { id, token } = req.params;
+  const { password } = req.body;
+  try {
+    const user = await User.findById(id);
+
+    const secret = process.env.JWT_SECRET + user.password;
+    const payload = jwt.verify(token, secret);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(password, salt);
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { password: hashedPass },
+      { new: true }
+    );
+    res.status(200).json({ message: "Contraseña actualizada" });
+  } catch (e) {
+    if (e.message === "jwt expired") {
+      res.status(401).json({ error: "El token ha expirado" });
+    }
+    
+  }
+});
+
+
 // Endpoint para enviar correos
 app.post("/api/sendmail", async (req, res) => {
   // envia un mail
