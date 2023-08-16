@@ -655,12 +655,16 @@ app.post("/api/recover/:id/:token", async (req, res) => {
       { password: hashedPass },
       { new: true }
     );
+    if (updatedUser instanceof Error) {
+      throw new Error(updatedUser.message);
+    }
+    sendMail(updatedUser.email, "Contraseña actualizada", "Su contraseña ha sido actualizada");
     res.status(200).json({ message: "Contraseña actualizada" });
   } catch (e) {
     if (e.message === "jwt expired") {
       res.status(401).json({ error: "El token ha expirado" });
     }
-    
+    res.status(400).json({ error: e.message });
   }
 });
 
