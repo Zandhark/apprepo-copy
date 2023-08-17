@@ -178,7 +178,7 @@ async function handleEditarRolModal() {
   const roleReclutador = document.getElementById("rol-reclutador");
   const roleManager = document.getElementById("rol-manager");
   const user = await getUserDetails(candidateId);
-  console.log(user.type);
+
   if (user.type === "endUser") {
     roleEndUser.checked = true;
   } else if (user.type === "reclutador") {
@@ -194,6 +194,27 @@ function handleEditarRolModalClose() {
 }
 
 async function handleEditarRol(e) {
+  const role = document.querySelector('input[name="rol"]:checked').value;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/update/${candidateId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ type: role }),
+      }
+    );
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    alert("Rol actualizado.");
+    editarRolModal.style.display = "none";
+  } catch (e) {
+    alert("Error al actualizar el rol.");
+  }
 }
 
 async function getUserDetails(userId) {
