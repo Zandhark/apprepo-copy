@@ -28,7 +28,7 @@
     <main class="flex flex-gap-40">
       <div
         id="left-column"
-        class="flex flex-column flex-align-center flex-gap-20 border"
+        class="flex flex-column flex-align-center flex-gap-20 text-align-center border"
       >
         <div class="profile-img-container">
           <img src="" alt="foto de perfil" id="profile-img" />
@@ -159,7 +159,7 @@
               />
             </svg>
           </div>
-          <p id="user-about"></p>
+          <p id="user-about" style="margin: 10px"></p>
         </div>
         <hr />
         <div class="flex experience-formation-container">
@@ -225,49 +225,59 @@
         <div class="modal-content">
           <div class="flex flex-column flex-gap-5 div-exp">
             <h4>Agregar nueva experiencia laboral</h4>
-            <form class="flex flex-column" id="exp-form">
-              <label for="jobTitle">Nombre del puesto</label
-              ><input
-                type="text"
-                name="jobTitle"
-                placeholder="Nombre del puesto"
-                required="true"
-                id="jobTitle"
-              /><label for="companyName">Nombre de la empresa</label
-              ><input
-                type="text"
-                name="companyName"
-                placeholder="Nombre de la empresa"
-                required="true"
-                id="companyName"
-              />
-              <div
-                class="flex flex-align-center flex-gap-10 flex-space-between"
-              >
-                <label for="startDate">Fecha de inicio</label
+            <form class="flex flex-column flex-gap-10" id="exp-form">
+              <div class="input-container">
+                <label for="jobTitle">Nombre del puesto</label
                 ><input
-                  type="date"
-                  name="startDate"
-                  placeholder="Fecha de inicio"
+                  type="text"
+                  name="jobTitle"
+                  placeholder="Nombre del puesto"
                   required="true"
-                  style="width: 80%"
-                /><label for="endDate">Fecha de fin</label
-                ><input
-                  type="date"
-                  name="endDate"
-                  placeholder="Fecha de fin"
-                  required="true"
-                  id="endDate"
-                  style="width: 80%"
+                  id="jobTitle"
                 />
               </div>
-              <label for="jobDescription">Descripción del puesto</label
-              ><textarea
-                name="jobDescription"
-                placeholder="Descripción del puesto"
-                required="true"
-                id="jobDescription"
-              ></textarea>
+              <div class="input-container">
+                <label for="companyName">Nombre de la empresa</label
+                ><input
+                  type="text"
+                  name="companyName"
+                  placeholder="Nombre de la empresa"
+                  required="true"
+                  id="companyName"
+                />
+              </div>
+              <div class="flex flex-align-center flex-gap-10">
+                <div class="input-container" style="width: 50%">
+                  <label for="startDate">Fecha de inicio</label
+                  ><input
+                    type="date"
+                    name="startDate"
+                    placeholder="Fecha de inicio"
+                    required="true"
+                    style="width: 100%"
+                  />
+                </div>
+                <div class="input-container" style="width: 50%">
+                  <label for="endDate">Fecha de fin</label
+                  ><input
+                    type="date"
+                    name="endDate"
+                    placeholder="Fecha de fin"
+                    required="true"
+                    id="endDate"
+                    style="width: 100%"
+                  />
+                </div>
+              </div>
+              <div class="input-container">
+                <label for="jobDescription">Descripción del puesto</label
+                ><textarea
+                  name="jobDescription"
+                  placeholder="Descripción del puesto"
+                  required="true"
+                  id="jobDescription"
+                ></textarea>
+              </div>
             </form>
             <div class="flex flex-gap-10">
               <button class="main-button" onclick="handleExpModal(event)">
@@ -289,50 +299,60 @@
         <div class="modal-content">
           <div class="flex flex-column flex-gap-5 div-exp">
             <h4>Agregar nueva formación académica</h4>
-            <form class="flex flex-column flex-gap-5" id="edu-form">
-              <label for="eduTitle">Nombre</label
-              ><input
-                type="text"
-                name="eduTitle"
-                placeholder="Nombre"
-                required="true"
-                id="eduTitle"
-              /><label for="institution">Nombre de la institución</label
-              ><input
-                type="text"
-                name="institution"
-                placeholder="Nombre de la institución"
-                required="true"
-                id="institution"
-              />
-              <div
-                class="flex flex-space-between flex-align-center flex-gap-10"
-              >
-                <label for="eduStartDate">Fecha de inicio</label
+            <form class="flex flex-column flex-gap-10" id="edu-form">
+              <div class="input-container">
+                <label for="eduTitle">Nombre</label
                 ><input
-                  type="date"
-                  name="eduStartDate"
-                  placeholder="Fecha de inicio"
+                  type="text"
+                  name="eduTitle"
+                  placeholder="Nombre"
                   required="true"
-                  id="eduStartDate"
-                  style="width: 80%"
-                /><label for="eduEndDate">Fecha de fin</label
-                ><input
-                  type="date"
-                  name="eduEndDate"
-                  placeholder="Fecha de fin"
-                  required="true"
-                  id="eduEndDate"
-                  style="width: 80%"
+                  id="eduTitle"
                 />
               </div>
-              <label for="eduDescription">Descripción</label
-              ><textarea
-                name="eduDescription"
-                placeholder="Descripción"
-                required="true"
-                id="eduDescription"
-              ></textarea>
+              <div class="input-container">
+                <label for="institution">Nombre de la institución</label
+                ><input
+                  type="text"
+                  name="institution"
+                  placeholder="Nombre de la institución"
+                  required="true"
+                  id="institution"
+                />
+              </div>
+              <div class="flex flex-align-center flex-gap-10">
+                <div class="input-container" style="width: 50%">
+                  <label for="eduStartDate">Fecha de inicio</label
+                  ><input
+                    type="date"
+                    name="eduStartDate"
+                    placeholder="Fecha de inicio"
+                    required="true"
+                    id="eduStartDate"
+                    style="width: 100%"
+                  />
+                </div>
+                <div class="input-container" style="width: 50%">
+                  <label for="eduEndDate">Fecha de fin</label
+                  ><input
+                    type="date"
+                    name="eduEndDate"
+                    placeholder="Fecha de fin"
+                    required="true"
+                    id="eduEndDate"
+                    style="width: 100%"
+                  />
+                </div>
+              </div>
+              <div class="input-container">
+                <label for="eduDescription">Descripción</label
+                ><textarea
+                  name="eduDescription"
+                  placeholder="Descripción"
+                  required="true"
+                  id="eduDescription"
+                ></textarea>
+              </div>
             </form>
             <div class="flex flex-gap-10">
               <button class="main-button" onclick="handleEduModal(event)">
