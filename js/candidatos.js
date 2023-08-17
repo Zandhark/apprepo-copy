@@ -11,13 +11,13 @@ async function getCandidatos() {
   const candidatos = usuarios.filter((usuario) => {
     return !usuario.empresa;
   });
-  return usuarios;
+  return candidatos;
 }
 
 async function renderCandidatos() {
   const candidatosFilter = await getCandidatos();
   const candidatos = candidatosFilter.filter((candidato) => {
-    return candidato.type === "endUser";
+    return candidato.type !== "administrador";
   });
   
   const candidatosHTML = candidatos.map((candidato, index) => {
@@ -41,7 +41,7 @@ async function renderCandidatos() {
       userExperienceHTML = candidato.experience
         .slice(0, 3)
         .map((experience) => {
-          return `<li>${experience.title} @ ${experience.company}</li>`;
+          return `<li>${experience.jobTitle} @ ${experience.companyName}</li>`;
         })
         .join("");
     }

@@ -249,23 +249,51 @@ app.patch("/api/empresas/usuarios/:id", async (req, res) => {
     const responseEmpresa = await Empresa.findByIdAndUpdate(empresaId, {
       $push: { empleados: userId },
     }, {new: true});
-    const responseUsuario = await User.findByIdAndUpdate(userId, { empresa: req.params.id });
+
     if (responseEmpresa instanceof Error) {
-      
       throw new Error(responseEmpresa.message);
     }
+    const responseUsuario = await User.findByIdAndUpdate(userId, { empresa: req.params.id });
+
     if (responseUsuario instanceof Error) {
-      
       throw new Error(responseUsuario.message);
     }
     sendNotification(responseUsuario._id, "Empresa", `Ha sido agregado a ${responseEmpresa.nombre}`);
 
-    res.status(200).json(response);
+    res.status(200).json("Usuario agregado a la empresa");
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 
   
+});
+
+app.delete("/api/empresas/usuarios/delete/:id", async (req, res) => {
+  // elimina un usuario de la empresa
+  const userId = req.body.userId;
+  const empresaId = req.params.id;
+  try {
+    const empresa = await Empresa.findByIdAndUpdate(empresaId, {
+      $pull: { empleados: userId },
+    });
+
+    if (empresa instanceof Error) {
+      throw new Error(empresa.message);
+    }
+    
+    const usuario = await User.findByIdAndUpdate(userId, { empresa: null });
+
+    if (usuario instanceof Error) {
+      throw new Error(usuario.message);
+    }
+    sendNotification(empresaId, "Empresa", `Se ha removido a ${usuario.name} de la empresa`)
+    sendNotification(usuario._id, "Empresa", `Ha sido eliminado de ${empresa.nombre}`);
+    res.status(200).json("Usuario eliminado de la empresa");
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: e.message });
+  }
 });
 
 //Endpoints de usuarios
@@ -305,7 +333,8 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
       type: data.type || User.type,
       userDescription: data.userDescription || User.userDescription,
       title: data.title || User.title,
-    });
+      empresa: data.empresa || User.empresa,
+    }, { new: true }).populate("empresa");
 
     if (!usuario) {
       return res.status(404).json({ error: "Usuario no encontrado" });

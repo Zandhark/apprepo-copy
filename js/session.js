@@ -20,7 +20,8 @@ function verifyUserSession() {
     alert("No ha iniciado sesión");
     location.href = "/login/";
   }
-
+  console.log(location.href)
+  // Control de acceso
   if (location.href.includes("puestos/nuevo/") && userType !== "manager") {
     location.href = "/puestos/";
   } else if (location.href.includes("puestos/mispuestos/") && userType !== "manager") {

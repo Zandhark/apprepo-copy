@@ -21,6 +21,7 @@ const editarRol = document.getElementById("candidato-role");
 const invitarCandidato = document.getElementById("candidato-invitar");
 const invitarModal = document.getElementById("invitar-modal");
 const puestosSelect = document.getElementById("puestos-select");
+const editarRolModal = document.getElementById("editar-rol-modal");
 
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
@@ -49,6 +50,76 @@ async function fetchJobs() {
   );
   const jobs = await response.json();
   return jobs;
+}
+
+async function handleInvitacionEmpresa(e) {
+  try {
+    const user = await getUserDetails(candidateId);
+    if (user.empresa === clientId) {
+      throw new Error("Ya pertenece a esta empresa.");
+    } else if (user.empresa !== null && user.empresa !== undefined) {
+      throw new Error("Ya pertenece a otra empresa.");
+    }
+
+    const responseEmpresa = await fetch(
+      `http://localhost:3000/api/empresas/usuarios/${clientId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: candidateId }),
+      }
+    );
+    const empresa = await responseEmpresa.json();
+    if (empresa.error) {
+      throw new Error(empresa.error);
+    }
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/update/${candidateId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ empresa: clientId }),
+      }
+    );
+    const userData = await response.json();
+    if (userData.error) {
+      throw new Error(userData.error);
+    }
+    const responseNotification = await fetch(
+      `http://localhost:3000/api/notifications/new`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: candidateId,
+          title: `Invitación a ${userData.empresa.nombre}`,
+        }),
+      }
+    );
+    const responseSelfNotif = await fetch(
+      `http://localhost:3000/api/notifications/new`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: clientId,
+          title: `${userData.empresa.nombre} ha sido invitado a la empresa.`,
+        }),
+      }
+    );
+
+    alert("Usuario agregado a la empresa.");
+  } catch (e) {
+    alert(e.message);
+  }
 }
 
 async function handleInvitarPuestoModal(e) {
@@ -102,6 +173,50 @@ async function handleInvitacionPuesto(e) {
   }
 }
 
+async function handleEditarRolModal() {
+  const roleEndUser = document.getElementById("rol-endUser");
+  const roleReclutador = document.getElementById("rol-reclutador");
+  const roleManager = document.getElementById("rol-manager");
+  const user = await getUserDetails(candidateId);
+
+  if (user.type === "endUser") {
+    roleEndUser.checked = true;
+  } else if (user.type === "reclutador") {
+    roleReclutador.checked = true;
+  } else if (user.type === "manager") {
+    roleManager.checked = true;
+  }
+  editarRolModal.style.display = "block";
+}
+
+function handleEditarRolModalClose() {
+  editarRolModal.style.display = "none";
+}
+
+async function handleEditarRol(e) {
+  const role = document.querySelector('input[name="rol"]:checked').value;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/update/${candidateId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ type: role }),
+      }
+    );
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    alert("Rol actualizado.");
+    editarRolModal.style.display = "none";
+  } catch (e) {
+    alert("Error al actualizar el rol.");
+  }
+}
+
 async function getUserDetails(userId) {
   const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
     method: "GET",
@@ -120,6 +235,14 @@ async function renderProfile() {
   userName.innerText = userDetails.name;
   userAbout.innerText = userDetails.about;
   candidatoCv.href = userDetails.curriculum;
+  if (typeUser === "administrador") {
+    if (userDetails.empresa === clientId) {
+      invitarCandidato.style.display = "none";
+    } else if (userDetails.empresa !== clientId) {
+      editarRol.style.display = "none";
+      invitarCandidato.style.display = "none";
+    }
+  }
 
   if (userDetails.experience.length === 0) {
     experienceSection.innerHTML = `<p>No hay experiencia registrada</p>`;
@@ -223,15 +346,18 @@ async function renderProfile() {
       educationSection.appendChild(educationDiv);
     });
   }
-  userDetails.skills.forEach((skill) => {
-    const skillsDiv = document.createElement("div");
-    skillsDiv.classList.add("skills-box");
-    skillsDiv.innerHTML = `
+  if (userDetails.skills.length === 0) {
+    skillsSection.innerHTML = `<p>No hay habilidades registradas</p>`;
+  } else {
+    userDetails.skills.forEach((skill) => {
+      const skillsDiv = document.createElement("div");
+      skillsDiv.classList.add("skills-box");
+      skillsDiv.innerHTML = `
     <h4>${skill}</h3>
     `;
-    skillsSection.appendChild(skillsDiv);
-  });
-
+      skillsSection.appendChild(skillsDiv);
+    });
+  }
   if (typeUser !== "administrador") {
     editarRol.style.display = "none";
     invitarCandidato.style.display = "none";
