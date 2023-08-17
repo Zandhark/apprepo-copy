@@ -27,7 +27,9 @@
     </header>
     <main class="flex">
       <div id="left-column" class="flex flex-column flex-align-center">
-        <img src="" alt="foto de perfil" id="profile-img" />
+        <div class="profile-img-container">
+          <img src="" alt="foto de perfil" id="profile-img" />
+        </div>
         <h1 id="user-name"></h1>
         <h2 class="secondary-color" id="title"></h2>
         <p class="profile-paragraph-center" id="user-description"></p>
@@ -221,12 +223,23 @@
       <div id="invitar-modal" class="modal">
         <div id="invitar-modal-content" class="flex flex-column modal-content">
           <h2>Acerca de</h2>
-          <form onsubmit="handleInvitacionPuesto(event)" class="flex flex-column flex-gap-20">
+          <form
+            onsubmit="handleInvitacionPuesto(event)"
+            class="flex flex-column flex-gap-20"
+          >
             <select name="puestos-select" id="puestos-select">
-              <option value="" disabled selected hidden>Seleccione un puesto</option>
+              <option value="" disabled selected hidden>
+                Seleccione un puesto
+              </option>
             </select>
             <input type="submit" value="Enviar" class="main-button" />
-            <button class="main-button" id="cancelar" onclick="handleInvitarPuestoModal(event)">Cancelar</button>
+            <button
+              class="main-button"
+              id="cancelar"
+              onclick="handleInvitarPuestoModal(event)"
+            >
+              Cancelar
+            </button>
           </form>
         </div>
       </div>
