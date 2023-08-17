@@ -238,6 +238,10 @@ input:-webkit-autofill {
   padding: 20px;
 }
 
+.width-100 {
+  width: 100%;
+}
+
 .custom-scrollbar {
   overflow: auto;
   padding: 0 5px 0 0;

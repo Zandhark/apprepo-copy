@@ -49,10 +49,10 @@ async function renderEmpresa() {
     const days = Math.abs(Math.floor(daysDifference));
     puestosContainer.innerHTML += `
     <div
-      class="border flex flex-gap-20 puestos flex-align-center company-jobs"
+      class="border flex flex-gap-20 company-jobs"
       id="puesto-${puesto._id}"
     >
-    <div class="flex flex-column">
+    <div class="flex flex-column width-100">
       <div class="flex flex-column flex-gap-10 info-puestos">
         <h2 id="titulo-puesto-${puesto._id}">${puesto.nombre}</h2>
         <p id="desc-puesto">
@@ -68,7 +68,7 @@ async function renderEmpresa() {
       puesto.rangoSalario[1]
     }</p>
       </div>
-      <div class="flex flex-grow1 flex-align-center flex-space-center">
+      <div class="flex flex-grow1 flex-space-center padding-box">
         <a href="/puestos/puesto.html?id=${puesto._id}">
           <button class="main-button">Ver mas</button>
         </a>
