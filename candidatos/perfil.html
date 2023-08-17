@@ -248,19 +248,14 @@
           class="flex flex-column modal-content"
         >
           <div
-            class="flex flex-column"
-            style="width: 100%; justify-content: space-around"
+            class="flex flex-column flex-align-center flex-gap-20"
+            style="width: 100%"
           >
             <h2 style="text-align: center">Cambiar rol</h2>
-            <div class="flex" style="justify-content: space-between">
-              <fieldset
-                class="flex flex-align-center"
-                style="justify-content: space-around; width: 100%"
-              >
-                <legend></legend>
+            <div class="flex flex-space-between" style="width: 100%;">
+              <fieldset class="flex flex-align-center flex-space-evenly" style="width: 100%;">
                 <div
-                  class="flex flex-column flex-align-center margin-20px"
-                  style="justify-content: space-evenly"
+                  class="flex flex-column flex-align-center"
                 >
                   <svg
                     class="img-style"
@@ -282,7 +277,7 @@
                     type="radio"
                     name="rol"
                     id="empleado"
-                    value="empleado"
+                    value="endUser"
                   />
                 </div>
                 <div class="flex flex-column flex-align-center">
@@ -330,15 +325,8 @@
                 </div>
               </fieldset>
             </div>
-            <div>
-              <button
-                class="flex-align-center main-button"
-                type="submit"
-                id="boton-editar-rol"
-                href="http://"
-              >
-                Guardar
-              </button>
+            <div class="flex flex-gap-10">
+              <button class="main-button" id="editar-guardar">Guardar</button>
               <button class="main-button" id="modal-cancelar">Cancelar</button>
             </div>
           </div>
