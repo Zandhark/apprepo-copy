@@ -2,7 +2,6 @@ const siteCookie = document.cookie;
 const userCookie = siteCookie.split(";")[1]; // Returns the value of the cookie
 const userId = userCookie.split("=")[1]; // Returns the value of the cookie
 
-
 const profileImg = document.getElementById("profile-img");
 const userDescription = document.getElementById("user-description");
 const userName = document.getElementById("user-name");

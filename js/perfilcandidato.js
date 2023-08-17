@@ -21,6 +21,7 @@ const editarRol = document.getElementById("candidato-role");
 const invitarCandidato = document.getElementById("candidato-invitar");
 const invitarModal = document.getElementById("invitar-modal");
 const puestosSelect = document.getElementById("puestos-select");
+const editarRolModal = document.getElementById("editar-rol-modal");
 
 const urlParams = new URLSearchParams(window.location.search);
 let candidateId = urlParams.get("id");
@@ -170,6 +171,13 @@ async function handleInvitacionPuesto(e) {
       invitarModal.style.display = "none";
     }
   }
+}
+
+async function handleEditarRolModal(e) {
+  editarRolModal.style.display = "block";
+}
+
+async function handleEditarRol(e) {
 }
 
 async function getUserDetails(userId) {
