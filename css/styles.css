@@ -190,6 +190,10 @@ input:-webkit-autofill {
   align-items: center;
 }
 
+.flex-align-end {
+  align-items: flex-end;
+}
+
 .text-align-center {
   text-align: center;
 }

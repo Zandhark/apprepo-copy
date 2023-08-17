@@ -173,8 +173,24 @@ async function handleInvitacionPuesto(e) {
   }
 }
 
-async function handleEditarRolModal(e) {
+async function handleEditarRolModal() {
+  const roleEndUser = document.getElementById("rol-endUser");
+  const roleReclutador = document.getElementById("rol-reclutador");
+  const roleManager = document.getElementById("rol-manager");
+  const user = await getUserDetails(candidateId);
+  console.log(user.type);
+  if (user.type === "endUser") {
+    roleEndUser.checked = true;
+  } else if (user.type === "reclutador") {
+    roleReclutador.checked = true;
+  } else if (user.type === "manager") {
+    roleManager.checked = true;
+  }
   editarRolModal.style.display = "block";
+}
+
+function handleEditarRolModalClose() {
+  editarRolModal.style.display = "none";
 }
 
 async function handleEditarRol(e) {
