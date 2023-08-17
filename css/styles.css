@@ -20,10 +20,19 @@ body {
   color: #fff;
   background-color: var(--background-color);
   height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
 }
 
+
 header {
-  min-height: 5vh;
+  min-height: auto;
+  width: 100%;
   padding: 10px 0px;
   color: var(--primary-color);
   top: 0;
@@ -37,7 +46,9 @@ header {
 
 main {
   max-width: 1700px;
-  margin: 20px 100px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 footer {
@@ -100,6 +111,7 @@ select:focus {
   box-shadow: 0 0 5px var(--primary-color);
 }
 
+
 input {
   padding: 10px;
   border-radius: 5px;
@@ -133,13 +145,15 @@ textarea:focus {
   box-shadow: 0 0 5px var(--primary-color);
 }
 
+.slider-input:focus {
+  box-shadow: none;
+}
+
 /* Chrome autofill background color fix */
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px var(--background-color) inset;
   -webkit-text-fill-color: #fff;
 }
-
-
 
 /* utility rehusable classes  */
 .flex {
@@ -228,6 +242,10 @@ input:-webkit-autofill {
   padding: 20px;
 }
 
+.width-100 {
+  width: 100%;
+}
+
 .custom-scrollbar {
   overflow: auto;
   padding: 0 5px 0 0;
@@ -269,6 +287,7 @@ input:-webkit-autofill {
 }
 
 .main-button {
+  min-width: 100px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
@@ -320,20 +339,48 @@ input:-webkit-autofill {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: #152641b2;
+  backdrop-filter: blur(2px);
 }
 
 .modal-content {
-  background-color: var(--background-color);
-  margin: 15vh auto;
-  padding: 20px;
-  border: 1px solid var(--secondary-color);
+  background-color: #0f1c30;
+  margin: 14vh auto;
+  padding: 40px;
   border-radius: 5px;
   width: 80%;
   min-height: 400px;
   max-height: 80%;
-  max-width: 800px;
+  max-width: 850px;
+  overflow: auto;
+}
+
+.modal-content input,
+select,
+textarea {
+  background-color: #0f1c30;
+}
+
+.modal-content>div>form~div {
+  padding-top: 25px;
+}
+
+.modal-content>div>h4 {
+  font-size: 18px;
+  padding-bottom: 15px;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #1a8ec1;
+  border-radius: 5px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #13688e;
+  border-radius: 5px;
 }
 
 @media (max-width: 768px) {
