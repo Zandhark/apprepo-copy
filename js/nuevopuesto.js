@@ -29,20 +29,31 @@ slider2.addEventListener("input", function () {
 });
 
 async function getEmpresa() {
-  const response = await fetch(
-    `http://localhost:3000/api/usuarios/${userId}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    }
-  );
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+  
+    const user = await response.json();
+    const empresaId = user.empresa;
+    return empresaId
+  } catch (e) {
+    console.log(e);
+  }
 
-  const user = await response.json();
-  const empresaId = user.empresa;
-  return empresaId;
+}
 
+function handleLoading(elementId) {
+  const loader = document.createElement("div");
+  loader.classList.add("loading");
+  loader.id = "loader";
+  document.getElementById(`${elementId}`).appendChild(loader);
 }
 
 async function handleFormSubmit(e) {
@@ -69,6 +80,7 @@ async function handleFormSubmit(e) {
     
   };
   try {
+    handleLoading("div-img");
     const response = await fetch(
       `http://localhost:3000/api/puestos/new`, {
       method: "POST",
@@ -80,8 +92,10 @@ async function handleFormSubmit(e) {
     const json = await response.json();
     console.log(json);
     alert("Puesto creado con éxito");
-    window.location.refresh();
+    location.reload();
   } catch (e) {
+    console.log(e)
     alert("Error al crear el puesto")
+    document.getElementById("loader").remove();
   }
 }

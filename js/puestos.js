@@ -35,6 +35,7 @@ async function getJobs() {
 
 async function renderPuestos() {
   const puestos = await getJobs();
+  console.log(puestos)
   const puestosContainer = document.getElementById("main-content");
 
   puestos.reverse().forEach((puesto) => {
