@@ -88,6 +88,9 @@ function handleExpModal(e) {
 
 async function handleExpModalSubmit(e) {
   console.log("Submit");
+  const form = document.getElementById("exp-form");
+  form.checkValidity();
+  form.reportValidity();
   const jobTitle = document.getElementById("jobTitle").value;
   const companyName = document.getElementById("companyName").value;
   const startDate = document.getElementById("startDate").value;
@@ -101,6 +104,7 @@ async function handleExpModalSubmit(e) {
     jobDescription,
   };
   try {
+    handleLoading("exp-modal-content")
     const response = await fetch(
       `http://localhost:3000/api/usuarios/experiencia/${userId}`,
       {
@@ -112,11 +116,13 @@ async function handleExpModalSubmit(e) {
       }
     );
     const updatedUser = await response.json();
+    document.getElementById("loader").remove();
     console.log(updatedUser);
     expModal.style.display = "none";
-    renderProfile();
+    location.reload();
   } catch (e) {
     alert("Error al actualizar el perfil");
+    document.getElementById("loader").remove();
     expModal.style.display = "none";
   }
 }
