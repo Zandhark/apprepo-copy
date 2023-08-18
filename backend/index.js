@@ -349,9 +349,11 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
 
 app.patch("/api/usuarios/experiencia/:id", async (req, res) => {
   // actualiza la experiencia de un usuario
+  const userId = req.params.id;
+  const experience = req.body;
   try {
-    const response = await User.findByIdAndUpdate(req.params.id, {
-      $push: { experience: req.body },
+    const response = await User.findByIdAndUpdate(userId, {
+      $push: { experience: experience },
     });
     console.log(response);
     if (response instanceof Error) {
@@ -359,6 +361,29 @@ app.patch("/api/usuarios/experiencia/:id", async (req, res) => {
     }
     res.status(200).json(response);
   } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.delete("/api/usuarios/experiencia/:id", async (req, res) => {
+  // actualiza la experiencia de un usuario
+  const userId = req.params.id;
+  const experienceId = req.body.expId;
+  console.log(userId, experienceId)
+  try {
+    const response = await User.findByIdAndUpdate(userId, {
+      $pull: {
+        experience: { 
+          _id: experienceId 
+        }
+      },
+    });
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
