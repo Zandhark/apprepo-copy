@@ -411,6 +411,7 @@ app.patch("/api/notifications/update/:notificationId", async (req, res) => {
   }
 });
 
+
 //Endpoints de registro, login y sesiones
 app.post("/api/login", async (req, res) => {
   // login de usuario
