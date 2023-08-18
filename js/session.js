@@ -26,10 +26,11 @@ function verifyUserSession() {
     location.href = "/puestos/";
   } else if (location.href.includes("puestos/mispuestos/") && userType !== "manager") {
     location.href = "/puestos/";
-  } else if (location.href.includes("candidatos/")&& userType == "endUser") {
+  } else if (location.href.includes("candidatos/")&& userType === "endUser") {
+    location.href = "/puestos/";
+  } else if (location.href.includes("registro/") && userType !== undefined) {
     location.href = "/puestos/";
   }
-  
 }
 
 verifyUserSession();

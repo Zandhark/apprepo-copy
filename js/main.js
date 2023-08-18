@@ -46,51 +46,86 @@ function renderMenu() {
   if (userType == "endUser") {
     // Verifica el tipo de usuario y renderiza el menu correspondiente
     userNav = `
-      <a href="/puestos/">Puestos de Trabajo</a>
-      <a href="/empresas/">Empresas</a>
-      <a href="/notificaciones/">Notificaciones</a>
-      <a href="/perfil/">Mi Perfil</a>
+      <a href="/puestos/" id="nav-puestos">Puestos de Trabajo</a>
+      <a href="/empresas/" id="nav-empresas">Empresas</a>
+      <a href="/notificaciones/" id="nav-notif">Notificaciones</a>
+      <a href="/perfil/" id="nav-perfil">Mi Perfil</a>
       <a href="javascript:handleCloseSession();">Cerrar Sesión</a>
     `;
   } else if (userType === "reclutador") {
     userNav = `
-      <a href="/puestos/">Puestos de Trabajo</a>
-      <a href="/empresas/">Empresas</a>
-      <a href="/candidatos/">Candidatos</a>
-      <a href="/notificaciones/">Notificaciones</a>
-      <a href="/perfil/">Mi Perfil</a>
+      <a href="/puestos/" id="nav-puestos">Puestos de Trabajo</a>
+      <a href="/empresas/" id="nav-empresas">Empresas</a>
+      <a href="/candidatos/" id="nav-candidatos">Candidatos</a>
+      <a href="/notificaciones/" id="nav-notif">Notificaciones</a>
+      <a href="/perfil/" id="nav-perfil">Mi Perfil</a>
       <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === "manager") {
     userNav = `
-      <a href="/puestos/">Puestos de Trabajo</a>
-      <a href="/puestos/nuevo/">Nuevo puesto</a>
-      <a href="/puestos/mispuestos/">Mis puestos</a>
-      <a href="/empresas/">Empresas</a>
-      <a href="/candidatos/">Candidatos</a>
-      <a href="/notificaciones/">Notificaciones</a>
-      <a href="/perfil/">Mi Perfil</a>
+      <a href="/puestos/" id="nav-puestos">Puestos de Trabajo</a>
+      <a href="/puestos/nuevo/" id="nav-puestos-nuevo">Nuevo puesto</a>
+      <a href="/puestos/mispuestos/" id="nav-puestos-mispuestos">Mis puestos</a>
+      <a href="/empresas/" id="nav-empresas">Empresas</a>
+      <a href="/candidatos/" id="nav-candidatos">Candidatos</a>
+      <a href="/notificaciones/" id="nav-notif">Notificaciones</a>
+      <a href="/perfil/" id="nav-perfil">Mi Perfil</a>
       <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === "administrador") {
     userNav = `
-      <a href="/puestos/">Puestos de Trabajo</a>
-      <a href="/candidatos/">Usuarios</a>
-      <a href="/empresas/">Empresas</a>
-      <a href="/notificaciones/">Notificaciones</a>
-      <a href="/empresas/perfil.html">Perfil Empresa</a>
+      <a href="/puestos/" id="nav-puestos">Puestos de Trabajo</a>
+      <a href="/candidatos/" id="nav-candidatos">Usuarios</a>
+      <a href="/empresas/" id="nav-empresas">Empresas</a>
+      <a href="/notificaciones/" id="nav-notif">Notificaciones</a>
+      <a href="/empresas/perfil.html" id="nav-perfil-empresa">Perfil Empresa</a>
       <a href="javascript:handleCloseSession();">Cerrar sesión</a>
     `;
   } else if (userType === undefined) {
     userNav = `
-      <a href="/">Inicio</a>
-      <a href="/registro/">Registro</a>
-      <a href="/puestos/">Puestos de Trabajo</a>
-      <a href="/empresas/">Empresas</a>
+      <a href="/" id="nav-inicio">Inicio</a>
+      <a href="/registro/" id="nav-registro">Registro</a>
+      <a href="/puestos/" id="nav-puestos">Puestos de Trabajo</a>
+      <a href="/empresas/" id="nav-empresas">Empresas</a>
       <a href="/login/">Iniciar sesión</a>
   `;
   }
   nav.innerHTML = userNav;
+  switch (location.pathname) {
+    case "/":
+      document.getElementById("nav-inicio").classList.add("current-nav-border");
+      break;
+    case "/puestos/":
+      document.getElementById("nav-puestos").classList.add("current-nav-border");
+      break;
+    case "/empresas/":
+      document.getElementById("nav-empresas").classList.add("current-nav-border");
+      break;
+    case "/notificaciones/":
+      document.getElementById("nav-notif").classList.add("current-nav-border");
+      break;
+    case "/registro/":
+      document.getElementById("nav-registro").classList.add("current-nav-border");
+      break;
+    case "/candidatos/":
+      document.getElementById("nav-candidatos").classList.add("current-nav-border");
+      break;
+    case "/perfil/":
+      document.getElementById("nav-perfil").classList.add("current-nav-border");
+      break;
+    case "/empresas/perfil.html":
+      document.getElementById("nav-perfil-empresa").classList.add("current-nav-border");
+      break;
+    case "/puestos/nuevo/":
+      document.getElementById("nav-puestos-nuevo").classList.add("current-nav-border");
+      break;
+    case "/puestos/mispuestos/":
+      document.getElementById("nav-puestos-mispuestos").classList.add("current-nav-border");
+      break;
+      
+
+  }
+
 }
 
 renderMenu();
