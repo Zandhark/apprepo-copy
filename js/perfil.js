@@ -261,6 +261,13 @@ function handleEduModal(e) {
 }
 
 async function handleEduModalSubmit(e) {
+  const form = document.getElementById("edu-form");
+  form.checkValidity();
+  form.reportValidity();
+  if (!form.reportValidity()){
+    alert("Por favor, completa todos los campos")
+    return;
+  }
   const eduTitle = document.getElementById("eduTitle").value;
   const institution = document.getElementById("institution").value;
   const eduStartDate = document.getElementById("eduStartDate").value;
@@ -274,6 +281,7 @@ async function handleEduModalSubmit(e) {
     description: eduDescription,
   };
   try {
+    handleLoading("edu-modal-content")
     const response = await fetch(
       `http://localhost:3000/api/usuarios/educacion/${userId}`,
       {
@@ -287,9 +295,11 @@ async function handleEduModalSubmit(e) {
     const updatedUser = await response.json();
     console.log(updatedUser);
     eduModal.style.display = "none";
-    renderProfile();
+    location.reload();
   } catch (e) {
+    console.log(e)
     alert("Error al actualizar el perfil");
+    document.getElementById("loader").remove();
     eduModal.style.display = "none";
   }
 }
@@ -337,6 +347,7 @@ async function handleSkillsModalSubmit(e) {
   const newSkills = skillList.split(",");
 
   try {
+    handleLoading("skills-modal-content")
     const response = await fetch(
       `http://localhost:3000/api/usuarios/skills/${userId}`,
       {
@@ -350,9 +361,11 @@ async function handleSkillsModalSubmit(e) {
     const updatedUser = await response.json();
     skillsModal.style.display = "none";
     skillList.value = "";
-    renderProfile();
+    location.reload();
   } catch (e) {
+    console.log(e)
     alert("Error al actualizar el perfil");
+    document.getElementById("loader").remove();
     skillList.value = "";
     skillsModal.style.display = "none";
   }
