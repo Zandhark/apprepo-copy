@@ -23,7 +23,6 @@ const Session = require("./models/sessionModel.js");
 const Notification = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
 const Aplication = require("./models/aplicationModel.js");
-const Invitation = require("./models/invitationModel.js");
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
