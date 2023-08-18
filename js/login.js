@@ -4,9 +4,11 @@ const password = document.getElementById("password");
 
 
 async function handleLogin(user) {
-  
+  const loader = document.createElement("div");
   try {
-
+    loader.classList.add("loading");
+    loader.id = "loader";
+    document.getElementById("login-img-div").appendChild(loader);
     const response = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: {
@@ -24,10 +26,11 @@ async function handleLogin(user) {
     document.cookie = `userId=${login.login._id}; path=/; max-age=3600`;
     document.cookie = `sessionId=${login.session._id}; path=/; max-age=3600`;
     document.cookie = `userType=${login.login.type}; path=/; max-age=3600`;
-    
+    document.getElementById("loader").remove();
     return login;
   } catch (e) {
     alert(e)
+    document.getElementById("loader").remove();
     return false;
   }
 }
