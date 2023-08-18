@@ -22,7 +22,7 @@ const Empresa = require("./models/empresaModel.js");
 const Session = require("./models/sessionModel.js");
 const Notification = require("./models/notificationModel.js");
 const User = require("./models/userModel.js");
-const Aplication = require("./models/aplicationModel.js");
+const Aplication = require("./models/aplicationModel.js")
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
