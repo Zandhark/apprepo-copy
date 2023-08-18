@@ -407,7 +407,6 @@ app.delete("/api/usuarios/educacion/:id", async (req, res) => {
   // actualiza la experiencia de un usuario
   const userId = req.params.id;
   const educationId = req.body.eduId;
-  console.log(userId, educationId)
   try {
     const response = await User.findByIdAndUpdate(userId, {
       $pull: {

@@ -372,14 +372,26 @@ async function handleSkillsModalSubmit(e) {
 }
 
 async function getUserDetails(userId) {
-  const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+  try {
+    handleLoading("left-column")
+    const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
   const userDetails = await response.json();
+  if (userDetails instanceof Error) {
+    throw new Error(userDetails);
+  }
+  document.getElementById("loader").remove();
   return userDetails;
+  } catch (e) {
+    console.log(e)
+    alert("Error al cargar el perfil")
+    document.getElementById("loader").remove();
+  }
+  
 }
 
 async function renderProfile() {
