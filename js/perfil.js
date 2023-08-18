@@ -27,6 +27,13 @@ let userDetails = {};
 let currentUserDescription;
 let currentUserTitle;
 
+function handleLoading(elementId) {
+  const loader = document.createElement("div");
+  loader.classList.add("loading");
+  loader.id = "loader";
+  document.getElementById(`${elementId}`).appendChild(loader);
+}
+
 function datesValidation() {
   const startDateValue = new Date(this.value);
   const endDate = document.getElementById(`endDate`);
@@ -46,6 +53,7 @@ async function handleAboutSubmit(e) {
   e.preventDefault();
   const newAbout = aboutInput.value;
   try {
+    handleLoading("about-modal-content")
     const response = await fetch(
       `http://localhost:3000/api/usuarios/update/${userId}`,
       {
@@ -57,10 +65,13 @@ async function handleAboutSubmit(e) {
       }
     );
     const updatedUser = await response.json();
+    document.getElementById("loader").remove();
     console.log(updatedUser);
     userAbout.innerText = updatedUser.about;
+    modalAbout.style.display = "none";
   } catch (e) {
     alert("Error al actualizar el perfil");
+    document.getElementById("loader").remove();
     modalAbout.style.display = "none";
   }
 }
@@ -122,6 +133,8 @@ async function handleShortDescriptionSave() {
   const newShortDescription = userDescription.innerText;
   if (currentUserDescription !== newShortDescription) {
     try {
+      handleLoading("left-column")
+
       const response = await fetch(
         `http://localhost:3000/api/usuarios/update/${userId}`,
         {
@@ -133,19 +146,21 @@ async function handleShortDescriptionSave() {
         }
       );
       const updatedUser = await response.json();
+      document.getElementById("loader").remove();
       userDescription.classList.remove("editable-content");
       shortAboutSave.style.display = "none";
       shortAboutEdit.style.display = "block";
       userDescription.contentEditable = false;
     } catch (e) {
       alert("Error al actualizar el perfil");
+      document.getElementById("loader").remove();
       userDescription.classList.remove("editable-content");
       shortAboutSave.style.display = "none";
       shortAboutEdit.style.display = "block";
       userDescription.contentEditable = false;
     }
   } else {
-    console.log("Nada🤷")
+    console.log("Nada🤷");
     userDescription.classList.remove("editable-content");
     shortAboutSave.style.display = "none";
     shortAboutEdit.style.display = "block";
@@ -165,6 +180,7 @@ async function handleTitleSave() {
   const newUserTitle = userTitle.innerText;
   if (currentUserTitle !== newUserTitle) {
     try {
+      handleLoading("left-column")
       const response = await fetch(
         `http://localhost:3000/api/usuarios/update/${userId}`,
         {
@@ -176,19 +192,21 @@ async function handleTitleSave() {
         }
       );
       const updatedTitle = await response.json();
+      document.getElementById("loader").remove();
       userTitle.classList.remove("editable-content");
       titleSave.style.display = "none";
       titleEdit.style.display = "block";
       userTitle.contentEditable = false;
     } catch (e) {
       alert("Error al actualizar el perfil");
+      document.getElementById("loader").remove();
       userTitle.classList.remove("editable-content");
       titleSave.style.display = "none";
       titleEdit.style.display = "block";
       userTitle.contentEditable = false;
     }
   } else {
-    console.log("Nada🤷")
+    console.log("Nada🤷");
     userTitle.classList.remove("editable-content");
     titleSave.style.display = "none";
     titleEdit.style.display = "block";
@@ -247,7 +265,7 @@ function handleSkillsModal(e) {
     return;
   }
   const skillList = document.getElementById("skill-list");
-  const userSkills = [...userDetails.skills]
+  const userSkills = [...userDetails.skills];
   skillList.value = String(userSkills);
   skillsModal.style.display = "block";
 }

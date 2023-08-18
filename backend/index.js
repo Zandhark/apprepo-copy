@@ -334,6 +334,7 @@ app.patch("/api/usuarios/update/:id", async (req, res) => {
       userDescription: data.userDescription || User.userDescription,
       title: data.title || User.title,
       empresa: data.empresa || User.empresa,
+      about: data.about || User.about,
     }, { new: true }).populate("empresa");
 
     if (!usuario) {
