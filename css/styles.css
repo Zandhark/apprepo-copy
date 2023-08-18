@@ -269,6 +269,10 @@ input:-webkit-autofill {
   display: none;
 }
 
+.current-nav-border {
+  border-bottom: solid;
+}
+
 /* Custom Clases & IDs */
 
 #left-column {
