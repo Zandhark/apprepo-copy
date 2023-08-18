@@ -369,7 +369,6 @@ app.delete("/api/usuarios/experiencia/:id", async (req, res) => {
   // actualiza la experiencia de un usuario
   const userId = req.params.id;
   const experienceId = req.body.expId;
-  console.log(userId, experienceId)
   try {
     const response = await User.findByIdAndUpdate(userId, {
       $pull: {
@@ -400,6 +399,29 @@ app.patch("/api/usuarios/educacion/:id", async (req, res) => {
     }
     res.status(200).json(response);
   } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.delete("/api/usuarios/educacion/:id", async (req, res) => {
+  // actualiza la experiencia de un usuario
+  const userId = req.params.id;
+  const educationId = req.body.eduId;
+  console.log(userId, educationId)
+  try {
+    const response = await User.findByIdAndUpdate(userId, {
+      $pull: {
+        education: { 
+          _id: educationId 
+        }
+      },
+    });
+    if (response instanceof Error) {
+      throw new Error(response.message);
+    }
+    res.status(200).json(response);
+  } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });

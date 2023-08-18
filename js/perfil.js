@@ -294,6 +294,32 @@ async function handleEduModalSubmit(e) {
   }
 }
 
+async function handleDeleteEducation(e) {
+  if (confirm("¿Está seguro de que desea eliminar esta entrada?")) {
+    const eduId = e.target.id;
+    try {
+      handleLoading("left-column")
+      const response = await fetch(`http://localhost:3000/api/usuarios/educacion/${userDetails._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ eduId }),
+        });
+        const updatedUser = await response.json();
+        if (updatedUser instanceof Error) {
+          throw new Error(updatedUser);
+        }
+        location.reload();
+    } catch (e) {
+      console.log(e)
+      alert("Error al actualizar el perfil");
+      document.getElementById("loader").remove();
+    }
+  }
+}
+
+
 function handleSkillsModal(e) {
   e.preventDefault();
   if (e.target.innerText === "Cancelar") {
