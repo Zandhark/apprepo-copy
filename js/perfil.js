@@ -34,14 +34,15 @@ function handleLoading(elementId) {
   document.getElementById(`${elementId}`).appendChild(loader);
 }
 
-function datesValidation() {
-  const startDateValue = new Date(this.value);
-  const endDate = document.getElementById(`endDate`);
-  endDate.value = "";
-
-  if (!isNaN(startDateValue.getTime())) {
-    endDate.setAttribute("min", this.value);
-  }
+function datesValidation(startId, endId) {
+  const today = new Date().toISOString().split("T")[0];
+  const startDate = document.getElementById(startId);
+  const endDate = document.getElementById(endId);
+  startDate.setAttribute("max", today);
+  endDate.setAttribute("max", today);
+  startDate.addEventListener("change", () => {
+    endDate.setAttribute("max", startDate.value);
+  });
 }
 
 function handleModalAbout() {
@@ -82,7 +83,7 @@ function handleExpModal(e) {
     expModal.style.display = "none";
     return;
   }
-  datesValidation();
+  datesValidation("expStartDate", "expEndDate");
   expModal.style.display = "block";
 }
 
@@ -90,11 +91,14 @@ async function handleExpModalSubmit(e) {
   console.log("Submit");
   const form = document.getElementById("exp-form");
   form.checkValidity();
-  form.reportValidity();
+  if (!form.reportValidity()){
+    alert("Por favor, completa todos los campos")
+    return;
+  }
   const jobTitle = document.getElementById("jobTitle").value;
   const companyName = document.getElementById("companyName").value;
-  const startDate = document.getElementById("startDate").value;
-  const endDate = document.getElementById("endDate").value;
+  const startDate = document.getElementById("expStartDate").value;
+  const endDate = document.getElementById("expEndDate").value;
   const jobDescription = document.getElementById("jobDescription").value;
   const newExperience = {
     jobTitle,
