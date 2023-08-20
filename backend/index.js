@@ -438,6 +438,24 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
 });
 
 //Endpoints de aplicaciones
+app.get("/api/aplicaciones/:puestoId", async (req, res) => {
+  // retorna lista de aplicaciones para un puesto
+  try {
+    const aplicaciones = await Aplication.find({
+      puesto: req.params.puestoId,
+    }).populate("candidato")
+    .populate("empresa")
+    .populate("createdBy");
+    if (aplicaciones instanceof Error) {
+      throw new Error(aplicaciones.message);
+    }
+    res.status(200).json(aplicaciones);
+  } catch (e) {
+    console.log(e)
+    res.status(400).json({ error: e.message });
+  }
+
+});
 app.post("/api/aplicaciones/new", async (req, res) => {
   // crea una nueva aplicacion
   const data = req.body;
