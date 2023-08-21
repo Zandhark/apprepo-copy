@@ -277,6 +277,7 @@ app.delete("/api/empresas/usuarios/delete/:id", async (req, res) => {
     const empresa = await Empresa.findByIdAndUpdate(empresaId, {
       $pull: { empleados: userId },
     });
+    await User.findByIdAndUpdate(userId, {type: "endUser"});
 
     if (empresa instanceof Error) {
       throw new Error(empresa.message);
@@ -519,7 +520,7 @@ app.post("/api/aplicaciones/new", async (req, res) => {
       candidato: data.candidato,
       empresa: data.empresa,
       createdBy: data.createdBy,
-      status: "Enviada",
+      status: "enviada",
     });
     const response = await aplicacion.save();
     if (response instanceof Error) {
@@ -546,8 +547,10 @@ app.get("/api/aplicaciones/:userId", async (req, res) => {
     if (aplicaciones instanceof Error) {
       throw new Error(aplicaciones.message);
     }
+
     res.status(200).json(aplicaciones);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });

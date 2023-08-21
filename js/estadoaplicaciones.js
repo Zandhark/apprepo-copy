@@ -1,93 +1,30 @@
 const mainContent = document.getElementById("main-content");
 const estadoSeleccionado = document.getElementById("select-estado");
 estadoSeleccionado.addEventListener("change", filtrarAplicaciones);
+const userId = document.cookie
+  .split(";")
+  .find((item) => item.includes("userId"))
+  .split("=")[1];
 
-let aplicaciones = [];
+async function getJobApplications() {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/aplicaciones/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const aplications = await response.json();
+    console.log(aplications)
+    return aplications;
 
-function getJobApplications(userId) {
-  aplicaciones = [
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Enviada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Aceptada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "En Revisión",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Denegada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Enviada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Enviada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Enviada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Enviada",
-    },
-    {
-      id: 0,
-      userId: 0,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "2021-05-01",
-      companyImg: `http://${window.location.host}/assets/perfildeusuario-defaultprofileimg.jpeg`,
-      status: "Enviada",
-    },
-  ];
+  } catch (e) {
+    console.log(e);
+    // alert("Error al obtener la aplicación");
+  }
 }
 
 function filtrarAplicaciones() {
@@ -142,8 +79,8 @@ function filtrarAplicaciones() {
   });
 }
 
-function renderApplications() {
-  getJobApplications(0);
+async function renderApplications() {
+  const aplicaciones = await getJobApplications();
 
   aplicaciones.forEach((aplicacion, index) => {
     const aplicacionDiv = document.createElement("div");

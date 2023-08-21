@@ -21,7 +21,6 @@ const aplicationSchema = new Schema(
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
     status: {

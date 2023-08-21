@@ -21,13 +21,13 @@ try {
     .find((item) => item.includes("sessionId"))
     .split("=")[1];
   usrType = document.cookie
-  .split(";")
-  .find((item) => item.includes("userType"))
-  .split("=")[1];
+    .split(";")
+    .find((item) => item.includes("userType"))
+    .split("=")[1];
   usrId = document.cookie
-  .split(";")
-  .find((item) => item.includes("userId"))
-  .split("=")[1];
+    .split(";")
+    .find((item) => item.includes("userId"))
+    .split("=")[1];
 } catch (error) {}
 
 async function getJob(id) {
@@ -48,7 +48,7 @@ function agregarFormato(moneda) {
   return moneda.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function handleApply() {
+async function handleApply() {
   if (sessionId === undefined) {
     alert("Debe iniciar sesión para aplicar a un puesto");
     location.href = "/login/";
@@ -58,8 +58,33 @@ function handleApply() {
       alert("Debe iniciar sesión como usuario para aplicar a un puesto");
       return;
     }
-    alert(`Ha aplicado al puesto de ${nombrePuesto.innerText}`);
-    location.href = "/perfil/";
+    try {
+      const puesto = await getJob(jobId);
+      console.log(puesto);
+      const response = await fetch(
+        `http://localhost:3000/api/aplicaciones/new`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            puesto: jobId,
+            candidato: usrId,
+            empresa: puesto.empresa._id,
+          }),
+        }
+      );
+      const result = await response.json();
+      if (result.error) {
+        throw new Error(result.error);
+      }
+      alert(`Ha aplicado al puesto de ${nombrePuesto.innerText}`);
+      location.href = "/perfil/";
+    } catch (e) {
+      console.log(e);
+      alert("Error al aplicar al puesto");
+    }
   }
 }
 
@@ -72,12 +97,16 @@ function handleEditModal(e) {
   const descripcion = document.getElementById("modal-descripcion");
   const descPuesto = document.getElementById("desc-puesto");
   const requisitos = document.getElementById("modal-requisitos");
-  const currentReq = document.getElementById("requisitos-list").getElementsByTagName("li");
+  const currentReq = document
+    .getElementById("requisitos-list")
+    .getElementsByTagName("li");
   let requerimientos = [];
   for (let i = 0; i < currentReq.length; i++) {
     requerimientos.push(currentReq[i].innerText);
   }
-  const currentAtributos = document.getElementById("atributos-list").getElementsByTagName("li");
+  const currentAtributos = document
+    .getElementById("atributos-list")
+    .getElementsByTagName("li");
   const atributos = document.getElementById("modal-atributos");
   let atributosText = [];
   for (let i = 0; i < currentAtributos.length; i++) {
@@ -96,7 +125,7 @@ function handleEditModal(e) {
       value2.textContent = agregarFormato(slider1.value);
     }
   });
-  
+
   slider2.addEventListener("input", function () {
     value2.textContent = agregarFormato(slider2.value);
     if (parseInt(slider2.value) < parseInt(slider1.value)) {
@@ -104,7 +133,7 @@ function handleEditModal(e) {
       value1.textContent = agregarFormato(slider2.value);
     }
   });
-  
+
   modalNombre.value = nombrePuesto.innerText;
   slider1.value = parseInt(rangoSalario[0]);
   slider2.value = parseInt(rangoSalario[1]);
@@ -114,11 +143,9 @@ function handleEditModal(e) {
   requisitos.value = requerimientos.join(",");
   atributos.value = atributosText.join(",");
   visibilidad.value = currentVisibilidad;
-
 }
 
 async function handleEditSubmit(e) {
-
   const modalNombre = document.getElementById("modal-nombre");
   const descripcion = document.getElementById("modal-descripcion");
   const requisitos = document.getElementById("modal-requisitos");
@@ -156,7 +183,6 @@ async function handleEditSubmit(e) {
   } catch (e) {
     alert("Error al actualizar el puesto, " + e);
   }
-  
 }
 
 function handleDelete(e) {
@@ -224,10 +250,7 @@ async function handleAplicantesModal(e) {
   } catch (e) {
     console.log(e);
     alert("Error al cargar los aplicantes.");
-
   }
-  
-
 }
 
 async function renderPuesto() {
@@ -237,7 +260,7 @@ async function renderPuesto() {
     botonEditar.style.display = "none";
     botonEliminar.style.display = "none";
     botonAplicantes.style.display = "none";
-  } 
+  }
   if (usrType === "manager" || usrType === "reclutador") {
     botonAplicar.style.display = "none";
   }
@@ -246,8 +269,6 @@ async function renderPuesto() {
     botonAplicantes.style.display = "block";
   }
 
-
-  
   rangoSalario = puesto.rangoSalario;
   nombrePuesto.innerText = puesto.nombre;
   if (puesto.visibilidad === "publico") {

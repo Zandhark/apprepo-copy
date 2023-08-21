@@ -40,7 +40,7 @@ async function handleStatusChange(e) {
 
 async function getApplication() {
   try {
-    const response = fetch(
+    const response = await fetch(
       `http://localhost:3000/api/aplicacion/${aplicationId}`,
       {
         method: "GET",
@@ -49,7 +49,7 @@ async function getApplication() {
         },
       }
     );
-    const aplication = await (await response).json();
+    const aplication = await response.json();
     return aplication;
   } catch (e) {
     console.log(e);
