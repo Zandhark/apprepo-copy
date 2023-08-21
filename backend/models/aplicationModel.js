@@ -27,7 +27,7 @@ const aplicationSchema = new Schema(
     status: {
       type: String,
       required: true,
-      enum: ["Enviada", "En revisión", "Aceptada", "Denegada"],
+      enum: ["enviada", "en-revision", "aceptada", "denegada"],
     },
   }, { timestamps: true }
 );

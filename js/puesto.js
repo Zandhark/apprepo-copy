@@ -167,12 +167,17 @@ function handleDelete(e) {
 }
 
 async function handleAplicantesModal(e) {
+  const aplicantesList = document.getElementById("aplicantes-list");
   if (e.target.id === "cancel-modal") {
     aplicantesModal.style.display = "none";
+    aplicantesList.innerHTML = "";
     return;
   }
   aplicantesModal.style.display = "block";
-  const aplicantesList = document.getElementById("aplicantes-list");
+  const loader = document.createElement("div");
+  loader.classList.add("loading");
+  loader.id = "loader";
+  document.getElementById("aplicantes-list").appendChild(loader);
   try {
     const response = await fetch(
       `http://localhost:3000/api/aplicaciones/${jobId}`,
@@ -191,27 +196,31 @@ async function handleAplicantesModal(e) {
       aplicantes.forEach((aplicante) => {
         aplicantesList.innerHTML += `
         <div
-        id="${aplicante.candidato._id}"
-        class="padding-box flex flex-align-center flex-gap-10 notification border flex-space-between"
+          id="${aplicante.candidato._id}"
+          class="padding-box flex flex-align-center flex-gap-10 notification border flex-space-between"
         >
-        <div class="flex flex-gap-20">
-          <div class="flex flex-column flex-gap-5 flex-wrap" style="width: 300px">
-            <h2>${aplicante.candidato.name}</h2>
-            <h3>${aplicante.candidato.title}</h3>
-            <div>
-              <p>${aplicante.candidato.userDescription}</p>
+          <div class="flex flex-gap-20">
+            <div class="flex flex-column flex-gap-5 flex-wrap" style="width: 300px">
+              <h2>${aplicante.candidato.name}</h2>
+              <h3>${aplicante.candidato.title}</h3>
+              <div>
+                <p>${aplicante.candidato.userDescription}</p>
+              </div>
             </div>
           </div>
+          <div>
+            <h3>Estado</h3>
+            <p>${aplicante.status}</p>
+          </div>
+          <a href="/aplicaciones/aplicacion.html?id=${aplicante._id}">
+            <button class="main-button">Ver aplicacion</button>
+          </a>
         </div>
-        <a href="/aplicaciones/aplicacion.html?id=${aplicante._id}">
-          <button class="main-button">Ver aplicacion</button>
-        </a>
-      </div>
-  
+
         `;
       });
     }
-    
+    document.getElementById("loader").remove();
   } catch (e) {
     console.log(e);
     alert("Error al cargar los aplicantes.");

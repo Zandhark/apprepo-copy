@@ -11,8 +11,10 @@
     />
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
     <link rel="stylesheet" href="/css/puestos.css" type="text/css" />
+    <link rel="stylesheet" href="/css/perfilcandidato.css" type="text/css" />
     <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
     <script src="/js/main.js" defer></script>
+    <script src="/js/aplicacion.js" defer></script>
   </head>
 
   <body>
@@ -25,114 +27,39 @@
     <main class="flex flex-gap-20">
       <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
         <div class="border main-content-box">
-
-        </div>
-      </div>
-      <!-- Modal editar puesto -->
-      <div id="editar-modal" class="modal">
-        <div class="modal-content">
-          <div class="flex flex-column flex-gap-5 div-exp">
-            <h4>Agregar nueva formación académica</h4>
-            <form class="flex flex-column flex-gap-5" id="puesto-form">
-              <div class="flex flex-column flex-space-center flex-gap-20">
-                <div class="input-container">
-                  <label for="name">Nombre del puesto: </label>
-                  <input type="text" name="name" required id="modal-nombre" />
-                </div>
-                <div>
-                  <p>Rango Salarial:</p>
-                  <input
-                    style="width: 100%"
-                    type="range"
-                    min="0"
-                    max="8000000"
-                    value="0"
-                    id="slider1"
-                    step="10000"
-                    class="slider-input"
-                    required
-                  />
-                  <br />
-                  <input
-                    style="width: 100%"
-                    type="range"
-                    min="0"
-                    max="8000000"
-                    value="8000000"
-                    id="slider2"
-                    step="10000"
-                    class="slider-input"
-                    required
-                  />
-                  <div class="flex">
-                    <p style="width: 100%">Min: <span id="value1">0</span></p>
-                    <p style="width: 100%; text-align: end">
-                      Max: <span id="value2">8,000,000</span>
-                    </p>
-                  </div>
-                </div>
-                <div class="input-container">
-                  <label for="name">Descripcion del puesto: </label>
-                  <textarea
-                    name="descripcion"
-                    id="modal-descripcion"
-                    cols="30"
-                    rows="10"
-                    required
-                  ></textarea>
-                </div>
-                <div class="input-container">
-                  <label for="name"
-                    >Requisitos mínimos (separados por coma):
-                  </label>
-                  <textarea
-                    name="requisitos"
-                    id="modal-requisitos"
-                    cols="30"
-                    rows="10"
-                    required
-                  ></textarea>
-                </div>
-                <div class="input-container">
-                  <label for="name"
-                    >Atributos deseables (separados por coma):
-                  </label>
-                  <textarea
-                    name="atributos"
-                    id="modal-atributos"
-                    cols="30"
-                    rows="10"
-                    required
-                  ></textarea>
-                </div>
-                <div class="input-container">
-                  <label for="name">Visibilidad: </label>
-                  <select name="visibilidad" id="modal-visibilidad" required>
-                    <option value="" disabled selected hidden>
-                      Selecciona una opción
-                    </option>
-                    <option value="publico">Público</option>
-                    <option value="privado">Privado</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-            <div class="flex flex-gap-10">
-              <button
-                class="main-button"
-                onclick="handleEditModal(event)"
-                id="cancel-modal"
-              >
-                Cancelar
-              </button>
-              <button
-                class="main-button"
-                onclick="handleEditSubmit(event)"
-                id="save-edu"
-              >
-                Guardar
-              </button>
+          <div id="application-select">
+            <h2>Estado de aplicacion</h2>
+            <select name="status" id="application-status" onchange="handleStatusChange(event)">
+              <option value="enviada">Enviada</option>
+              <option value="en-revision">En revisión</option>
+              <option value="aceptada">Aceptada</option>
+              <option value="denegada">Denegada</option>
+            </select>
+          </div>
+          <hr />
+          <div class="flex flex-gap-20 experience-formation-container">
+            <div>
+              <h2>Experiencia laboral</h2>
+              <div
+                class="flex flex-column info-perfil custom-scrollbar"
+                id="experiencia"
+              ></div>
             </div>
+            <div>
+              <h2>Formación académica</h2>
+              <div
+                class="flex flex-column info-perfil custom-scrollbar"
+                id="educacion"
+              ></div>
+            </div>
+          </div>
+          <hr />
+          <div>
+            <h2>Habilidades/skills</h2>
+            <div
+              class="flex flex-gap-10 flex-wrap skills-container"
+              id="skills"
+            ></div>
           </div>
         </div>
       </div>

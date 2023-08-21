@@ -438,6 +438,60 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
 });
 
 //Endpoints de aplicaciones
+app.get("/api/aplicacion/:id", async (req, res) => {
+  // retorna una aplicacion dependiendo del id
+  try {
+    const aplicacion = await Aplication.findById(req.params.id)
+    .populate("candidato")
+    .populate("empresa")
+    .populate("createdBy");
+    if (aplicacion instanceof Error) {
+      throw new Error(aplicacion.message);
+    }
+    res.status(200).json(aplicacion);
+  } catch (e) {
+    console.log(e)
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/aplicaciones/update/:id", async (req, res) => {
+  // actualiza una aplicacion
+  try {
+    const data = req.body;
+    const aplicacion = await Aplication.findByIdAndUpdate(req.params.id, {
+      status: data.status || Aplication.status,
+      puesto: data.puesto || Aplication.puesto,
+      candidato: data.candidato || Aplication.candidato,
+      empresa: data.empresa || Aplication.empresa,
+      createdBy: data.createdBy || Aplication.createdBy,
+    }, { new: true }).populate("candidato")
+    .populate("empresa")
+    .populate("createdBy")
+    .populate("puesto");
+
+    if (data.status === "en-revision") {
+      sendNotification(aplicacion.candidato._id, "Su aplicacion esta en revision", `Su aplicacion al puesto ${aplicacion.puesto.nombre} se encuentra en revision.` );
+      sendMail(aplicacion.candidato.email, "Su aplicacion esta en revision", `Su aplicacion al puesto ${aplicacion.puesto.nombre} se encuentra en revision.` );
+    } else if (data.status === "aceptada") {
+      sendNotification(aplicacion.candidato._id, "Su aplicacion fue aceptada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue aceptada.` );
+      sendMail(aplicacion.candidato.email, "Su aplicacion fue aceptada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue aceptada.` );
+      
+    } else if (data.status === "denegada") {
+      sendNotification(aplicacion.candidato._id, "Su aplicacion fue denegada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue denegada.` );
+      sendMail(aplicacion.candidato.email, "Su aplicacion fue denegada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue denegada.` );
+    }
+
+    if (!aplicacion) {
+      return res.status(404).json({ error: "Aplicacion no encontrada" });
+    }
+
+    res.status(200).json(aplicacion);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ error: e.message });
+  }
+});
 app.get("/api/aplicaciones/:puestoId", async (req, res) => {
   // retorna lista de aplicaciones para un puesto
   try {
