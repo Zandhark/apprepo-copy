@@ -130,6 +130,9 @@
         <a href="/perfil/estadoaplicaciones.html">
           <button class="main-button">Ver mis aplicaciones</button>
         </a>
+        <button class="main-button" onclick="handleProfileImangeModal(event)">
+          Cambiar imagen de perfil
+        </button>
       </div>
       <div
         id="main-content"
@@ -222,7 +225,7 @@
       </div>
       <!-- Modal de experiencia laboral -->
       <div id="exp-modal" class="modal">
-        <div id="exp-modal-content" class="modal-content" >
+        <div id="exp-modal-content" class="modal-content">
           <div class="flex flex-column flex-gap-5 div-exp">
             <h4>Agregar nueva experiencia laboral</h4>
             <form class="flex flex-column flex-gap-10" id="exp-form">
@@ -396,6 +399,27 @@
                 Guardar
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal de imagen perfil -->
+      <div id="profile-image-modal" class="modal">
+        <div id="profile-image-content" class="modal-content">
+          <div class="flex flex-column flex-gap-20 div-exp">
+            <h3>Cambiar imagen</h3>
+            <form
+              action=""
+              onsubmit="handleProfileImangeChange(event)"
+              class="flex flex-column flex-gap-20"
+            >
+              <input type="file" id="imagen-perfil" />
+              <div class="flex flex-gap-20 flex-align-center flex-space-around">
+                <input type="submit" class="main-button" accept="image/png, image/jpeg, image/jpg" />
+                <button id="cancelar-imagen" class="main-button" onclick="handleProfileImangeModalClose(event)">
+                  Cancelar
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
