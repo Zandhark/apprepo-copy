@@ -531,7 +531,10 @@ app.post("/api/aplicaciones/new", async (req, res) => {
     console.log(puesto)
     console.log(candidato)
     sendNotification(data.empresa, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
-    sendNotification(data.createdBy, "Aplicacion", `${candidato.name} ha aplicado al puesto ${puesto.nombre}`);
+    if (candidato.createdBy) {
+      sendNotification(data.createdBy, "Aplicacion", `${candidato.name} ha aplicado al puesto ${puesto.nombre}`);
+    }
+    sendNotification(candidato._id, "Aplicacion", `Ha aplicado al puesto ${puesto.nombre}`);
     sendMail(candidato.email, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
     res.status(200).json(response);
   } catch (e) {
@@ -540,14 +543,16 @@ app.post("/api/aplicaciones/new", async (req, res) => {
   }
 });
 
-app.get("/api/aplicaciones/:userId", async (req, res) => {
+app.get("/api/aplicaciones/user/:userId", async (req, res) => {
   // retorna lista de aplicaciones de un usuario
   try {
-    const aplicaciones = await Aplication.find({ candidato: req.params.userId });
+    const aplicaciones = await Aplication.find({ candidato: req.params.userId })
+    .populate("puesto")
+    .populate("empresa");
     if (aplicaciones instanceof Error) {
       throw new Error(aplicaciones.message);
     }
-
+    console.log(aplicaciones)
     res.status(200).json(aplicaciones);
   } catch (e) {
     console.log(e)
