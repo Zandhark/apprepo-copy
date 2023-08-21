@@ -16,6 +16,59 @@ const empleadosContainer = document.getElementById("empeleados-container");
 const invitarModal = document.getElementById("invitar-modal");
 const usuariosSelect = document.getElementById("usuarios-select");
 
+function convertBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+}
+
+function handleProfileImangeModal(e) {
+  e.preventDefault();
+  const profileImageModal = document.getElementById("profile-image-modal");
+  profileImageModal.style.display = "block";
+}
+
+function handleProfileImangeModalClose(e) {
+  e.preventDefault();
+  const profileImageModal = document.getElementById("profile-image-modal");
+  profileImageModal.style.display = "none";
+}
+
+async function handleProfileImangeChange(e) {
+  e.preventDefault();
+  const file = document.getElementById("imagen-perfil").files[0];
+  if (file.size > 3000000) {
+    alert("El no debe superar los 3MB");
+    return;
+  }
+  const imgBase64 = await convertBase64(file);
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/empresas/logo/${empresaId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ profileImg: imgBase64 }),
+      });
+    const updatedUser = await response.json();
+    console.log(updatedUser);
+    location.reload();
+  } catch (e) {
+    console.log(e)
+    alert("Error al actualizar el perfil");
+    handleProfileImangeModalClose(e);
+  }
+
+}
 async function getEmpresa() {
   const response = await fetch(
     `http://localhost:3000/api/empresas/${empresaId}`,
