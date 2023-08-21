@@ -438,6 +438,40 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
   }
 });
 
+app.patch("/api/usuarios/imagen/:id", async (req, res) => {
+  // actualiza la imagen de un usuario
+  const userId = req.params.id;
+  const imgBase64 = req.body.profileImg;
+  try {
+    const blockBlobClientPerfil = containerClient.getBlockBlobClient(
+      `${userId}-profile.jpg`
+    );
+    const fileResponse = await blockBlobClientPerfil.deleteIfExists();
+
+    const imgBuffer = new Buffer.from(
+      imgBase64.replace(/^data:image\/\w+;base64,/, ""),
+      "base64"
+    );
+
+    const newFileResponse = await blockBlobClientPerfil.upload(imgBuffer, imgBuffer.length);
+    if (newFileResponse instanceof Error) {
+      throw new Error(newFileResponse.message);
+    }
+    const imgURL = blockBlobClientPerfil.url;
+
+    const userResponse = await User.findByIdAndUpdate(userId, {
+      profileImg: imgURL,
+    });
+    if (userResponse instanceof Error) {
+      throw new Error(userResponse.message);
+    }
+    res.status(200).json(userResponse);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ error: e.message });
+  }
+});
+
 //Endpoints de aplicaciones
 app.get("/api/aplicacion/:id", async (req, res) => {
   // retorna una aplicacion dependiendo del id
