@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const aplicationId = urlParams.get("id");
 const applicationStatus = document.getElementById("application-status");
+const detallesAplicante = document.getElementById("detalles-aplicante");
 
 function handleLoading(elementId) {
   const loader = document.createElement("div");
@@ -60,6 +61,18 @@ async function getApplication() {
 async function renderAplicacion() {
   const aplication =  await getApplication();
   applicationStatus.value = aplication.status;
+  console.log(aplication);
+  detallesAplicante.innerHTML = `
+  <div>
+    <h2>Nombre</h2>
+    <p id="nombre-aplicante">${aplication.candidato.name}</p>
+    <h2>Email</h2>
+    <p id="email-aplicante">${aplication.candidato.email}</p>
+    <h2>Titulo</h2>
+    <p id="title-aplicante">${aplication.candidato.title}</p>
+  </div>
+
+  `;
 }
 
 renderAplicacion();
