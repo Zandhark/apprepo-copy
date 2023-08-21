@@ -98,7 +98,13 @@ function renderMenu() {
     case "/puestos/":
       document.getElementById("nav-puestos").classList.add("current-nav-border");
       break;
+    case "/puestos/puesto.html":
+      document.getElementById("nav-puestos").classList.add("current-nav-border");
+      break;
     case "/empresas/":
+      document.getElementById("nav-empresas").classList.add("current-nav-border");
+      break;
+    case "/empresas/empresa.html":
       document.getElementById("nav-empresas").classList.add("current-nav-border");
       break;
     case "/notificaciones/":
@@ -108,6 +114,9 @@ function renderMenu() {
       document.getElementById("nav-registro").classList.add("current-nav-border");
       break;
     case "/candidatos/":
+      document.getElementById("nav-candidatos").classList.add("current-nav-border");
+      break;
+    case "/candidatos/perfil.html":
       document.getElementById("nav-candidatos").classList.add("current-nav-border");
       break;
     case "/perfil/":
@@ -127,5 +136,5 @@ function renderMenu() {
   }
 
 }
-
+console.log(location.pathname)
 renderMenu();

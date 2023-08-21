@@ -277,6 +277,7 @@ app.delete("/api/empresas/usuarios/delete/:id", async (req, res) => {
     const empresa = await Empresa.findByIdAndUpdate(empresaId, {
       $pull: { empleados: userId },
     });
+    await User.findByIdAndUpdate(userId, {type: "endUser"});
 
     if (empresa instanceof Error) {
       throw new Error(empresa.message);
@@ -438,6 +439,78 @@ app.patch("/api/usuarios/skills/:id", async (req, res) => {
 });
 
 //Endpoints de aplicaciones
+app.get("/api/aplicacion/:id", async (req, res) => {
+  // retorna una aplicacion dependiendo del id
+  try {
+    const aplicacion = await Aplication.findById(req.params.id)
+    .populate("candidato")
+    .populate("empresa")
+    .populate("createdBy");
+    if (aplicacion instanceof Error) {
+      throw new Error(aplicacion.message);
+    }
+    res.status(200).json(aplicacion);
+  } catch (e) {
+    console.log(e)
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.patch("/api/aplicaciones/update/:id", async (req, res) => {
+  // actualiza una aplicacion
+  try {
+    const data = req.body;
+    const aplicacion = await Aplication.findByIdAndUpdate(req.params.id, {
+      status: data.status || Aplication.status,
+      puesto: data.puesto || Aplication.puesto,
+      candidato: data.candidato || Aplication.candidato,
+      empresa: data.empresa || Aplication.empresa,
+      createdBy: data.createdBy || Aplication.createdBy,
+    }, { new: true }).populate("candidato")
+    .populate("empresa")
+    .populate("createdBy")
+    .populate("puesto");
+
+    if (data.status === "en-revision") {
+      sendNotification(aplicacion.candidato._id, "Su aplicacion esta en revision", `Su aplicacion al puesto ${aplicacion.puesto.nombre} se encuentra en revision.` );
+      sendMail(aplicacion.candidato.email, "Su aplicacion esta en revision", `Su aplicacion al puesto ${aplicacion.puesto.nombre} se encuentra en revision.` );
+    } else if (data.status === "aceptada") {
+      sendNotification(aplicacion.candidato._id, "Su aplicacion fue aceptada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue aceptada.` );
+      sendMail(aplicacion.candidato.email, "Su aplicacion fue aceptada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue aceptada.` );
+      
+    } else if (data.status === "denegada") {
+      sendNotification(aplicacion.candidato._id, "Su aplicacion fue denegada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue denegada.` );
+      sendMail(aplicacion.candidato.email, "Su aplicacion fue denegada", `Su aplicacion al puesto ${aplicacion.puesto.nombre} fue denegada.` );
+    }
+
+    if (!aplicacion) {
+      return res.status(404).json({ error: "Aplicacion no encontrada" });
+    }
+
+    res.status(200).json(aplicacion);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ error: e.message });
+  }
+});
+app.get("/api/aplicaciones/:puestoId", async (req, res) => {
+  // retorna lista de aplicaciones para un puesto
+  try {
+    const aplicaciones = await Aplication.find({
+      puesto: req.params.puestoId,
+    }).populate("candidato")
+    .populate("empresa")
+    .populate("createdBy");
+    if (aplicaciones instanceof Error) {
+      throw new Error(aplicaciones.message);
+    }
+    res.status(200).json(aplicaciones);
+  } catch (e) {
+    console.log(e)
+    res.status(400).json({ error: e.message });
+  }
+
+});
 app.post("/api/aplicaciones/new", async (req, res) => {
   // crea una nueva aplicacion
   const data = req.body;
@@ -447,7 +520,7 @@ app.post("/api/aplicaciones/new", async (req, res) => {
       candidato: data.candidato,
       empresa: data.empresa,
       createdBy: data.createdBy,
-      status: "Enviada",
+      status: "enviada",
     });
     const response = await aplicacion.save();
     if (response instanceof Error) {
@@ -458,7 +531,10 @@ app.post("/api/aplicaciones/new", async (req, res) => {
     console.log(puesto)
     console.log(candidato)
     sendNotification(data.empresa, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
-    sendNotification(data.createdBy, "Aplicacion", `${candidato.name} ha aplicado al puesto ${puesto.nombre}`);
+    if (candidato.createdBy) {
+      sendNotification(data.createdBy, "Aplicacion", `${candidato.name} ha aplicado al puesto ${puesto.nombre}`);
+    }
+    sendNotification(candidato._id, "Aplicacion", `Ha aplicado al puesto ${puesto.nombre}`);
     sendMail(candidato.email, "Aplicacion", `Ha recibido una nueva aplicacion para el puesto ${puesto.nombre}`);
     res.status(200).json(response);
   } catch (e) {
@@ -467,15 +543,19 @@ app.post("/api/aplicaciones/new", async (req, res) => {
   }
 });
 
-app.get("/api/aplicaciones/:userId", async (req, res) => {
+app.get("/api/aplicaciones/user/:userId", async (req, res) => {
   // retorna lista de aplicaciones de un usuario
   try {
-    const aplicaciones = await Aplication.find({ candidato: req.params.userId });
+    const aplicaciones = await Aplication.find({ candidato: req.params.userId })
+    .populate("puesto")
+    .populate("empresa");
     if (aplicaciones instanceof Error) {
       throw new Error(aplicaciones.message);
     }
+    console.log(aplicaciones)
     res.status(200).json(aplicaciones);
   } catch (e) {
+    console.log(e)
     res.status(400).json({ error: e.message });
   }
 });
