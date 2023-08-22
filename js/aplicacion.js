@@ -29,13 +29,10 @@ async function handleStatusChange(e) {
     const data = await response.json();
     applicationStatus.disabled = false;
     document.getElementById("loader").remove();
-
   } catch (e) {
     console.log(e);
     alert("Error al actualizar el estado de la aplicación");
   }
-
-
 }
 
 async function getApplication() {
@@ -57,18 +54,17 @@ async function getApplication() {
   }
 }
 
-
 async function renderAplicacion() {
-  const aplication =  await getApplication();
+  const aplication = await getApplication();
   applicationStatus.value = aplication.status;
   console.log(aplication);
   detallesAplicante.innerHTML = `
   <div>
-    <h2>Nombre</h2>
+    <h3>Nombre</h3>
     <p id="nombre-aplicante">${aplication.candidato.name}</p>
-    <h2>Email</h2>
+    <h3>Email</h3>
     <p id="email-aplicante">${aplication.candidato.email}</p>
-    <h2>Titulo</h2>
+    <h3>Titulo</h3>
     <p id="title-aplicante">${aplication.candidato.title}</p>
   </div>
 
@@ -76,4 +72,3 @@ async function renderAplicacion() {
 }
 
 renderAplicacion();
-
