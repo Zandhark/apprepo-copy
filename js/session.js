@@ -16,10 +16,6 @@ function verifyUserSession() {
       .split("=")[1];
   } catch (e) {}
 
-  if (!userId && !sessionId) {
-    alert("No ha iniciado sesión");
-    location.href = "/login/";
-  }
   console.log(location.href)
   // Control de acceso
   if (location.href.includes("puestos/nuevo/") && userType !== "manager") {
@@ -27,8 +23,6 @@ function verifyUserSession() {
   } else if (location.href.includes("puestos/mispuestos/") && userType !== "manager") {
     location.href = "/puestos/";
   } else if (location.href.includes("candidatos/")&& userType === "endUser") {
-    location.href = "/puestos/";
-  } else if (location.href.includes("registro/") && userType !== undefined) {
     location.href = "/puestos/";
   }
 }
