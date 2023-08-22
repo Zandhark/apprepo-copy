@@ -27,6 +27,13 @@ function convertBase64(file) {
   });
 }
 
+function handleLoading(elementId) {
+  const loader = document.createElement("div");
+  loader.classList.add("loading");
+  loader.id = "loader";
+  document.getElementById(`${elementId}`).appendChild(loader);
+}
+
 function handleTipoUsuarioChange(e) {
   tipoUsuario = e.target.value;
   if (tipoUsuario === "usuario-final") {
@@ -104,6 +111,7 @@ function handlePasswordBlur() {
 async function handleNewUser(usuario) {
   if (usuario.tipoUsuario === "endUser") {
     try {
+      handleLoading("div-select-usuario");
       const response = await fetch("http://localhost:3000/api/registro", {
         method: "POST",
         headers: {
@@ -129,20 +137,22 @@ async function handleNewUser(usuario) {
       document.cookie = `userId=${data._id}; path=/; max-age=3600`;
       document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
       document.cookie = `userType=${data.type}; path=/; max-age=3600`;
-
+      document.getElementById("loader").remove();
       return data;
     } catch (e) {
       if (e.message.includes("E11000")) {
         alert(`El correo ${usuario.email} ya se encuentra registrado.`);
+        document.getElementById("loader").remove();
         return false;
       } else {
         alert(e.message);
+        document.getElementById("loader").remove();
         return false;
       }
     }
   } else if (usuario.tipoUsuario === "administrador") {
-    console.log("administrador")
     try {
+      handleLoading("div-select-usuario");
       const response = await fetch("http://localhost:3000/api/empresas/new", {
         method: "POST",
         headers: {
@@ -168,14 +178,16 @@ async function handleNewUser(usuario) {
       document.cookie = `userId=${data._id}; path=/; max-age=3600`;
       document.cookie = `sessionId=${sessionData._id}; path=/; max-age=3600`;
       document.cookie = `userType=${data.type}; path=/; max-age=3600`;
-
+      document.getElementById("loader").remove();
       return data;
     } catch (e) {
       if (e.message.includes("E11000")) {
         alert(`El correo ${usuario.email} ya se encuentra registrado.`);
+        document.getElementById("loader").remove();
         return false;
       } else {
         alert(e.message);
+        document.getElementById("loader").remove();
         return false;
       }
     }
