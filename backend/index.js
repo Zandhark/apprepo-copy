@@ -628,6 +628,25 @@ app.get("/api/aplicaciones/user/:userId", async (req, res) => {
   }
 });
 
+app.get("/api/aplicaciones", async (req, res) => {
+  // retorna lista de aplicaciones
+  try {
+    const aplicaciones = await Aplication.find({})
+    .populate ({
+      path: 'candidato',
+      model: 'User',
+    })
+    .populate('puesto');
+
+    if (aplicaciones instanceof Error) {
+      throw new Error(aplicaciones.message);
+    }
+    res.status(200).json(aplicaciones);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 //Endpoints de notificaciones
 app.get("/api/notifications/:userId", async (req, res) => {
   // retorna lista de notificaciones de un usuario
