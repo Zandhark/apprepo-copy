@@ -242,8 +242,16 @@ input:-webkit-autofill {
   padding: 20px;
 }
 
+.padding-x-y{
+  padding: 20px 0px;
+}
+
 .width-100 {
   width: 100%;
+}
+
+.height-100 {
+  height: 100%;
 }
 
 .custom-scrollbar {
@@ -274,8 +282,10 @@ input:-webkit-autofill {
 }
 
 .loading {
-  border: 10px solid var(--background-color); /* Light grey */
-  border-top: 10px solid var(--secondary-color); /* Blue */
+  border: 10px solid var(--background-color);
+  /* Light grey */
+  border-top: 10px solid var(--secondary-color);
+  /* Blue */
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -283,8 +293,13 @@ input:-webkit-autofill {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Custom Clases & IDs */
