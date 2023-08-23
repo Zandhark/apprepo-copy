@@ -29,9 +29,11 @@
     <main class="flex flex-gap-40">
       <div
         id="left-column"
-        class="flex flex-column flex-align-center flex-gap-20 border"
+        class="flex flex-column text-align-center flex-align-center flex-gap-20 border"
       >
-        <img src="" alt="" id="logo" />
+        <div class="logo-container">
+          <img src="" alt="" id="logo" />
+        </div>
         <h1 id="empresa-name"></h1>
         <h2 class="secondary-color" id="title"></h2>
         <div
@@ -120,24 +122,24 @@
               class="flex flex-column info-perfil custom-scrollbar"
               id="puestos"
             ></div>
-            <a href="/puestos/nuevo/index.html">
-              <button class="main-button" style="margin-top: 10px">
-                Agregar
-              </button>
-            </a>
           </div>
         </div>
         <hr />
         <div>
-          <h2>Empleados</h2>
+          <div style="display: inline-flex" class="flex-gap-10 padding-x-y">
+            <h2>Empleados</h2>
+            <button
+              class="main-button"
+              onclick="handleInvitarEmpleadoModal(event)"
+            >
+              Invitar
+            </button>
+          </div>
           <div
             class="flex experience-formation-container flex-column custom-scrollbar"
             id="empeleados-container"
-            style="min-width: 50%; width: 80%;"
+            style="min-width: 50%; width: 80%; max-height: 450px"
           ></div>
-          <button class="main-button" onclick="handleInvitarEmpleadoModal(event)">
-            Invitar
-          </button>
         </div>
       </div>
       <!-- Modal de about -->
@@ -147,14 +149,23 @@
           class="flex flex-column modal-content"
         >
           <h2>Acerca de</h2>
-          <form onsubmit="handleInvitarEmpleado(event)" class="flex flex-column flex-gap-20">
+          <form
+            onsubmit="handleInvitarEmpleado(event)"
+            class="flex flex-column flex-gap-20"
+          >
             <select name="usuarios" id="usuarios-select">
               <option value="" disabled selected hidden>
                 Seleccione un usuario
               </option>
             </select>
             <input type="submit" value="Invitar" class="main-button" />
-            <button class="main-button" onclick="handleInvitarEmpleadoModal(event)" id="cancelar">Cancelar</button>
+            <button
+              class="main-button"
+              onclick="handleInvitarEmpleadoModal(event)"
+              id="cancelar"
+            >
+              Cancelar
+            </button>
           </form>
         </div>
       </div>
@@ -170,14 +181,23 @@
             >
               <input type="file" id="imagen-perfil" />
               <div class="flex flex-gap-20 flex-align-center flex-space-around">
-                <input type="submit" class="main-button" accept="image/png, image/jpeg, image/jpg" />
-                <button id="cancelar-imagen" class="main-button" onclick="handleProfileImangeModalClose(event)">
+                <input
+                  type="submit"
+                  class="main-button"
+                  accept="image/png, image/jpeg, image/jpg"
+                />
+                <button
+                  id="cancelar-imagen"
+                  class="main-button"
+                  onclick="handleProfileImangeModalClose(event)"
+                >
                   Cancelar
                 </button>
               </div>
             </form>
           </div>
         </div>
+      </div>
     </main>
     <footer class="flex flex-space-between flex-align-center">
       <img src="/assets/isologo-dark.png" height="100px" alt="isologo-dark" />
