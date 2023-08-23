@@ -212,13 +212,13 @@ async function handleInvitarEmpleado(e) {
     const empresa = await response.json();
 
     const responseUser = await fetch(
-      `http://localhost:3000/api/usuarios/update/${candidateId}`,
+      `http://localhost:3000/api/usuarios/update/${userId}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ empresa: clientId }),
+        body: JSON.stringify({ empresa: empresaId }),
       }
     );
     const user = await responseUser.json();
