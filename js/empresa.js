@@ -1,3 +1,4 @@
+const logoEmpresa = document.getElementById("logoEmpresa");
 const nombreEmpresa = document.getElementById("nombreEmpresa");
 const empresaShortDesc = document.getElementById("empresaShortDesc");
 const empresaDescripcion = document.getElementById("empresaDescripcion");
@@ -39,8 +40,9 @@ async function renderEmpresa() {
   const puestos = await fetchPuestos(empresaId);
   document.title = `${empresa.nombre}`;
   console.log(empresa);
+  logoEmpresa.src = empresa.logo;
   nombreEmpresa.innerText = empresa.nombre;
-  empresaShortDesc.innerText = empresa.shortDesc;
+  empresaShortDesc.innerText = empresa.shortDescription;
   empresaDescripcion.innerText = empresa.descripcion;
   puestos.forEach((puesto) => {
     const parsedDate = new Date(puesto.createdAt);

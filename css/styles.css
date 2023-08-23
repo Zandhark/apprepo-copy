@@ -242,12 +242,16 @@ input:-webkit-autofill {
   padding: 20px;
 }
 
-.padding-x-y{
+.padding-x-y {
   padding: 20px 0px;
 }
 
 .width-100 {
   width: 100%;
+}
+
+.width-50 {
+  width: 50%;
 }
 
 .height-100 {

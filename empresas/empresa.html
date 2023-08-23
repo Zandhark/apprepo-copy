@@ -11,7 +11,7 @@
     />
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
     <link rel="stylesheet" href="/css/companyprofile.css" type="text/css" />
-    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png">
+    <link rel="icon" type="image/x-icon" href="/assets/isotipo-primary.png" />
     <script src="/js/empresa.js" defer></script>
     <script src="/js/main.js" defer></script>
   </head>
@@ -25,38 +25,43 @@
     </header>
     <main class="flex flex-gap-20 flex-grow1">
       <div id="main-content" class="flex flex-grow2 flex-column flex-gap-20">
-        <div class="border">
-          <div class="main-content-box">
-            <div class="flex flex-gap-40 flex-align-center">
-              <div>
-                <img
-                  src="/assets/companylogo.png"
-                  alt="Logo-JobSync"
-                  height="150px"
-                />
-              </div>
-              <div class="flex flex-column flex-gap-10">
-                <h1 id="nombreEmpresa"></h1>
-                </h1>
-                <div class="company-summarytagline">
-                  <p id="empresaShortDesc">
-                  </p>
+        <div class="flex flex-gap-40 width-100">
+          <div class="border width-50">
+            <div class="main-content-box">
+              <div class="flex flex-gap-40 flex-align-center">
+                <div>
+                  <img
+                    id="logoEmpresa"
+                    src=""
+                    alt="Logo-Empresa"
+                    height="150px"
+                  />
+                </div>
+                <div class="flex flex-column flex-gap-10">
+                  <h1 id="nombreEmpresa"></h1>
+                  <div class="company-summarytagline">
+                    <p id="empresaShortDesc"></p>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="border width-50">
+            <div
+              class="main-content-box flex flex-column flex-space-center flex-gap-10"
+            >
+              <h2>Acerca de</h2>
+              <p id="empresaDescripcion"></p>
             </div>
           </div>
         </div>
         <div class="border">
           <div class="main-content-box">
-            <h2>Acerca de</h2>
-            <p id="empresaDescripcion">
-            </p>
-          </div>
-        </div>
-        <div class="border">
-          <div class="main-content-box">
-            <h2>Puestos disponibles</h2>
-            <div id="puestos-disponibles" class="custom-scrollbar flex flex-wrap flex-gap-20"></div>
+            <h2 style="padding: 0 0 30px">Puestos disponibles</h2>
+            <div
+              id="puestos-disponibles"
+              class="custom-scrollbar flex flex-wrap flex-gap-20"
+            ></div>
           </div>
         </div>
       </div>
