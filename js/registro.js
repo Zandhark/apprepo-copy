@@ -60,7 +60,7 @@ function handlePasswordInput(e) {
     passwordValue = password.value;
     password2Value = password2.value;
     passwordInput = password2;
-  } else if (tipoUsuario === "empresa") {
+  } else if (tipoUsuario === "administrador") {
     passwordValue = passwordEmpresa.value;
     password2Value = password2Empresa.value;
     passwordInput = password2Empresa;
@@ -192,7 +192,7 @@ async function handleNewUser(usuario) {
       }
     }
   } else {
-    console.log("nothing 🤷")
+    console.log("nothing 🤷");
   }
 }
 
