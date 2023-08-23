@@ -52,8 +52,6 @@
 
 .company-jobs {
     width: 49%;
-    margin-top: 20px;
-    margin-bottom: 20px;
     padding: 20px;
     background-color: var(--background-color);
 }

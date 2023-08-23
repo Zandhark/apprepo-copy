@@ -1,7 +1,15 @@
-#logo {
-  margin: 20% 20%;
+.logo-container {
+  margin: 20% 20% 0%;
   border-radius: 50%;
-  width: 100px;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+#logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 #empresa-descripcion-modal textarea {

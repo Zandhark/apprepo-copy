@@ -67,7 +67,7 @@ async function handleAboutSubmit(e) {
   e.preventDefault();
   const newAbout = aboutInput.value;
   try {
-    handleLoading("about-modal-content")
+    handleLoading("about-modal-content");
     const response = await fetch(
       `http://localhost:3000/api/usuarios/update/${userId}`,
       {
@@ -101,11 +101,10 @@ function handleExpModal(e) {
 }
 
 async function handleExpModalSubmit(e) {
-
   const form = document.getElementById("exp-form");
   form.checkValidity();
-  if (!form.reportValidity()){
-    alert("Por favor, completa todos los campos")
+  if (!form.reportValidity()) {
+    alert("Por favor, completa todos los campos");
     return;
   }
   const jobTitle = document.getElementById("jobTitle").value;
@@ -121,7 +120,7 @@ async function handleExpModalSubmit(e) {
     jobDescription,
   };
   try {
-    handleLoading("exp-modal-content")
+    handleLoading("exp-modal-content");
     const response = await fetch(
       `http://localhost:3000/api/usuarios/experiencia/${userId}`,
       {
@@ -148,26 +147,28 @@ async function handleDeleteExperience(e) {
   if (confirm("¿Está seguro de que desea eliminar esta entrada?")) {
     const expId = e.target.id;
     try {
-      handleLoading("left-column")
-      const response = await fetch(`http://localhost:3000/api/usuarios/experiencia/${userDetails._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+      handleLoading("left-column");
+      const response = await fetch(
+        `http://localhost:3000/api/usuarios/experiencia/${userDetails._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ expId }),
-        });
-        const updatedUser = await response.json();
-        if (updatedUser instanceof Error) {
-          throw new Error(updatedUser);
         }
-        location.reload();
+      );
+      const updatedUser = await response.json();
+      if (updatedUser instanceof Error) {
+        throw new Error(updatedUser);
+      }
+      location.reload();
     } catch (e) {
-      console.log(e)
+      console.log(e);
       alert("Error al actualizar el perfil");
       document.getElementById("loader").remove();
     }
   }
-  
 }
 
 function handleShortDescription() {
@@ -182,7 +183,7 @@ async function handleShortDescriptionSave() {
   const newShortDescription = userDescription.innerText;
   if (currentUserDescription !== newShortDescription) {
     try {
-      handleLoading("left-column")
+      handleLoading("left-column");
 
       const response = await fetch(
         `http://localhost:3000/api/usuarios/update/${userId}`,
@@ -229,7 +230,7 @@ async function handleTitleSave() {
   const newUserTitle = userTitle.innerText;
   if (currentUserTitle !== newUserTitle) {
     try {
-      handleLoading("left-column")
+      handleLoading("left-column");
       const response = await fetch(
         `http://localhost:3000/api/usuarios/update/${userId}`,
         {
@@ -277,8 +278,8 @@ async function handleEduModalSubmit(e) {
   const form = document.getElementById("edu-form");
   form.checkValidity();
   form.reportValidity();
-  if (!form.reportValidity()){
-    alert("Por favor, completa todos los campos")
+  if (!form.reportValidity()) {
+    alert("Por favor, completa todos los campos");
     return;
   }
   const eduTitle = document.getElementById("eduTitle").value;
@@ -294,7 +295,7 @@ async function handleEduModalSubmit(e) {
     description: eduDescription,
   };
   try {
-    handleLoading("edu-modal-content")
+    handleLoading("edu-modal-content");
     const response = await fetch(
       `http://localhost:3000/api/usuarios/educacion/${userId}`,
       {
@@ -310,7 +311,7 @@ async function handleEduModalSubmit(e) {
     eduModal.style.display = "none";
     location.reload();
   } catch (e) {
-    console.log(e)
+    console.log(e);
     alert("Error al actualizar el perfil");
     document.getElementById("loader").remove();
     eduModal.style.display = "none";
@@ -321,27 +322,29 @@ async function handleDeleteEducation(e) {
   if (confirm("¿Está seguro de que desea eliminar esta entrada?")) {
     const eduId = e.target.id;
     try {
-      handleLoading("left-column")
-      const response = await fetch(`http://localhost:3000/api/usuarios/educacion/${userDetails._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+      handleLoading("left-column");
+      const response = await fetch(
+        `http://localhost:3000/api/usuarios/educacion/${userDetails._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ eduId }),
-        });
-        const updatedUser = await response.json();
-        if (updatedUser instanceof Error) {
-          throw new Error(updatedUser);
         }
-        location.reload();
+      );
+      const updatedUser = await response.json();
+      if (updatedUser instanceof Error) {
+        throw new Error(updatedUser);
+      }
+      location.reload();
     } catch (e) {
-      console.log(e)
+      console.log(e);
       alert("Error al actualizar el perfil");
       document.getElementById("loader").remove();
     }
   }
 }
-
 
 function handleSkillsModal(e) {
   e.preventDefault();
@@ -360,7 +363,7 @@ async function handleSkillsModalSubmit(e) {
   const newSkills = skillList.split(",");
 
   try {
-    handleLoading("skills-modal-content")
+    handleLoading("skills-modal-content");
     const response = await fetch(
       `http://localhost:3000/api/usuarios/skills/${userId}`,
       {
@@ -376,7 +379,7 @@ async function handleSkillsModalSubmit(e) {
     skillList.value = "";
     location.reload();
   } catch (e) {
-    console.log(e)
+    console.log(e);
     alert("Error al actualizar el perfil");
     document.getElementById("loader").remove();
     skillList.value = "";
@@ -399,7 +402,7 @@ function handleProfileImangeModalClose(e) {
 async function handleProfileImangeChange(e) {
   e.preventDefault();
   const file = document.getElementById("imagen-perfil").files[0];
-  console.log(file)
+  console.log(file);
   if (file.size > 3000000) {
     alert("El no debe superar los 3MB");
     return;
@@ -414,39 +417,41 @@ async function handleProfileImangeChange(e) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ profileImg: imgBase64 }),
-      });
+      }
+    );
     const updatedUser = await response.json();
     console.log(updatedUser);
     location.reload();
   } catch (e) {
-    console.log(e)
+    console.log(e);
     alert("Error al actualizar el perfil");
     handleProfileImangeModalClose(e);
   }
-
 }
 
 async function getUserDetails(userId) {
   try {
-    handleLoading("left-column")
-    const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const userDetails = await response.json();
-  if (userDetails instanceof Error) {
-    throw new Error(userDetails);
-  }
-  document.getElementById("loader").remove();
-  return userDetails;
+    handleLoading("left-column");
+    const response = await fetch(
+      `http://localhost:3000/api/usuarios/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const userDetails = await response.json();
+    if (userDetails instanceof Error) {
+      throw new Error(userDetails);
+    }
+    document.getElementById("loader").remove();
+    return userDetails;
   } catch (e) {
-    console.log(e)
-    alert("Error al cargar el perfil")
+    console.log(e);
+    alert("Error al cargar el perfil");
     document.getElementById("loader").remove();
   }
-  
 }
 
 async function renderProfile() {
@@ -624,23 +629,25 @@ async function renderProfile() {
       <h3>No hay educación registrada</h3>
     `;
   }
-  if (userDetails.skills.length > 0) {
-    skillsSection.innerHTML = "";
-    userDetails.skills.forEach((skill) => {
-      const skillsDiv = document.createElement("div");
-      skillsDiv.classList.add("skills-box");
-      skillsDiv.innerHTML = `
-      <h4>${skill}</h4>
-      `;
-      skillsSection.appendChild(skillsDiv);
-    });
+
+  const skillsDiv = document.createElement("div");
+
+  if (userDetails.skills.length === 0) {
+    skillsDiv.innerHTML = `<h3>No hay habilidades registradas</h3>`;
   } else {
-    const skillsDiv = document.createElement("div");
-    skillsDiv.innerHTML = `
-    <h3>No hay habilidades registradas</h3>
-    `;
-    skillsSection.appendChild(skillsDiv);
+    userDetails.skills.forEach((skill) => {
+      const skillDiv = document.createElement("div");
+      if (skill === "") {
+        skillDiv.innerHTML = `<h3>No hay habilidades registradas</h3>`;
+      } else {
+        skillDiv.classList.add("skills-box");
+        skillDiv.innerHTML = `<h4>${skill}</h4>`;
+      }
+      skillsDiv.appendChild(skillDiv);
+    });
   }
+
+  skillsSection.innerHTML = skillsDiv.innerHTML;
 }
 
 renderProfile();
